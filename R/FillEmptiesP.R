@@ -37,8 +37,8 @@ random_assign_unassigned_fill_empties_P <- function(data, obj, col_min_num = 10,
 
       chosen_proto_members <- which(obj[, proto_to_use] == 1)
 
-      mean_col <- mean(colMeans(data[, chosen_proto_members], na.rm = TRUE), na.rm = TRUE)
-      column_means <- colMeans(data[, chosen_proto_members], na.rm = TRUE)
+      mean_col <- mean(colMeans(matrix(data[, chosen_proto_members]), na.rm = TRUE), na.rm = TRUE)
+      column_means <- colMeans(matrix(data[, chosen_proto_members]), na.rm = TRUE)
 
       similarity <- (column_means - mean_col) ^ 2
       to_move <- which(similarity %in% head(sort(similarity, decreasing = TRUE),
