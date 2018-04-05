@@ -11,7 +11,7 @@ gg_bicluster(bc_object, data, transform_colors = TRUE, c = 2/15)
 
 \item{data}{The raw data that was biclustered.}
 
-\item{transform_colors}{If equals `TRUE` (default) then the data is scaled by 
+\item{transform_colors}{If equals `TRUE` (default) then the data is scaled by
 `c` and run through a standard normal cdf before plotting. If `FALSE`, raw data
 values are used in the heat map.}
 
