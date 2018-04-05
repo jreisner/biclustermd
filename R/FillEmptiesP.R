@@ -25,7 +25,9 @@ random_assign_unassigned_fill_empties_P <- function(data, obj, col_min_num = 10,
 
     for(j in 1:num_to_fill) {
       protos_to_choose_from <- which(colSums(obj, na.rm = TRUE) >= col_min_num)
-      num_in_each <- colSums(obj[, protos_to_choose_from])
+
+      num_in_each <- colSums(matrix(obj[, protos_to_choose_from]))
+
       sampling_frame <- rep(protos_to_choose_from, num_in_each)
 
       proto_to_use <- sample(sampling_frame, 1)
