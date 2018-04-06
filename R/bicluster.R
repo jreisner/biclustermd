@@ -37,8 +37,8 @@ bicluster <- function(data, P0, Q0, miss_val,
   m_d <- nrow(data)
   n_d <- ncol(data)
 
-  rep_Q <- 1  # ceiling(m_d / n_d)
-  rep_P <- 1  # ceiling(n_d / m_d)
+  rep_Q <- ceiling(m_d / n_d)
+  rep_P <- ceiling(n_d / m_d)
 
   result_list <- vector("list", 6)
   names(result_list) <- c("P", "Q", "sumSSE", "RIs", "iteration", "A")
@@ -66,7 +66,7 @@ bicluster <- function(data, P0, Q0, miss_val,
   for (i in 1:m_d){
     for (j in 1:n_d){
       if (!is.na(data[i, j])) {
-        dat2[i, j] = 1
+        dat2[i, j] <- 1
       }
     }
   }
