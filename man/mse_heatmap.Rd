@@ -4,10 +4,12 @@
 \alias{mse_heatmap}
 \title{Make a heatmap of cell MSEs}
 \usage{
-mse_heatmap(mse_obj)
+mse_heatmap(mse_obj, log10_col = TRUE)
 }
 \arguments{
 \item{mse_obj}{A data frame returned by `cell_mse`}
+
+\item{log10_col}{Logical. If TRUE (default), fill legend will be on a log10 scale.}
 }
 \value{
 A ggplot object.

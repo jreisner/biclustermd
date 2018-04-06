@@ -1,6 +1,7 @@
 #' Make a heatmap of cell MSEs
 #'
 #' @param mse_obj A data frame returned by `cell_mse`
+#' @param log10_col Logical. If TRUE (default), fill legend will be on a log10 scale.
 #' @export
 #' @importFrom magrittr %>%
 #' @importFrom dplyr mutate
@@ -9,16 +10,24 @@
 #' @importFrom grDevices rainbow
 #' @return A ggplot object.
 
-mse_heatmap <- function(mse_obj) {
+mse_heatmap <- function(mse_obj, log10_col = TRUE) {
 
   gg <- mse_obj %>%
     mutate(trans_mse = pnorm(CellMSE / 50)) %>%
     mutate(CellMSE_plus1 = CellMSE + 1) %>%
     ggplot(aes(x = ColProto, y = RowProto, fill = CellMSE)) +
     geom_tile(colour = "gray35", size = 0.000001) +
-    scale_fill_gradientn(colours = rev(rainbow(250, start = 0, end = 0.7)),
-                         na.value = "white", trans = "log10") +
     theme_bw()
+
+  if(log10_col) {
+    gg <- gg +
+      scale_fill_gradientn(colours = rev(rainbow(250, start = 0, end = 0.7)),
+                           na.value = "white", trans = "log10")
+  } else {
+    gg <- gg +
+      scale_fill_gradientn(colours = rev(rainbow(250, start = 0, end = 0.7)),
+                           na.value = "white")
+  }
 
   return(gg)
 }
