@@ -34,7 +34,10 @@ bicluster(data, P0, Q0, miss_val, row_min_num = 5, col_min_num = 5,
 \item{verbose}{Logical. If TRUE, will report progress.}
 }
 \value{
-A list containing final matrices for column and row prototypes, the SSE for each iteration, the Rand Indices for row and column prototypes, the number of iterations the algorithm ran for, and the final prototype matrix.
+Two lists. The first is a list containing final matrices for column and
+    row prototypes, the SSE for each iteration, the Rand Indices for row and column
+    prototypes, the number of iterations the algorithm ran for, and the final prototype matrix.
+    The second list is the same as the first but for the iteration with the smallest SSE.
 }
 \description{
 Bicluster data

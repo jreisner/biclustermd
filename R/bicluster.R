@@ -14,7 +14,10 @@
 #' @param verbose Logical. If TRUE, will report progress.
 #' @export
 #' @importFrom phyclust RRand
-#' @return A list containing final matrices for column and row prototypes, the SSE for each iteration, the Rand Indices for row and column prototypes, the number of iterations the algorithm ran for, and the final prototype matrix.
+#' @return Two lists. The first is a list containing final matrices for column and
+#'     row prototypes, the SSE for each iteration, the Rand Indices for row and column
+#'     prototypes, the number of iterations the algorithm ran for, and the final prototype matrix.
+#'     The second list is the same as the first but for the iteration with the smallest SSE.
 
 
 bicluster <- function(data, P0, Q0, miss_val,
