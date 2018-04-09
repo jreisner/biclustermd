@@ -4,8 +4,9 @@
 \alias{bicluster}
 \title{Bicluster data}
 \usage{
-bicluster(data, P0, Q0, miss_val, row_min_num = 3, row_num_to_move = 1,
-  col_min_num = 3, col_num_to_move = 1, max.iter = 100, verbose = TRUE)
+bicluster(data, P0, Q0, miss_val, row_min_num = 5, col_min_num = 5,
+  row_num_to_move = 1, col_num_to_move = 1, row_shuffles = 1,
+  col_shuffles = 1, max.iter = 100, verbose = TRUE)
 }
 \arguments{
 \item{data}{Dataset to bicluster. Must to be a data matrix with only numbers and missing values in the data set. It should have row names and column names.}
@@ -16,13 +17,17 @@ bicluster(data, P0, Q0, miss_val, row_min_num = 3, row_num_to_move = 1,
 
 \item{miss_val}{Value or function to put in empty cells of the prototype matrix.}
 
-\item{row_min_num}{Minimum row prototype size in order to be eligible to be chosen when filling an empty row prototype. Default is 10.}
+\item{row_min_num}{Minimum row prototype size in order to be eligible to be chosen when filling an empty row prototype. Default is 5.}
 
-\item{row_num_to_move}{Number of rows to remove from the sampled prototype to put in the empty row prototype. Default is 5.}
+\item{col_min_num}{Minimum column prototype size in order to be eligible to be chosen when filling an empty row prototype. Default is 5.}
 
-\item{col_min_num}{Minimum column prototype size in order to be eligible to be chosen when filling an empty row prototype.}
+\item{row_num_to_move}{Number of rows to remove from the sampled prototype to put in the empty row prototype. Default is 1.}
 
-\item{col_num_to_move}{Number of columns to remove from the sampled prototype to put in the empty column prototype.}
+\item{col_num_to_move}{Number of columns to remove from the sampled prototype to put in the empty column prototype. Default is 1.}
+
+\item{row_shuffles}{Number of times to shuffle rows in each iteration. Default is 1.}
+
+\item{col_shuffles}{Number of times to shuffle columns in each iteration. Default is 1.}
 
 \item{max.iter}{Maximum number of iterations to let the algorithm run for.}
 
