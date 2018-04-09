@@ -2,6 +2,7 @@
 #'
 #' @param bc_object A bicluster object.
 #' @param data The raw data that was biclustered.
+#' @param linewidth Width of vertical and horizontal lines. Default is 0.1.
 #' @param transform_colors If equals `TRUE` (default) then the data is scaled by
 #' `c` and run through a standard normal cdf before plotting. If `FALSE`, raw data
 #' values are used in the heat map.
@@ -12,7 +13,8 @@
 #' @importFrom grDevices rainbow
 #' @return An object of class ggplot.
 
-gg_bicluster <- function(bc_object, data, transform_colors = TRUE, c = 2/15) {
+gg_bicluster <- function(bc_object, data, linewidth = 0.1,
+                         transform_colors = TRUE, c = 2/15) {
 
   bc <- bc_object
 
@@ -57,9 +59,9 @@ gg_bicluster <- function(bc_object, data, transform_colors = TRUE, c = 2/15) {
     gg <- ggplot() +
       geom_tile(data = res_list$data, aes(y = rows, x = cols, fill = plot_data)) +
       geom_vline(data = res_list$vlines, aes(xintercept = v),
-                 size = 0.1, colour = "black") +
+                 size = linewidth, colour = "black") +
       geom_hline(data = res_list$hlines, aes(yintercept = h),
-                 size = 0.1, colour = "black")  +
+                 size = linewidth, colour = "black")  +
       scale_fill_gradientn(colours = rev(rainbow(250, start = 0, end = 0.7)),
                            na.value = "white") +
       theme_bw() +
@@ -69,9 +71,9 @@ gg_bicluster <- function(bc_object, data, transform_colors = TRUE, c = 2/15) {
     gg <- ggplot() +
       geom_tile(data = res_list$data, aes(y = rows, x = cols, fill = value)) +
       geom_vline(data = res_list$vlines, aes(xintercept = v),
-                 size = 0.1, colour = "black") +
+                 size = linewidth, colour = "black") +
       geom_hline(data = res_list$hlines, aes(yintercept = h),
-                 size = 0.1, colour = "black")  +
+                 size = linewidth, colour = "black")  +
       scale_fill_gradientn(colours = rev(rainbow(250, start = 0, end = 0.7)),
                            na.value = "white") +
       theme_bw() +

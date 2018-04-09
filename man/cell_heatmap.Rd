@@ -4,10 +4,12 @@
 \alias{cell_heatmap}
 \title{Make a heat map of bicluster cell sizes.}
 \usage{
-cell_heatmap(bc_object)
+cell_heatmap(bc_object, linewidth = 0.1)
 }
 \arguments{
 \item{bc_object}{An object created by biclustering}
+
+\item{linewidth}{Width of vertical and horizontal lines. Default is 0.1.}
 }
 \description{
 Make a heat map of bicluster cell sizes.
