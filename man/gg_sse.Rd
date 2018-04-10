@@ -2,12 +2,15 @@
 % Please edit documentation in R/ggSSE.R
 \name{gg_sse}
 \alias{gg_sse}
-\title{Plot each iteration's SSE and a smoother or linear model fit to the data.}
+\title{Plot each iteration's SSE.}
 \usage{
-gg_sse(bicluster_obj, linear = FALSE, pt_size = 1.25, line_width = 1)
+gg_sse(bicluster_obj, smoother = FALSE, linear = FALSE, pt_size = 1.25,
+  line_width = 1)
 }
 \arguments{
 \item{bicluster_obj}{A bicluster object.}
+
+\item{smoother}{Logical. If TRUE, a smoother is added to the plot. By default it is FALSE and no smoother is added to the plot.}
 
 \item{linear}{Logical. If TRUE, a line is added to the plot. By default it is FALSE and no line is added to the plot.}
 
@@ -19,5 +22,5 @@ gg_sse(bicluster_obj, linear = FALSE, pt_size = 1.25, line_width = 1)
 A ggplot.
 }
 \description{
-Plot each iteration's SSE and a smoother or linear model fit to the data.
+Plot each iteration's SSE.
 }
