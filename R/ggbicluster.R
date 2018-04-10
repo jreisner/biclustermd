@@ -66,7 +66,9 @@ gg_bicluster <- function(bc_object, data, linewidth = 0.1,
                            na.value = "white") +
       theme_bw() +
       theme(axis.text = element_blank(),
-            axis.ticks = element_blank())
+            axis.ticks = element_blank(),
+            panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank())
   } else if(transform_colors == FALSE) {
     gg <- ggplot() +
       geom_tile(data = res_list$data, aes(y = rows, x = cols, fill = value)) +
