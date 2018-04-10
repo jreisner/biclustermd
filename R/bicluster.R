@@ -69,9 +69,6 @@ bicluster <- function(data, P0, Q0, miss_val,
       }
     }
 
-    if(is.numeric(miss_val)) {
-      mv <- rnorm(1, miss_val, 1)
-    }
 
     P.old <- P
     Q.old <- Q
@@ -92,7 +89,7 @@ bicluster <- function(data, P0, Q0, miss_val,
 
           if(is.na(A[j, i])) {
             if(is.numeric(miss_val)) {
-              A[j, i] <- mv
+              A[j, i] <- rnorm(1, miss_val, 1)
             } else {
               condition_call <- substitute(miss_val)
               A[j, i] <- eval(condition_call)
@@ -131,7 +128,7 @@ bicluster <- function(data, P0, Q0, miss_val,
 
           if(is.na(A[j, i])) {
             if(is.numeric(miss_val)) {
-              A[j, i] <- mv
+              A[j, i] <- rnorm(1, miss_val, 1)
             } else {
               condition_call <- substitute(miss_val)
               A[j, i] <- eval(condition_call)
