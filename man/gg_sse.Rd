@@ -4,19 +4,18 @@
 \alias{gg_sse}
 \title{Plot each iteration's SSE.}
 \usage{
-gg_sse(bicluster_obj, smoother = FALSE, linear = FALSE, pt_size = 1.25,
-  line_width = 1)
+gg_sse(bicluster_obj, ..., smoother = FALSE, linear = FALSE)
 }
 \arguments{
 \item{bicluster_obj}{A bicluster object.}
 
-\item{smoother}{Logical. If TRUE, a smoother is added to the plot. By default it is FALSE and no smoother is added to the plot.}
+\item{...}{Arguments to be passed to `geom_point`}
 
-\item{linear}{Logical. If TRUE, a line is added to the plot. By default it is FALSE and no line is added to the plot.}
+\item{smoother}{Logical. If TRUE, a smoother is added to the plot.
+By default it is FALSE and no smoother is added to the plot.}
 
-\item{pt_size}{Point size. It's default value is 1.25.}
-
-\item{line_width}{Width of lines. Default is 1.}
+\item{linear}{Logical. If TRUE, a line is added to the plot.
+By default it is FALSE and no line is added to the plot.}
 }
 \value{
 A ggplot.
