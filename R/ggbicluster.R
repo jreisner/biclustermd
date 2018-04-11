@@ -3,8 +3,8 @@
 #' @param bc_object A bicluster object.
 #' @param data The raw data that was biclustered.
 #' @param ... Arguments to be passed to `geom_vline()` and `geom_hline()`
-#' @param transform_colors If equals `TRUE` (default) then the data is scaled by
-#'     `c` and run through a standard normal cdf before plotting. If `FALSE`, raw data
+#' @param transform_colors If equals `TRUE` then the data is scaled by
+#'     `c` and run through a standard normal cdf before plotting. If `FALSE` (default), raw data
 #'     values are used in the heat map.
 #' @param c Value to scale the data by before running it through a standard normal CDF.
 #'     Default is 1/6.

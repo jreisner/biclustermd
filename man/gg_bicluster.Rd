@@ -13,8 +13,8 @@ gg_bicluster(bc_object, data, ..., transform_colors = TRUE, c = 1/6)
 
 \item{...}{Arguments to be passed to `geom_vline()` and `geom_hline()`}
 
-\item{transform_colors}{If equals `TRUE` (default) then the data is scaled by
-`c` and run through a standard normal cdf before plotting. If `FALSE`, raw data
+\item{transform_colors}{If equals `TRUE` then the data is scaled by
+`c` and run through a standard normal cdf before plotting. If `FALSE` (default), raw data
 values are used in the heat map.}
 
 \item{c}{Value to scale the data by before running it through a standard normal CDF.
