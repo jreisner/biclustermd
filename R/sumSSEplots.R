@@ -13,7 +13,7 @@
 
 sumSSE_plots <- function(bicluster_obj, linear = FALSE, pch = 20, cex = 1, lwd = 3) {
 
-  model_df <- data.frame(sumSSE = as.vector(na.omit(bicluster_obj$sumSSE)))
+  model_df <- data.frame(sumSSE = as.vector(na.omit(bicluster_obj$SSE)))
   model_df$iteration <- seq_along(model_df$sumSSE)
 
   lin_m <- lm(sumSSE ~ iteration, data = model_df)
@@ -26,7 +26,7 @@ sumSSE_plots <- function(bicluster_obj, linear = FALSE, pch = 20, cex = 1, lwd =
   p_value <- round(unname(summary(lin_m)$coefficients[, 4][2]), 3)
 
   plot(model_df$iteration, model_df$sumSSE, pch = pch, cex = cex,
-       ylab = "Sum SSE", xlab = "Iteration",
+       ylab = "SSE", xlab = "Iteration",
        main = paste0("Slope = ", slope, ", p-value = ", p_value))
 
   lines(model_df$iteration, model_df$smooth, col = 2, lwd = lwd)

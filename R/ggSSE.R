@@ -14,7 +14,7 @@
 
 gg_sse <- function(bicluster_obj, ..., smoother = FALSE, linear = FALSE) {
 
-  model_df <- data.frame(SSE = as.vector(na.omit(bicluster_obj$sumSSE)))
+  model_df <- data.frame(SSE = as.vector(na.omit(bicluster_obj$SSE)))
 
   gg <- model_df %>%
     mutate(Iteration = row_number()) %>%

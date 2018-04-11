@@ -19,6 +19,18 @@
 #' @return A list containing final matrices for column and
 #'     row partitions, the SSE for each iteration, the Rand Indices for row and column
 #'     prototypes, the number of iterations the algorithm ran for, and the final prototype matrix.
+#' @examples
+#' dat <- kronecker(matrix(1:6, nrow = 2, ncol = 3), matrix(5, nrow = 3, ncol = 4))
+#' dat[sample(1:72, 36)] <- NA
+#' dat <- dat[sample(1:nrow(dat), nrow(dat)), sample(1:ncol(dat), ncol(dat))]
+#' P01 <- partition_gen(12, 3)
+#' Q01 <- partition_gen(6, 2)
+#'
+#' bc <- bicluster(dat, P01, Q01, miss_val = 18.61111,
+#'                 col_min_num = 2, row_min_num = 2,
+#'                 col_num_to_move = 1, row_num_to_move = 1,
+#'                 max.iter = 10)
+#' bc
 
 
 bicluster <- function(data, P0, Q0, miss_val,
@@ -35,9 +47,9 @@ bicluster <- function(data, P0, Q0, miss_val,
   n_d <- ncol(data)
 
   result_list <- vector("list", 6)
-  names(result_list) <- c("P", "Q", "sumSSE", "RIs", "iteration", "A")
+  names(result_list) <- c("P", "Q", "SSE", "RIs", "iteration", "A")
 
-  sumSSE <- matrix(nrow = max.iter, ncol = 1)
+  SSE <- matrix(nrow = max.iter, ncol = 1)
   RIs <- matrix(nrow = max.iter, ncol = 2)
   A <- matrix(nrow = ncol(Q), ncol = ncol(P))
   u.bar <- matrix(0, nrow = m_d, ncol = ncol(P))
@@ -158,7 +170,7 @@ bicluster <- function(data, P0, Q0, miss_val,
 
     s <- s + 1
 
-    sumSSE[s, 1] <- cluster_iteration_sum_sse(data, P, Q)
+    SSE[s, 1] <- cluster_iteration_sum_sse(data, P, Q)
 
     P.old_vec <- part_matrix_to_vector(P.old) + 1
     P.new_vec <- part_matrix_to_vector(P) + 1
@@ -174,7 +186,7 @@ bicluster <- function(data, P0, Q0, miss_val,
     if((PRI == 1) && (QRI == 1)) {
       result_list$P <- P
       result_list$Q <- Q
-      result_list$sumSSE <- sumSSE
+      result_list$SSE <- SSE
       result_list$RIs <- RIs
       result_list$iteration <- s
       result_list$A <- A
@@ -188,7 +200,7 @@ bicluster <- function(data, P0, Q0, miss_val,
 
   result_list$P <- P
   result_list$Q <- Q
-  result_list$sumSSE <- sumSSE
+  result_list$SSE <- SSE
   result_list$RIs <- RIs
   result_list$iteration <- s
   result_list$A <- A
