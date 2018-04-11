@@ -16,8 +16,8 @@ gg_ri <- function(bicluster_obj, ...) {
   model_df$Iteration <- seq_along(model_df$Column)
   
   gg <- model_df %>%
-    gather(`Rand Index`, value, -Iteration) %>%
-    ggplot(aes(x = Iteration, y = value, colour = `Rand Index`)) +
+    gather(`Rand Index`, Value, -Iteration) %>%
+    ggplot(aes(x = Iteration, y = Value, colour = `Rand Index`)) +
     geom_line(...) +
     geom_point(...) +
     scale_colour_manual(values = c("red", "blue")) +
