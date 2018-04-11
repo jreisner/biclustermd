@@ -58,7 +58,7 @@ gg_bicluster <- function(bc_object, data, ..., transform_colors = TRUE, c = 1/6)
   if(transform_colors == TRUE) {
     gg <- ggplot() +
       geom_tile(data = res_list$data, aes(y = rows, x = cols, fill = plot_data)) +
-      geom_vline(data = res_list$vlines, aes(xintercept = v), ....) +
+      geom_vline(data = res_list$vlines, aes(xintercept = v), ...) +
       geom_hline(data = res_list$hlines, aes(yintercept = h), ...)  +
       scale_fill_gradientn(colours = rev(rainbow(250, start = 0, end = 0.7)),
                            na.value = "white") +
