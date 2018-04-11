@@ -35,19 +35,18 @@ gg_bicluster <- function(bc_object, data, ..., transform_colors = TRUE, c = 1/6)
 
   ord_dat <- data[row_ord, col_ord]
 
-  melted <- data.frame(cbind(rownames(ord_dat), ord_dat))
-  colnames(melted)[1] <- "rows"
+  ord_dat <- as.data.frame(ord_dat)
+  ord_dat$rows <- rownames(ord_dat)
 
-
-  melted <- melted %>%
-    gather(cols, value, -rows) %>%
-    mutate(value = as.numeric(value))
+  melted <- ord_dat %>% gather(cols, value, -rows)
+  melted$rows <- factor(melted$rows, levels = melted$rows)
+  melted$cols <- factor(melted$cols, levels = melted$cols)
 
   vline_coords <- cumsum(sapply(p_list, length)) + 0.5
-  vline_coords <- data.frame(v = vline_coords)
+  vline_coords <- data.frame(v = vline_coords[-length(vline_coords)])
 
   hline_coords <- cumsum(sapply(q_list, length)) + 0.5
-  hline_coords <- data.frame(h = hline_coords)
+  hline_coords <- data.frame(h = hline_coords[-length(hline_coords)])
 
   melted$plot_data <- pnorm(c * melted$value)
 
