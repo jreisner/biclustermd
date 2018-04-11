@@ -14,7 +14,7 @@
 #' @importFrom grDevices rainbow
 #' @return An object of class ggplot.
 
-gg_bicluster <- function(bc_object, data, ..., transform_colors = TRUE, c = 1/6) {
+gg_bicluster <- function(bc_object, data, ..., transform_colors = FALSE, c = 1/6) {
 
   bc <- bc_object
 
