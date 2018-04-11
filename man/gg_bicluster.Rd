@@ -4,21 +4,21 @@
 \alias{gg_bicluster}
 \title{Make a heatmap of sparse biclustering results}
 \usage{
-gg_bicluster(bc_object, data, linewidth = 0.1, transform_colors = TRUE,
-  c = 2/15)
+gg_bicluster(bc_object, data, ..., transform_colors = TRUE, c = 1/6)
 }
 \arguments{
 \item{bc_object}{A bicluster object.}
 
 \item{data}{The raw data that was biclustered.}
 
-\item{linewidth}{Width of vertical and horizontal lines. Default is 0.1.}
+\item{...}{Arguments to be passed to `geom_vline()` and `geom_hline()`}
 
 \item{transform_colors}{If equals `TRUE` (default) then the data is scaled by
 `c` and run through a standard normal cdf before plotting. If `FALSE`, raw data
 values are used in the heat map.}
 
-\item{c}{Value to scale the data by before running it through a standard normal CDF. Default is 2/15.}
+\item{c}{Value to scale the data by before running it through a standard normal CDF.
+Default is 1/6.}
 }
 \value{
 An object of class ggplot.

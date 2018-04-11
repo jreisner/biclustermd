@@ -2,19 +2,19 @@
 #'
 #' @param bc_object A bicluster object.
 #' @param data The raw data that was biclustered.
-#' @param linewidth Width of vertical and horizontal lines. Default is 0.1.
+#' @param ... Arguments to be passed to `geom_vline()` and `geom_hline()`
 #' @param transform_colors If equals `TRUE` (default) then the data is scaled by
-#' `c` and run through a standard normal cdf before plotting. If `FALSE`, raw data
-#' values are used in the heat map.
-#' @param c Value to scale the data by before running it through a standard normal CDF. Default is 2/15.
+#'     `c` and run through a standard normal cdf before plotting. If `FALSE`, raw data
+#'     values are used in the heat map.
+#' @param c Value to scale the data by before running it through a standard normal CDF.
+#'     Default is 1/6.
 #' @export
 #' @importFrom tidyr gather
 #' @importFrom ggplot2 ggplot aes geom_tile geom_hline geom_vline scale_fill_gradientn theme_bw theme
 #' @importFrom grDevices rainbow
 #' @return An object of class ggplot.
 
-gg_bicluster <- function(bc_object, data, linewidth = 0.1,
-                         transform_colors = TRUE, c = 2/15) {
+gg_bicluster <- function(bc_object, data, ..., transform_colors = TRUE, c = 1/6) {
 
   bc <- bc_object
 
@@ -58,10 +58,8 @@ gg_bicluster <- function(bc_object, data, linewidth = 0.1,
   if(transform_colors == TRUE) {
     gg <- ggplot() +
       geom_tile(data = res_list$data, aes(y = rows, x = cols, fill = plot_data)) +
-      geom_vline(data = res_list$vlines, aes(xintercept = v),
-                 size = linewidth, colour = "black") +
-      geom_hline(data = res_list$hlines, aes(yintercept = h),
-                 size = linewidth, colour = "black")  +
+      geom_vline(data = res_list$vlines, aes(xintercept = v), ....) +
+      geom_hline(data = res_list$hlines, aes(yintercept = h), ...)  +
       scale_fill_gradientn(colours = rev(rainbow(250, start = 0, end = 0.7)),
                            na.value = "white") +
       theme_bw() +
@@ -69,13 +67,12 @@ gg_bicluster <- function(bc_object, data, linewidth = 0.1,
             axis.ticks = element_blank(),
             panel.grid.major = element_blank(),
             panel.grid.minor = element_blank())
+
   } else if(transform_colors == FALSE) {
     gg <- ggplot() +
       geom_tile(data = res_list$data, aes(y = rows, x = cols, fill = value)) +
-      geom_vline(data = res_list$vlines, aes(xintercept = v),
-                 size = linewidth, colour = "black") +
-      geom_hline(data = res_list$hlines, aes(yintercept = h),
-                 size = linewidth, colour = "black")  +
+      geom_vline(data = res_list$vlines, aes(xintercept = v), ...) +
+      geom_hline(data = res_list$hlines, aes(yintercept = h), ...)  +
       scale_fill_gradientn(colours = rev(rainbow(250, start = 0, end = 0.7)),
                            na.value = "white") +
       theme_bw() +
