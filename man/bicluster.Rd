@@ -47,16 +47,17 @@ Bicluster data
 }
 \examples{
 dat <- kronecker(matrix(1:6, nrow = 2, ncol = 3), matrix(5, nrow = 3, ncol = 4))
-dat[sample(1:72, 36)] <- NA
+dat[sample(1:length(dat), 0.5 * length(dat))] <- NA
 dat <- dat[sample(1:nrow(dat), nrow(dat)), sample(1:ncol(dat), ncol(dat))]
 P01 <- partition_gen(12, 3)
 Q01 <- partition_gen(6, 2)
 
-bc <- bicluster(dat, P01, Q01, miss_val = 18.61111,
+bc <- bicluster(dat, P01, Q01, miss_val = mean(dat, na.rm = TRUE),
+                miss_val_sd = sd(dat, na.rm = TRUE),
                 col_min_num = 2, row_min_num = 2,
                 col_num_to_move = 1, row_num_to_move = 1,
                 max.iter = 10)
 bc
 gg_sse(bc)
-gg_bicluster(bc, dat, transform_colors = FALSE)
+gg_bicluster(bc, dat)
 }
