@@ -3,7 +3,7 @@ Type: Package
 Title: Bicluster Sparse Data
 Version: 0.1.0
 Author: John Reisner
-Maintainer: The package maintainer <yourself@somewhere.net>
+Maintainer: John Reisner <johntreisner@gmail.com>
 Description: Biclustering is a statistical learning technique that simultaneously 
     partitions and clusters rows and columns of a data matrix. Since biclustering
     is said to be NP-hard, this package uses a greedy heuristic. The algorithm
