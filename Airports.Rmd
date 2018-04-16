@@ -1,0 +1,130 @@
+---
+title: "Biclustering Example"
+author: "John Reisner"
+output:
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, fig.align = 'center')
+```
+
+# Applying biclustering to airport delays
+Suppose you are a data scientist who is interested in modeling delays in flight arrivals at airports around the world. You think that arrivals could be correlated by month. Hence, since you're looking at delays in arrivals you cluster average delay (in minutes) by month and destination airport. 
+
+## Data 
+To illustrate this problem I'm using the dataset `flights` from Hadley Wickham's package `nycflights13`:
+```{r}
+# install.packages("nycflights13")
+library(nycflights13)
+data("flights")
+```
+
+Per the documentation, `flights` contains data on all flights in 2013 that departed NYC via JFK, LaGuardia, or Newark. The variables we're interested in here are `month`, `dest`, and `arr_delay`.
+```{r}
+library(tidyverse)
+flights <- flights %>%
+  select(month, dest, arr_delay)
+```
+
+`bicluster()` requires data to be in table format, which is what we will do here using `dcast()` from `reshape2` after using `dplyr` to summarize the data since we are analyzing average arrival delay.
+```{r}
+flights <- flights %>%
+  group_by(month, dest) %>%
+  summarise(mean_arr_delay = mean(arr_delay, na.rm = TRUE)) %>%
+  reshape2::dcast(month ~ dest)
+```
+
+Now we name the rows using `month` followed by removing `month` and converting the data to a matrix.
+```{r}
+rownames(flights) <- flights$month
+flights <- as.matrix(flights[, -1])
+```
+
+## Biclustering
+Now that our data is in correct form we can bicluster it.
+
+We first need to randomly make groups of months and groups of destination airports. We'll first work on months. `partition_gen()` randomly assigns N objects into K groups. Since rows correspond to months we want to set N equal to the number of rows of our data. Since we are grouping months, in this analysis, setting K = 4 may not be a bad idea: create a group for each season/quarter of the year. The following code generates a partition matrix for rows.
+```{r}
+# install.packages("devtools")
+# devtools::install_github("jreisner/sparseBiclustering")
+library(sparseBiclustering)
+Q01 <- partition_gen(N = nrow(flights), K = 4)
+Q01 %>% head()
+```
+
+As you can see, a partition matrix has N rows and K columns. In each row, the entry equal to one tells us what row group it belongs to.
+
+For the columns the value of K is a bit more ambiguous, just like with k-means clustering. Since each continent of the world may take a different amount of time and may have different policies for flights from the US, let's set K = 6.
+```{r}
+P01 <- partition_gen(N = ncol(flights), K = 6)
+P01 %>% head()
+```
+
+Now we're ready to bicluster. I'll put the code first and give brief descriptions to selected arguments. This will mostly be a repeat of the documentation for `bicluster()`. Since the algorithm uses randomness I recommend running `bicluster()` multiple times and keeping the result with the lowest SSE.
+```{r}
+bc <- bicluster(data = flights, P0 = P01, Q0 = Q01,
+                miss_val = mean(flights, na.rm = TRUE), miss_val_sd = 1,
+                row_min_num = 3, col_min_num = 5,
+                row_num_to_move = 1, col_num_to_move = 1,
+                row_shuffles = 1, col_shuffles = 1,
+                max.iter = 20, verbose = TRUE)
+```
+
++ `miss_val`: if a cell (an intersection of a row group and a column group) is empty, what value should be imputed? This value is somewhat arbitrary but setting it equal to the data mean seems to work well. This value follows a normal distribution with mean of `miss_val` and standard deviation `miss_val_sd`. Note that this value is specified to merely keep the algorithm running.
++ `miss_val_sd`: standard deviation of the random normal variable `miss_val`. Empirical results show that this value doesn't play a huge role in clustering, so I'll keep it at the default of one.
++ `row_min_num`: if an entire row group is empty we need to fill it. We do this by randomly selecting a row group to take members from. This value specifies the minimum size needed for a group to be selected. Parallel reasoning applies for `col_min_num`.
++ `row_num_to_move`: When filling an empty row group, this value specifies the number of members to take from the selected group and put into the empty group. By default the number is equal to one. The members selected are ones most dissimilar to the group, so if one, the least dissimilar is moved. If two, the two least similar members are moved, etc. Parallel reasoning applies for `col_num_to_move`.
+
+`bicluster` outputs a list of useful information, ordered as following: 
++ The final partition matrices,
++ SSE of each iteration,
++ Rand Indices for rows and columns for each iteration,
++ The number of iterations `bicluster()` ran for,
++ Table of resulting cell means 
+
+This list is used to make plots and training data.
+
+To plot SSE by iteration, use `gg_sse()`, which outputs points by default:
+```{r}
+?gg_sse
+gg_sse(bc) + geom_line()
+```
+
+Next, Rand Indices (RI). If an RI for rows equals one, that means that the row shuffling from the last iteration and second to last iteration are identical. If zero, the two shufflings have nothing in common. The same goes for column RIs. `gg_ri()` plots the RIs by iteration.
+```{r}
+?gg_ri
+gg_ri(bc)
+```
+
+`gg_bicluster()` makes visual analysis of biclustering results easy by making a heat map of the clustered data. The algorithm does use randomness, so my results may look different from yours.
+```{r}
+?gg_bicluster
+gg_bicluster(bc, data = flights, transform_colors = FALSE) +
+  labs(x = "Destination Airport", y = "Month", fill = "Average Delay")
+```
+
+Often times it is helpful to run the data through an S-shaped function before plotting. This is easy with `gg_bicluster()`: set `transform_colors = TRUE` and specify by what constant you'd like to scale your data by (with `c`) before running it through a standard normal CDF:
+```{r}
+gg_bicluster(bc, data = flights, transform_colors = TRUE, c = 1/10) +
+  labs(x = "Destination Airport", y = "Month", fill = "Average Delay")
+```
+
+To make the results really stand out we can reorder the row and column groups using the means table:
+```{r}
+bq <- bc$Q[, order(rowMeans(bc$A))]
+bp <- bc$P[, order(-colMeans(bc$A))]
+bc_l <- list(P = bp, Q = bq)
+
+gg_bicluster(bc_l, flights, transform_colors = TRUE, c = 1/10) +
+  labs(x = "Destination Airport", y = "Month", fill = "Average Delay")
+```
+
+We'll end this tutorial by making a training dataset from the clustered data using `make_train_set()`, which gives the name of the row and column the data point comes from as well as the row and column group it belongs to.
+```{r}
+training <- make_train_set(data = flights, bc)
+training %>% head()
+```
+
+
+Hopefully this example was useful to you. If you have questions you can email me at johntreisner@gmail.com. In the case you've found an error please open up an issue.
