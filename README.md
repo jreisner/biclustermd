@@ -1,8 +1,9 @@
 # sparseBiclustering
+See the file "Airports.rmd" for a walk-through of the package and how it is used.
+
 This package is currently being updated on a nearly daily basis, so check back for updates.
 
-
-I haven't had the time to compile a complete vignette of the package yet, but here is a toy example which is also found in the help page for the function `bicluster()`. (This example is from the commented portion of the bicluster.R file in the R folder above.)
+Here is a toy example which is also found in the help page for the function `bicluster()`. (This example is from the commented portion of the bicluster.R file in the R folder above.)
 
 ```r
 devtools::install_github("jreisner/sparseBiclustering")
