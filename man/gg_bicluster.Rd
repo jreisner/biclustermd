@@ -4,14 +4,17 @@
 \alias{gg_bicluster}
 \title{Make a heatmap of sparse biclustering results}
 \usage{
-gg_bicluster(bc_object, data, ..., transform_colors = FALSE, c = 1/6)
+gg_bicluster(bc_object, data, col_clusts = NULL, row_clusts = NULL,
+  transform_colors = FALSE, c = 1/6, ...)
 }
 \arguments{
 \item{bc_object}{A bicluster object.}
 
 \item{data}{The raw data that was biclustered.}
 
-\item{...}{Arguments to be passed to `geom_vline()` and `geom_hline()`}
+\item{col_clusts}{A vector of column cluster indices to display. If NULL (default), all are displayed.}
+
+\item{row_clusts}{A vector of row cluster indices to display. If NULL (default), all are displayed.}
 
 \item{transform_colors}{If equals `TRUE` then the data is scaled by
 `c` and run through a standard normal cdf before plotting. If `FALSE` (default), raw data
@@ -19,6 +22,8 @@ values are used in the heat map.}
 
 \item{c}{Value to scale the data by before running it through a standard normal CDF.
 Default is 1/6.}
+
+\item{...}{Arguments to be passed to `geom_vline()` and `geom_hline()`.}
 }
 \value{
 An object of class ggplot.
