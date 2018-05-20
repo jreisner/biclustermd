@@ -2,6 +2,7 @@
 #'
 #' @param bc_object An object created by biclustering
 #' @param linewidth Width of vertical and horizontal lines. Default is 0.1.
+#' @param log_scale Logical. If TRUE, log10 scale on the legend is used. Default is FALSE.
 #' @export
 #' @importFrom magrittr %>%
 #' @importFrom dplyr mutate row_number
@@ -10,7 +11,7 @@
 #' @importFrom stats quantile
 #' @importFrom grDevices rainbow
 
-cell_heatmap <- function(bc_object, linewidth = 0.1) {
+cell_heatmap <- function(bc_object, linewidth = 0.1, log_scale = FALSE) {
 
   bc <- bc_object
 
@@ -22,16 +23,31 @@ cell_heatmap <- function(bc_object, linewidth = 0.1) {
     mutate(row_proto = row_number()) %>%
     gather(col_proto, cell_size, -row_proto)
 
-  gg <- cell_sizes %>%
-    ggplot(aes(x = col_proto, y = row_proto, fill = cell_size)) +
-    geom_tile(colour = "grey30", size = linewidth) +
-    scale_fill_gradientn(colours = rev(rainbow(250, start = 0, end = 0.7)),
-                         na.value = "white", trans = "log10") +
-    theme_bw() +
-    theme(panel.grid.major = element_blank(),
-          panel.grid.minor = element_blank()) +
-    labs(x = "Column Prototype Index", y = "Row Prototype Index",
-         fill = "Cell Size")
+  if(log_scale == TRUE) {
+    gg <- cell_sizes %>%
+      ggplot(aes(x = col_proto, y = row_proto, fill = cell_size)) +
+      geom_tile(colour = "grey30", size = linewidth) +
+      scale_fill_gradientn(colours = rev(rainbow(250, start = 0, end = 0.7)),
+                           na.value = "white", trans = "log10") +
+      theme_bw() +
+      theme(panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank()) +
+      labs(x = "Column Prototype Index", y = "Row Prototype Index",
+           fill = "Cell Size")
+  } else {
+    gg <- cell_sizes %>%
+      ggplot(aes(x = col_proto, y = row_proto, fill = cell_size)) +
+      geom_tile(colour = "grey30", size = linewidth) +
+      scale_fill_gradientn(colours = rev(rainbow(250, start = 0, end = 0.7)),
+                           na.value = "white") +
+      theme_bw() +
+      theme(panel.grid.major = element_blank(),
+            panel.grid.minor = element_blank()) +
+      labs(x = "Column Prototype Index", y = "Row Prototype Index",
+           fill = "Cell Size")
+  }
+
+
 
   return(gg)
 }

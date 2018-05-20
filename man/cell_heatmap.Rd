@@ -4,12 +4,14 @@
 \alias{cell_heatmap}
 \title{Make a heat map of bicluster cell sizes.}
 \usage{
-cell_heatmap(bc_object, linewidth = 0.1)
+cell_heatmap(bc_object, linewidth = 0.1, log_scale = FALSE)
 }
 \arguments{
 \item{bc_object}{An object created by biclustering}
 
 \item{linewidth}{Width of vertical and horizontal lines. Default is 0.1.}
+
+\item{log_scale}{Logical. If TRUE, log10 scale on the legend is used. Default is FALSE.}
 }
 \description{
 Make a heat map of bicluster cell sizes.
