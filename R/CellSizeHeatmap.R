@@ -32,7 +32,7 @@ cell_heatmap <- function(bc_object, linewidth = 0.1, log_scale = FALSE) {
       theme_bw() +
       theme(panel.grid.major = element_blank(),
             panel.grid.minor = element_blank()) +
-      labs(x = "Column Prototype Index", y = "Row Prototype Index",
+      labs(x = "Column Cluster Index", y = "Row Cluster Index",
            fill = "Cell Size")
   } else {
     gg <- cell_sizes %>%
@@ -43,7 +43,7 @@ cell_heatmap <- function(bc_object, linewidth = 0.1, log_scale = FALSE) {
       theme_bw() +
       theme(panel.grid.major = element_blank(),
             panel.grid.minor = element_blank()) +
-      labs(x = "Column Prototype Index", y = "Row Prototype Index",
+      labs(x = "Column Cluster Index", y = "Row Cluster Index",
            fill = "Cell Size")
   }
 
