@@ -20,7 +20,8 @@ mse_heatmap <- function(mse_obj, linewidth = 0.1, log_scale = FALSE) {
     geom_tile(colour = "gray35", size = linewidth) +
     theme_bw() +
     labs(x = "Column Cluster Index",
-         y = "Row Cluster Index")
+         y = "Row Cluster Index",
+         fill = "Cell MSE")
 
   if(log_scale == TRUE) {
     gg <- gg +
