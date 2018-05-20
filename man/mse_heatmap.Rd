@@ -4,14 +4,14 @@
 \alias{mse_heatmap}
 \title{Make a heatmap of cell MSEs}
 \usage{
-mse_heatmap(mse_obj, linewidth = 0.1, log10_col = TRUE)
+mse_heatmap(mse_obj, linewidth = 0.1, log_scale = FALSE)
 }
 \arguments{
 \item{mse_obj}{A data frame returned by `cell_mse`.}
 
 \item{linewidth}{Width of vertical and horizontal lines. Default is 0.1.}
 
-\item{log10_col}{Logical. If TRUE (default), fill legend will be on a log10 scale.}
+\item{log_scale}{Logical. If TRUE, fill legend will be on a log10 scale. Default is FALSE.}
 }
 \value{
 A ggplot object.
