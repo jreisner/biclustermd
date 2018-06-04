@@ -19,7 +19,7 @@
 #' @importFrom phyclust RRand
 #' @importFrom stats rnorm
 #' @return A list containing final matrices for column and
-#'     row partitions, the SSE for each iteration, the Rand Indices for row and column
+#'     row partitions, the SSE of the original partitioning, the SSE for each iteration, the Rand Indices for row and column
 #'     prototypes, the number of iterations the algorithm ran for, and the final prototype matrix.
 #' @examples
 #' dat <- kronecker(matrix(1:6, nrow = 2, ncol = 3), matrix(5, nrow = 3, ncol = 4))
@@ -51,17 +51,16 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
   m_d <- nrow(data)
   n_d <- ncol(data)
 
-  result_list <- vector("list", 6)
-  names(result_list) <- c("P", "Q", "SSE", "RIs", "iteration", "A")
+  result_list <- vector("list", 7)
+  names(result_list) <- c("P", "Q", "InitialSSE", "SSE", "RIs", "iteration", "A")
+
+  InitialSSE <- cluster_iteration_sum_sse(data, P, Q)
 
   SSE <- matrix(nrow = max.iter, ncol = 2)
   colnames(SSE) <- c("SSE", "Iteration")
-  SSE[1, 1] <- cluster_iteration_sum_sse(data, P0, Q0)
-  SSE[1, 2] <- 0
 
   RIs <- matrix(nrow = max.iter, ncol = 3)
   colnames(RIs) <- c("PRI", "QRI", "Iteration")
-  RIs[1,] <- rep(0, 3)
 
   A <- matrix(nrow = ncol(Q), ncol = ncol(P))
   u.bar <- matrix(0, nrow = m_d, ncol = ncol(P))
@@ -182,8 +181,8 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
 
     s <- s + 1
 
-    SSE[s + 1, 1] <- cluster_iteration_sum_sse(data, P, Q)
-    SSE[s + 1, 2] <- s
+    SSE[s, 1] <- cluster_iteration_sum_sse(data, P, Q)
+    SSE[s, 2] <- s - 1
 
     P.old_vec <- part_matrix_to_vector(P.old) + 1
     P.new_vec <- part_matrix_to_vector(P) + 1
@@ -193,13 +192,14 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
     PRI <- RRand(P.old_vec, P.new_vec)[[1]]
     QRI <- RRand(Q.old_vec, Q.new_vec)[[1]]
 
-    RIs[s + 1, 1] <- PRI
-    RIs[s + 1, 2] <- QRI
-    RIs[s + 1, 3] <- s
+    RIs[s, 1] <- PRI
+    RIs[s, 2] <- QRI
+    RIs[s, 3] <- s - 1
 
     if((PRI == 1) && (QRI == 1)) {
       result_list$P <- P
       result_list$Q <- Q
+      result_list$InitialSSE <- InitialSSE
       result_list$SSE <- SSE
       result_list$RIs <- RIs
       result_list$iteration <- s
@@ -214,6 +214,7 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
 
   result_list$P <- P
   result_list$Q <- Q
+  result_list$InitialSSE <- InitialSSE
   result_list$SSE <- SSE
   result_list$RIs <- RIs
   result_list$iteration <- s
