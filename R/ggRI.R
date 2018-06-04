@@ -8,13 +8,13 @@
 #' @importFrom magrittr %>%
 #' @importFrom ggplot2 ggplot aes geom_line geom_point scale_colour_manual theme_bw
 #' @return A ggplot
-#' 
-#' 
+#'
+#'
 gg_ri <- function(bicluster_obj, ...) {
   model_df <- data.frame(Column = as.vector(na.omit(bicluster_obj$RIs[, 1])),
-                         Row = as.vector(na.omit(bicluster_obj$RIs[, 2])))
-  model_df$Iteration <- seq_along(model_df$Column)
-  
+                         Row = as.vector(na.omit(bicluster_obj$RIs[, 2])),
+                         Iteration = as.vector(na.omit(bicluster_obj$RIs[, 3])))
+
   gg <- model_df %>%
     gather(`Rand Index`, Value, -Iteration) %>%
     ggplot(aes(x = Iteration, y = Value, colour = `Rand Index`)) +
@@ -22,6 +22,6 @@ gg_ri <- function(bicluster_obj, ...) {
     geom_point(...) +
     scale_colour_manual(values = c("red", "blue")) +
     theme_bw()
-  
+
   return(gg)
 }

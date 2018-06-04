@@ -14,10 +14,10 @@
 
 gg_sse <- function(bicluster_obj, ..., smoother = FALSE, linear = FALSE) {
 
-  model_df <- data.frame(SSE = as.vector(na.omit(bicluster_obj$SSE)))
+  model_df <- data.frame(SSE = as.vector(na.omit(bicluster_obj$SSE[, 1])),
+                         Iteration = as.vector(na.omit(bicluster_obj$SSE[, 2])))
 
   gg <- model_df %>%
-    mutate(Iteration = row_number()) %>%
     ggplot(aes(x = Iteration, y = SSE)) +
     geom_point(...) +
     theme_bw()

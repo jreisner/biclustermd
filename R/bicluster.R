@@ -54,8 +54,15 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
   result_list <- vector("list", 6)
   names(result_list) <- c("P", "Q", "SSE", "RIs", "iteration", "A")
 
-  SSE <- matrix(nrow = max.iter, ncol = 1)
-  RIs <- matrix(nrow = max.iter, ncol = 2)
+  SSE <- matrix(nrow = max.iter, ncol = 2)
+  colnames(SSE) <- c("SSE", "Iteration")
+  SSE[1, 1] <- cluster_iteration_sum_sse(data, P0, Q0)
+  SSE[1, 2] <- 0
+
+  RIs <- matrix(nrow = max.iter, ncol = 3)
+  colnames(RIs) <- c("PRI", "QRI", "Iteration")
+  RIs[1,] <- rep(0, 3)
+
   A <- matrix(nrow = ncol(Q), ncol = ncol(P))
   u.bar <- matrix(0, nrow = m_d, ncol = ncol(P))
 
@@ -175,7 +182,8 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
 
     s <- s + 1
 
-    SSE[s, 1] <- cluster_iteration_sum_sse(data, P, Q)
+    SSE[s + 1, 1] <- cluster_iteration_sum_sse(data, P, Q)
+    SSE[s + 1, 2] <- s
 
     P.old_vec <- part_matrix_to_vector(P.old) + 1
     P.new_vec <- part_matrix_to_vector(P) + 1
@@ -185,8 +193,9 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
     PRI <- RRand(P.old_vec, P.new_vec)[[1]]
     QRI <- RRand(Q.old_vec, Q.new_vec)[[1]]
 
-    RIs[s, 1] <- PRI
-    RIs[s, 2] <- QRI
+    RIs[s + 1, 1] <- PRI
+    RIs[s + 1, 2] <- QRI
+    RIs[s + 1, 3] <- s
 
     if((PRI == 1) && (QRI == 1)) {
       result_list$P <- P
