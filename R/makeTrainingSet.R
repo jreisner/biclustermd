@@ -19,7 +19,7 @@ make_train_set <- function(data, bicluster_obj) {
 
   rnames <- rownames(data)
 
-  mod_data <- data[, -1]
+  mod_data <- data
   mod_data$row_name_var <- rnames
 
   mod_data <- mod_data[, c(ncol(mod_data), 1:(ncol(mod_data) - 1))]
