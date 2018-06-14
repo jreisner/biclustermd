@@ -39,7 +39,7 @@ if `miss_val` is a number. By default this equals 1.}
 }
 \value{
 A list containing final matrices for column and
-    row partitions, the SSE for each iteration, the Rand Indices for row and column
+    row partitions, the SSE of the original partitioning, the SSE for each iteration, the Rand Indices for row and column
     prototypes, the number of iterations the algorithm ran for, and the final prototype matrix.
 }
 \description{

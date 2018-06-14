@@ -51,8 +51,8 @@ gg_bicluster <- function(bc_object, data, col_clusts = NULL, row_clusts = NULL,
   ord_dat$rows <- rownames(ord_dat)
 
   melted <- ord_dat %>% gather(cols, value, -rows)
-  melted$rows <- factor(melted$rows, levels = melted$rows)
-  melted$cols <- factor(melted$cols, levels = melted$cols)
+  melted$rows <- factor(melted$rows, levels = unique(melted$rows))
+  melted$cols <- factor(melted$cols, levels = unique(melted$cols))
 
   vline_coords <- cumsum(sapply(p_list, length)) + 0.5
   vline_coords <- data.frame(v = vline_coords[-length(vline_coords)])
