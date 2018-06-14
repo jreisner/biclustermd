@@ -1,6 +1,9 @@
 # sparseBiclustering
 
-## LAST UPDATE was 13 June 2018 and fixed the duplicated factor level error with `gg_bicluster()` and the package is now built on R 3.5.0.
+## LAST UPDATE was 13 June 2018: 
++ Fixed the duplicated factor level error with `gg_bicluster()`, 
++ Package is now built on R 3.5.0, and
++ Added cell shading feature.
 
 ## If you encounter an issue, please open an issue or email me at johntreisner at gmail dot com.
 
