@@ -1,4 +1,9 @@
 # sparseBiclustering
+
+## LAST UPDATE was 13 June 2018 and fixed the duplicated factor level error with `gg_bicluster()` and the package is now built on R 3.5.0.
+
+## If you encounter an issue, please open an issue or email me at johntreisner at gmail dot com.
+
 See the file "Airports.rmd" for a walk-through of the package and how it is used.
 
 This package is currently being updated on a nearly daily basis, so check back for updates.
