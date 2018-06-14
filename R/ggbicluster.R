@@ -4,6 +4,8 @@
 #' @param data The raw data that was biclustered.
 #' @param col_clusts A vector of column cluster indices to display. If NULL (default), all are displayed.
 #' @param row_clusts A vector of row cluster indices to display. If NULL (default), all are displayed.
+#' @param cell_alpha A scalar defining the transparency of shading over a cell and by default this equals 1/5.
+#'   The color corresponds to the cell mean.
 #' @param transform_colors If equals `TRUE` then the data is scaled by
 #'     `c` and run through a standard normal cdf before plotting. If `FALSE` (default), raw data
 #'     values are used in the heat map.
@@ -12,13 +14,37 @@
 #' @param ... Arguments to be passed to `geom_vline()` and `geom_hline()`.
 #' @export
 #' @importFrom tidyr gather
-#' @importFrom ggplot2 ggplot aes geom_tile geom_hline geom_vline scale_fill_gradientn theme_bw theme
+#' @importFrom dplyr left_join group_by ungroup
+#' @importFrom ggplot2 ggplot aes geom_rect geom_tile geom_hline geom_vline scale_fill_gradientn theme_bw theme
 #' @importFrom grDevices rainbow
 #' @return An object of class ggplot.
+#' @examples
+#' dat <- kronecker(matrix(1:6, nrow = 2, ncol = 3), matrix(5, nrow = 3, ncol = 4))
+#' dat[sample(1:length(dat), 0.5 * length(dat))] <- NA
+#' dat <- dat[sample(1:nrow(dat), nrow(dat)), sample(1:ncol(dat), ncol(dat))]
+#' P01 <- partition_gen(12, 3)
+#' Q01 <- partition_gen(6, 2)
+#'
+#' bc <- bicluster(dat, P01, Q01, miss_val = mean(dat, na.rm = TRUE),
+#'                 miss_val_sd = sd(dat, na.rm = TRUE),
+#'                 col_min_num = 2, row_min_num = 2,
+#'                 col_num_to_move = 1, row_num_to_move = 1,
+#'                 max.iter = 10)
+#' # Default shading
+#' gg_bicluster(bc, dat)
+#'
+#' # Complete shading
+#' gg_bicluster(bc, dat, cell_alpha = 1)
+#'
+#' # Transformed values and no shading
+#' gg_bicluster(bc, dat, transform_colors = TRUE, c = 1/20, cell_alpha = 0)
+#'
+#' # Focus on row cluster 1 and column cluster 2
+#' gg_bicluster(bc, dat, col_clusts = 2, row_clusts = 1)
 
-gg_bicluster <- function(bc_object, data, col_clusts = NULL, row_clusts = NULL,
-                         transform_colors = FALSE, c = 1/6, ...) {
-
+gg_bicluster <- function (bc_object, data, transform_colors = FALSE, c = 1/6,
+                          cell_alpha = 1/5, col_clusts = NULL, row_clusts = NULL,
+                          ...) {
   bc <- bc_object
   P <- bc$P
   Q <- bc$Q
@@ -43,57 +69,88 @@ gg_bicluster <- function(bc_object, data, col_clusts = NULL, row_clusts = NULL,
   q_list <- q_list[row_clusts]
 
   col_ord <- unlist(p_list)
+  p_num <- rep(seq_along(unlist(lapply(p_list, length), use.names = FALSE)),
+               unlist(lapply(p_list, length), use.names = FALSE))
+
   row_ord <- unlist(q_list)
+  q_num <- rep(seq_along(unlist(lapply(q_list, length), use.names = FALSE)),
+               unlist(lapply(q_list, length), use.names = FALSE))
 
   ord_dat <- data[row_ord, col_ord]
-
   ord_dat <- as.data.frame(ord_dat)
   ord_dat$rows <- rownames(ord_dat)
+  ord_dat$row_clust <- q_num
 
-  melted <- ord_dat %>% gather(cols, value, -rows)
-  melted$rows <- factor(melted$rows, levels = unique(melted$rows))
-  melted$cols <- factor(melted$cols, levels = unique(melted$cols))
+  col_clust_ind <- data.frame(cols = factor(colnames(ord_dat)[-c(ncol(ord_dat), ncol(ord_dat) - 1)]))
+  col_clust_ind$col_clust <- rep(seq_along(p_list), unlist(lapply(p_list, length)))
 
-  vline_coords <- cumsum(sapply(p_list, length)) + 0.5
-  vline_coords <- data.frame(v = vline_coords[-length(vline_coords)])
+  melted <- ord_dat %>%
+    gather(cols, value, -rows, -row_clust) %>%
+    mutate(cols = factor(cols)) %>%
+    mutate(trans_data = pnorm(c * value)) %>%
+    left_join(col_clust_ind, by = c("cols")) %>%
+    group_by(row_clust, col_clust) %>%
+    mutate(cell_mean = mean(value, na.rm = TRUE)) %>%
+    mutate(cell_mean_trans = mean(trans_data, na.rm = TRUE)) %>%
+    ungroup() %>%
+    mutate(rows = factor(rows, levels = unique(rows))) %>%
+    mutate(cols = factor(cols, levels = unique(cols)))
 
-  hline_coords <- cumsum(sapply(q_list, length)) + 0.5
-  hline_coords <- data.frame(h = hline_coords[-length(hline_coords)])
+  vline_coords <- c(0.5, cumsum(sapply(p_list, length)) + 0.5)
+  vline_coords <- data.frame(v = vline_coords)
+  hline_coords <- c(0.5, cumsum(sapply(q_list, length)) + 0.5)
+  hline_coords <- data.frame(h = hline_coords)
 
-  melted$plot_data <- pnorm(c * melted$value)
+  res_list <- list(data = melted, vlines = vline_coords, hlines = hline_coords)
 
-  res_list <- list(data = melted,
-                   vlines = vline_coords,
-                   hlines = hline_coords)
+  coord_grid <- expand.grid(1:(length(res_list$hlines$h) - 1), 1:(length(res_list$vlines$v) - 1)) %>% arrange(Var1)
+  rect_coords <- function(x, res_list) {
+    r <- coord_grid[x, 1]
+    c <- coord_grid[x, 2]
 
-  if(transform_colors == TRUE) {
+    xmn <- res_list$vlines$v[c]
+    xmx <- res_list$vlines$v[c+1]
+    ymn <- res_list$hlines$h[r]
+    ymx <- res_list$hlines$h[r+1]
+    fv <- mean(res_list$data$cell_mean[res_list$data$col_clust == c & res_list$data$row_clust == r], na.rm = TRUE)
+    fv_trans <- mean(res_list$data$cell_mean_trans[res_list$data$col_clust == c & res_list$data$row_clust == r], na.rm = TRUE)
+
+    c(xmn, xmx, ymn, ymx, fv, fv_trans)
+  }
+
+  dfc <- data.frame(do.call(rbind, lapply(1:nrow(coord_grid), function(x) rect_coords(x, res_list))))
+  names(dfc) <- c("xmn", "xmx", "ymn", "ymx", "cell_mean", "cell_mean_trans")
+
+  res_list$rect_coords <- dfc
+
+  if (transform_colors == TRUE) {
     gg <- ggplot() +
-      geom_tile(data = res_list$data, aes(y = rows, x = cols, fill = plot_data)) +
+      geom_tile(data = res_list$data, aes(y = rows, x = cols, fill = trans_data)) +
       geom_vline(data = res_list$vlines, aes(xintercept = v), ...) +
-      geom_hline(data = res_list$hlines, aes(yintercept = h), ...)  +
+      geom_hline(data = res_list$hlines, aes(yintercept = h), ...) +
+      geom_rect(data = res_list$rect_coords,
+                aes(xmax = xmx, xmin = xmn, ymax = ymx, ymin = ymn, fill = cell_mean_trans),
+                alpha = cell_alpha) +
       scale_fill_gradientn(colours = rev(rainbow(250, start = 0, end = 0.7)),
                            na.value = "white") +
       theme_bw() +
-      theme(axis.text = element_blank(),
-            axis.ticks = element_blank(),
-            panel.grid.major = element_blank(),
-            panel.grid.minor = element_blank())
-
-  } else if(transform_colors == FALSE) {
+      theme(axis.text = element_blank(), axis.ticks = element_blank(),
+            panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+  }
+  else if (transform_colors == FALSE) {
     gg <- ggplot() +
       geom_tile(data = res_list$data, aes(y = rows, x = cols, fill = value)) +
       geom_vline(data = res_list$vlines, aes(xintercept = v), ...) +
-      geom_hline(data = res_list$hlines, aes(yintercept = h), ...)  +
+      geom_hline(data = res_list$hlines, aes(yintercept = h), ...) +
+      geom_rect(data = res_list$rect_coords,
+                aes(xmax = xmx, xmin = xmn, ymax = ymx, ymin = ymn, fill = cell_mean),
+                alpha = cell_alpha) +
       scale_fill_gradientn(colours = rev(rainbow(250, start = 0, end = 0.7)),
                            na.value = "white") +
       theme_bw() +
-      theme(axis.text = element_blank(),
-            axis.ticks = element_blank(),
-            panel.grid.major = element_blank(),
-            panel.grid.minor = element_blank())
+      theme(axis.text = element_blank(), axis.ticks = element_blank(),
+            panel.grid.major = element_blank(), panel.grid.minor = element_blank())
   }
-
   return(gg)
-
 }
 

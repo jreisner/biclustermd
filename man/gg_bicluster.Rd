@@ -4,17 +4,13 @@
 \alias{gg_bicluster}
 \title{Make a heatmap of sparse biclustering results}
 \usage{
-gg_bicluster(bc_object, data, col_clusts = NULL, row_clusts = NULL,
-  transform_colors = FALSE, c = 1/6, ...)
+gg_bicluster(bc_object, data, transform_colors = FALSE, c = 1/6,
+  cell_alpha = 1/5, col_clusts = NULL, row_clusts = NULL, ...)
 }
 \arguments{
 \item{bc_object}{A bicluster object.}
 
 \item{data}{The raw data that was biclustered.}
-
-\item{col_clusts}{A vector of column cluster indices to display. If NULL (default), all are displayed.}
-
-\item{row_clusts}{A vector of row cluster indices to display. If NULL (default), all are displayed.}
 
 \item{transform_colors}{If equals `TRUE` then the data is scaled by
 `c` and run through a standard normal cdf before plotting. If `FALSE` (default), raw data
@@ -23,6 +19,13 @@ values are used in the heat map.}
 \item{c}{Value to scale the data by before running it through a standard normal CDF.
 Default is 1/6.}
 
+\item{cell_alpha}{A scalar defining the transparency of shading over a cell and by default this equals 1/5.
+The color corresponds to the cell mean.}
+
+\item{col_clusts}{A vector of column cluster indices to display. If NULL (default), all are displayed.}
+
+\item{row_clusts}{A vector of row cluster indices to display. If NULL (default), all are displayed.}
+
 \item{...}{Arguments to be passed to `geom_vline()` and `geom_hline()`.}
 }
 \value{
@@ -30,4 +33,28 @@ An object of class ggplot.
 }
 \description{
 Make a heatmap of sparse biclustering results
+}
+\examples{
+dat <- kronecker(matrix(1:6, nrow = 2, ncol = 3), matrix(5, nrow = 3, ncol = 4))
+dat[sample(1:length(dat), 0.5 * length(dat))] <- NA
+dat <- dat[sample(1:nrow(dat), nrow(dat)), sample(1:ncol(dat), ncol(dat))]
+P01 <- partition_gen(12, 3)
+Q01 <- partition_gen(6, 2)
+
+bc <- bicluster(dat, P01, Q01, miss_val = mean(dat, na.rm = TRUE),
+                miss_val_sd = sd(dat, na.rm = TRUE),
+                col_min_num = 2, row_min_num = 2,
+                col_num_to_move = 1, row_num_to_move = 1,
+                max.iter = 10)
+# Default shading
+gg_bicluster(bc, dat)
+
+# Complete shading
+gg_bicluster(bc, dat, cell_alpha = 1)
+
+# Transformed values and no shading
+gg_bicluster(bc, dat, transform_colors = TRUE, c = 1/20, cell_alpha = 0)
+
+# Focus on row cluster 1 and column cluster 2
+gg_bicluster(bc, dat, col_clusts = 2, row_clusts = 1)
 }
