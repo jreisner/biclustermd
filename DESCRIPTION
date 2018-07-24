@@ -16,6 +16,7 @@ Depends: dplyr (>= 0.7.4),
          ggplot2 (>= 2.2.1), 
          magrittr (>= 1.5), 
          phyclust (>= 0.1.22),
+         R (>= 2.10),
          tidyr (>= 0.7.2)
 License: What license is it under?
 Encoding: UTF-8
