@@ -11,7 +11,7 @@ Description: Biclustering is a statistical learning technique that simultaneousl
     algorithm to work on sparse data. 
 URL: http://github.com/jreisner/sparseBiclustering
 BugReports: http://github.com/jreisner/sparseBiclustering/issues
-Depends: dplyr (>= 0.7.4), 
+Depends: dplyr (>= 0.7.6), 
          gam (>= 1.14.4), 
          ggplot2 (>= 2.2.1), 
          magrittr (>= 1.5), 
