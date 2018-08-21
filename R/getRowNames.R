@@ -7,13 +7,6 @@
 #' @return A data frame with two columns: \code{cluster} corresponds to the row
 #'   cluster and \code{name} gives the row names in each cluster.
 #'
-row_cluster_names <- function(bc_object, data) {
-  row_clust <- data.frame(row_cluster = part_matrix_to_vector(bc_object$Q))
-
-  row_clust$name <- rownames(data)
-
-  row_clust %>% arrange(row_cluster) %>% return()
-}
 #' @examples
 #' data("synthetic")
 #' P01 <- partition_gen(12, 3)
@@ -26,3 +19,11 @@ row_cluster_names <- function(bc_object, data) {
 #'                 max.iter = 10)
 #' row_cluster_names(bc, synthetic)
 #' col_cluster_names(bc, synthetic)
+row_cluster_names <- function(bc_object, data) {
+  row_clust <- data.frame(row_cluster = part_matrix_to_vector(bc_object$Q))
+
+  row_clust$name <- rownames(data)
+
+  row_clust %>% arrange(row_cluster) %>% return()
+}
+
