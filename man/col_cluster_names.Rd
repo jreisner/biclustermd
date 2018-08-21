@@ -20,6 +20,8 @@ Get column names in each column cluster
 }
 \examples{
 data("synthetic")
+rownames(dat) <- letters[1:nrow(dat)]
+colnames(dat) <- letters[1:col(dat)]
 P01 <- partition_gen(12, 3)
 Q01 <- partition_gen(6, 2)
 
