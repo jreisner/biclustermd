@@ -25,11 +25,11 @@ colnames(dat) <- letters[1:col(dat)]
 P01 <- partition_gen(12, 3)
 Q01 <- partition_gen(6, 2)
 
-bc <- bicluster(synthetic, P01, Q01, miss_val = mean(synthetic, na.rm = TRUE),
-                miss_val_sd = sd(synthetic, na.rm = TRUE),
+bc <- bicluster(dat, P01, Q01, miss_val = mean(dat, na.rm = TRUE),
+                miss_val_sd = sd(dat, na.rm = TRUE),
                 col_min_num = 2, row_min_num = 2,
                 col_num_to_move = 1, row_num_to_move = 1,
                 max.iter = 10)
-row_cluster_names(bc, synthetic)
-col_cluster_names(bc, synthetic)
+row_cluster_names(bc, dat)
+col_cluster_names(bc, dat)
 }
