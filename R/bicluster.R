@@ -60,17 +60,12 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
   RIs <- matrix(nrow = max.iter, ncol = 3)
   colnames(RIs) <- c("PRI", "QRI", "Iteration")
 
-  A <- matrix(nrow = ncol(Q), ncol = ncol(P))
-  u.bar <- matrix(0, nrow = m_d, ncol = ncol(P))
-
-  s <- 0
-
   n_p <- ncol(P)
   n_q <- ncol(Q)
 
+  s <- 0
+
   A <- matrix(nrow = n_q, ncol = n_p)
-  distq <- matrix(nrow = m_d, ncol = n_q)
-  distp <- matrix(nrow = n_d, ncol = n_p)
   p1 <- numeric(n_d)
   q1 <- numeric(m_d)
 
@@ -91,10 +86,9 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
     }
 
 
-    P.old <- P
-    Q.old <- Q
+    P_old <- P
+    Q_old <- Q
 
-    dq <- matrix(0, nrow = n_q, ncol = n_p)
 
     for(k in 1:row_shuffles) {
       for (j in 1:n_q){
@@ -103,10 +97,10 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
         for (i in 1:n_p){
           p_ind <- which(P[, i] == 1)
 
-          x_ij.prime <- data[q_ind, p_ind]
+          x_ij_prime <- data[q_ind, p_ind]
 
-          A[j, i] <- sum(x_ij.prime, na.rm = TRUE) /
-            (length(x_ij.prime) - sum(is.na(x_ij.prime)))
+          A[j, i] <- sum(x_ij_prime, na.rm = TRUE) /
+            (length(x_ij_prime) - sum(is.na(x_ij_prime)))
 
           if(is.na(A[j, i])) {
             if(is.numeric(miss_val)) {
@@ -119,13 +113,17 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
         }
       }
 
+
+      col_cluster_mean <- matrix(0, nrow = m_d, ncol = n_p)  # is M_{in}^R in paper
+      distq <- matrix(nrow = m_d, ncol = n_q)  # is d_{im}^R in paper
+      dq <- matrix(0, nrow = n_q, ncol = n_p)  # is value in parens in d_{im}^R in paper
       for(i in 1:m_d) {
-        P.count <- apply(dat2[i,] * P, 2, sum, na.rm = T)
-        u.bar[i,] <- apply(data[i,] * P, 2, sum, na.rm = T) / P.count
-        u.bar[i, which(u.bar[i,] == 0 | is.na(u.bar[i,]))] <- miss_val
+        col_cluster_cnt <- apply(dat2[i,] * P, 2, sum, na.rm = T)
+        col_cluster_mean[i,] <- apply(data[i,] * P, 2, sum, na.rm = T) / col_cluster_cnt
+        col_cluster_mean[i, which(col_cluster_mean[i,] == 0 | is.na(col_cluster_mean[i,]))] <- miss_val
         for(j in 1:n_q) {
-          dq[j,] <- A[j,] - u.bar[i,]
-          distq[i, j] <- sum((dq[j,] ^ 2) * P.count, na.rm = TRUE)
+          dq[j,] <- A[j,] - col_cluster_mean[i,]
+          distq[i, j] <- sum((dq[j,] ^ 2) * col_cluster_cnt, na.rm = TRUE)
         }
       }
 
@@ -142,10 +140,10 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
         for (i in 1:n_p) {
           p_ind <- which(P[, i] == 1)
 
-          x_ij.prime <- data[q_ind, p_ind]
+          x_ij_prime <- data[q_ind, p_ind]
 
-          A[j, i] <- sum(x_ij.prime, na.rm = TRUE) /
-            (length(x_ij.prime) - sum(is.na(x_ij.prime)))
+          A[j, i] <- sum(x_ij_prime, na.rm = TRUE) /
+            (length(x_ij_prime) - sum(is.na(x_ij_prime)))
 
           if(is.na(A[j, i])) {
             if(is.numeric(miss_val)) {
@@ -158,15 +156,16 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
         }
       }
 
-      dp <- matrix(0, nrow = n_p, ncol = n_q)
-      i.bar <- matrix(0, nrow = n_d, ncol = n_q)
+      row_cluster_mean <- matrix(0, nrow = n_d, ncol = n_q)  # is M_{jm}^R in paper
+      distp <- matrix(nrow = n_d, ncol = n_p)  # is d_{jn}^R in paper
+      dp <- matrix(0, nrow = n_p, ncol = n_q)  # is value in parens in d_{jn}^R in paper
       for (i in 1:n_d){
-        Q.count <- apply(dat2[, i] * Q, 2, sum, na.rm = T)
-        i.bar[i, ] <- apply(data[, i] * Q, 2, sum, na.rm = T) / Q.count
-        i.bar[i, which(i.bar[i, ] == 0 | is.na(i.bar[i, ]))] <- miss_val
+        row_cluster_cnt <- apply(dat2[, i] * Q, 2, sum, na.rm = T)
+        row_cluster_mean[i, ] <- apply(data[, i] * Q, 2, sum, na.rm = T) / row_cluster_cnt
+        row_cluster_mean[i, which(row_cluster_mean[i, ] == 0 | is.na(row_cluster_mean[i, ]))] <- miss_val
         for (j in 1:n_p){
-          dp[j,] <- A[, j] - i.bar[i, ]
-          distp[i, j] <- sum((dp[j, ] ^ 2) * Q.count)
+          dp[j,] <- A[, j] - row_cluster_mean[i, ]
+          distp[i, j] <- sum((dp[j, ] ^ 2) * row_cluster_cnt)
         }
       }
 
@@ -182,13 +181,13 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
     SSE[s, 1] <- cluster_iteration_sum_sse(data, P, Q)
     SSE[s, 2] <- s - 1
 
-    P.old_vec <- part_matrix_to_vector(P.old) + 1
-    P.new_vec <- part_matrix_to_vector(P) + 1
-    Q.old_vec <- part_matrix_to_vector(Q.old) + 1
-    Q.new_vec <- part_matrix_to_vector(Q) + 1
+    P_old_vec <- part_matrix_to_vector(P_old) + 1
+    P_new_vec <- part_matrix_to_vector(P) + 1
+    Q_old_vec <- part_matrix_to_vector(Q_old) + 1
+    Q_new_vec <- part_matrix_to_vector(Q) + 1
 
-    PRI <- RRand(P.old_vec, P.new_vec)[[1]]
-    QRI <- RRand(Q.old_vec, Q.new_vec)[[1]]
+    PRI <- RRand(P_old_vec, P_new_vec)[[1]]
+    QRI <- RRand(Q_old_vec, Q_new_vec)[[1]]
 
     RIs[s, 1] <- PRI
     RIs[s, 2] <- QRI
