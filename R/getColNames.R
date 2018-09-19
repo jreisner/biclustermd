@@ -10,7 +10,7 @@
 #' @examples
 #' data("synthetic")
 #' rownames(synthetic) <- letters[1:nrow(synthetic)]
-#' colnames(synthetic) <- letters[1:col(synthetic)]
+#' colnames(synthetic) <- letters[1:ncol(synthetic)]
 #' P01 <- partition_gen(12, 3)
 #' Q01 <- partition_gen(6, 2)
 #'
