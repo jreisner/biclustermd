@@ -11,7 +11,7 @@ partition_gen_by_p(N, K, p)
 
 \item{K}{Number of prototypes to create}
 
-\item{p}{Integer vector containing the prototype each row in a partition matrix is to be assigned to.}
+\item{p}{Integer vector containing the cluster each row in a partition matrix is to be assigned to.}
 }
 \value{
 A partition matrix.
