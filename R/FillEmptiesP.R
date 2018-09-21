@@ -1,11 +1,11 @@
 #' Randomly select a column prototype to fill an empty column prototype with
 #'
 #' @param data The data being biclustered. Must to be a data matrix with only numbers and missing values in the data set. It should have row names and column names.
-#' @param obj A matrix for colum prototypes, typically named P.
+#' @param obj A matrix for column clusters, typically named P.
 #' @param col_min_num Minimum column prototype size in order to be eligible to be chosen when filling an empty column prototype. Default is 10.
 #' @param col_num_to_move Number of columns to remove from the sampled prototype to put in the empty column prototype. Default is 5.
 #' @importFrom utils head
-#' @return A matrix for column prototypes, i.e., a P matrix.
+#' @return A matrix for column clusters, i.e., a P matrix.
 
 random_assign_unassigned_fill_empties_P <- function(data, obj, col_min_num = 10,
                                                     col_num_to_move = 5) {

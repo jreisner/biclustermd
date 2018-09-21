@@ -10,14 +10,14 @@ random_assign_unassigned_fill_empties_Q(data, obj, row_min_num = 10,
 \arguments{
 \item{data}{The data being biclustered. Must to be a data matrix with only numbers and missing values in the data set. It should have row names and column names.}
 
-\item{obj}{A matrix for row prototypes, typically named Q}
+\item{obj}{A matrix for row clusters, typically named Q}
 
 \item{row_min_num}{Minimum row prototype size in order to be eligible to be chosen when filling an empty row prototype. Default is 10.}
 
 \item{row_num_to_move}{Number of rows to remove from the sampled prototype to put in the empty row prototype. Default is 5.}
 }
 \value{
-A matrix for row prototypes, i.e., a Q matrix.
+A matrix for row clusters, i.e., a Q matrix.
 }
 \description{
 Randomly select a row prototype to fill an empty row prototype with

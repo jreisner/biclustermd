@@ -4,10 +4,10 @@
 \alias{col_cluster_names}
 \title{Get column names in each column cluster}
 \usage{
-col_cluster_names(bc_object, data)
+col_cluster_names(x, data)
 }
 \arguments{
-\item{bc_object}{Biclustering object to extract column cluster designation from}
+\item{x}{Biclustering object to extract column cluster designation from}
 
 \item{data}{Data that contains the column names}
 }

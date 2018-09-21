@@ -1,6 +1,6 @@
 #' Plot each iteration's sum of SSEs and a smoothing spline fit to the data.
 #'
-#' @param bicluster_obj A bicluster object.
+#' @param x A bicluster object.
 #' @param linear Logical. If `TRUE`, a linear fit is plotted.
 #' @param pch Point shape. This is equivalent to the `pch` argument for base graphics.
 #' @param cex Scale of the points in the plot.
@@ -11,9 +11,9 @@
 #' @importFrom stats coef lm na.omit
 #' @return A plot
 
-sumSSE_plots <- function(bicluster_obj, linear = FALSE, pch = 20, cex = 1, lwd = 3) {
+sumSSE_plots <- function(x, linear = FALSE, pch = 20, cex = 1, lwd = 3) {
 
-  model_df <- data.frame(sumSSE = as.vector(na.omit(bicluster_obj$SSE)))
+  model_df <- data.frame(sumSSE = as.vector(na.omit(x$SSE)))
   model_df$iteration <- seq_along(model_df$sumSSE)
 
   lin_m <- lm(sumSSE ~ iteration, data = model_df)

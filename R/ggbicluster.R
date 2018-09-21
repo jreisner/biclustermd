@@ -1,6 +1,6 @@
 #' Make a heatmap of sparse biclustering results
 #'
-#' @param bc_object A bicluster object.
+#' @param x A bicluster object.
 #' @param data The raw data that was biclustered.
 #' @param col_clusts A vector of column cluster indices to display. If NULL (default), all are displayed.
 #' @param row_clusts A vector of row cluster indices to display. If NULL (default), all are displayed.
@@ -42,10 +42,10 @@
 #' # Focus on row cluster 1 and column cluster 2
 #' gg_bicluster(bc, dat, col_clusts = 2, row_clusts = 1)
 
-gg_bicluster <- function (bc_object, data, transform_colors = FALSE, c = 1/6,
+gg_bicluster <- function (x, data, transform_colors = FALSE, c = 1/6,
                           cell_alpha = 1/5, col_clusts = NULL, row_clusts = NULL,
                           ...) {
-  bc <- bc_object
+  bc <- x
   P <- bc$P
   Q <- bc$Q
 

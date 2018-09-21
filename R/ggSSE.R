@@ -1,6 +1,6 @@
 #' Plot each iteration's SSE.
 #'
-#' @param bicluster_obj A bicluster object.
+#' @param x A bicluster object.
 #' @param ... Arguments to be passed to `geom_point`
 #' @param smoother Logical. If TRUE, a smoother is added to the plot.
 #'     By default it is FALSE and no smoother is added to the plot.
@@ -12,10 +12,10 @@
 #' @importFrom ggplot2 ggplot aes geom_point geom_smooth theme_bw
 #' @return A ggplot.
 
-gg_sse <- function(bicluster_obj, ..., smoother = FALSE, linear = FALSE) {
+gg_sse <- function(x, ..., smoother = FALSE, linear = FALSE) {
 
-  model_df <- data.frame(SSE = as.vector(na.omit(bicluster_obj$SSE[, 1])),
-                         Iteration = as.vector(na.omit(bicluster_obj$SSE[, 2])))
+  model_df <- data.frame(SSE = as.vector(na.omit(x$SSE[, 1])),
+                         Iteration = as.vector(na.omit(x$SSE[, 2])))
 
   gg <- model_df %>%
     ggplot(aes(x = Iteration, y = SSE)) +

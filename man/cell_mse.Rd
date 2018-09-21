@@ -4,10 +4,10 @@
 \alias{cell_mse}
 \title{Make a data frame containing the MSE for each bicluster cell}
 \usage{
-cell_mse(bc_object, data)
+cell_mse(x, data)
 }
 \arguments{
-\item{bc_object}{A bicluster object.}
+\item{x}{A bicluster object.}
 
 \item{data}{Data the bicluster object was generated from}
 }

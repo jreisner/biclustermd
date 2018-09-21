@@ -4,10 +4,10 @@
 \alias{sumSSE_plots}
 \title{Plot each iteration's sum of SSEs and a smoothing spline fit to the data.}
 \usage{
-sumSSE_plots(bicluster_obj, linear = FALSE, pch = 20, cex = 1, lwd = 3)
+sumSSE_plots(x, linear = FALSE, pch = 20, cex = 1, lwd = 3)
 }
 \arguments{
-\item{bicluster_obj}{A bicluster object.}
+\item{x}{A bicluster object.}
 
 \item{linear}{Logical. If `TRUE`, a linear fit is plotted.}
 

@@ -4,10 +4,10 @@
 \alias{reorder_biclust}
 \title{Reorder a bicluster object for making a heat map}
 \usage{
-reorder_biclust(bc_object)
+reorder_biclust(x)
 }
 \arguments{
-\item{bc_object}{A bicluster object.}
+\item{x}{A bicluster object.}
 }
 \value{
 A list containing the two partition matrices used by gg_bicluster.

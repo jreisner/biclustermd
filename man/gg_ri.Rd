@@ -4,10 +4,10 @@
 \alias{gg_ri}
 \title{Plot each iteration's Rand Indices using the ggplot2 framework}
 \usage{
-gg_ri(bicluster_obj, ...)
+gg_ri(x, ...)
 }
 \arguments{
-\item{bicluster_obj}{A bicluster object.}
+\item{x}{A bicluster object.}
 
 \item{...}{Arguments to be passed to `geom_point()` and `geom_line()`.}
 }

@@ -1,6 +1,6 @@
 #' Plot each iteration's Rand Indices using the ggplot2 framework
 #'
-#' @param bicluster_obj A bicluster object.
+#' @param x A bicluster object.
 #' @param ... Arguments to be passed to `geom_point()` and `geom_line()`.
 #' @export
 #' @importFrom graphics points
@@ -10,10 +10,10 @@
 #' @return A ggplot
 #'
 #'
-gg_ri <- function(bicluster_obj, ...) {
-  model_df <- data.frame(Column = as.vector(na.omit(bicluster_obj$RIs[, 1])),
-                         Row = as.vector(na.omit(bicluster_obj$RIs[, 2])),
-                         Iteration = as.vector(na.omit(bicluster_obj$RIs[, 3])))
+gg_ri <- function(x, ...) {
+  model_df <- data.frame(Column = as.vector(na.omit(x$RIs[, 1])),
+                         Row = as.vector(na.omit(x$RIs[, 2])),
+                         Iteration = as.vector(na.omit(x$RIs[, 3])))
 
   gg <- model_df %>%
     gather(`Rand Index`, Value, -Iteration) %>%

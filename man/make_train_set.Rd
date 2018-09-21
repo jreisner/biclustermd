@@ -4,12 +4,12 @@
 \alias{make_train_set}
 \title{Make a data frame containing information about what cluster a row-column pair is in}
 \usage{
-make_train_set(data, bicluster_obj)
+make_train_set(data, x)
 }
 \arguments{
 \item{data}{Data that was fed into the bicluster function.}
 
-\item{bicluster_obj}{A bicluster object.}
+\item{x}{A bicluster object.}
 }
 \value{
 A data frame

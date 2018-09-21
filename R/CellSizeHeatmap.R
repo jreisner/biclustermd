@@ -1,6 +1,6 @@
 #' Make a heat map of bicluster cell sizes.
 #'
-#' @param bc_object An object created by biclustering
+#' @param x An object created by biclustering
 #' @param linewidth Width of vertical and horizontal lines. Default is 0.1.
 #' @param log_scale Logical. If TRUE, log10 scale on the legend is used. Default is FALSE.
 #' @export
@@ -22,9 +22,9 @@
 #'                 max.iter = 10)
 #' cell_heatmap(bc)
 
-cell_heatmap <- function(bc_object, linewidth = 0.1, log_scale = FALSE) {
+cell_heatmap <- function(x, linewidth = 0.1, log_scale = FALSE) {
 
-  bc <- bc_object
+  bc <- x
 
   cell_sizes <- colSums(bc$Q) %*% t(colSums(bc$P))
   colnames(cell_sizes) <- seq(1, ncol(cell_sizes))

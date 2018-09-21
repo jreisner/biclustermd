@@ -1,6 +1,6 @@
 #' Get row names in each row cluster
 #'
-#' @param bc_object Biclustering object to extract row cluster designation from
+#' @param x Biclustering object to extract row cluster designation from
 #' @param data Data that contains the row names
 #'
 #' @export
@@ -21,8 +21,8 @@
 #'                 max.iter = 10)
 #' row_cluster_names(bc, synthetic)
 #' col_cluster_names(bc, synthetic)
-row_cluster_names <- function(bc_object, data) {
-  row_clust <- data.frame(row_cluster = part_matrix_to_vector(bc_object$Q))
+row_cluster_names <- function(x, data) {
+  row_clust <- data.frame(row_cluster = part_matrix_to_vector(x$Q))
 
   row_clust$name <- rownames(data)
 

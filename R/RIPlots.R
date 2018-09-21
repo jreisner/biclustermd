@@ -1,14 +1,14 @@
 #' Plot each iteration's Rand Indices
 #'
-#' @param bicluster_obj A bicluster object.
+#' @param x A bicluster object.
 #' @param ... Arguments to be passed to base R line and point graphics.
 #' @export
 #' @importFrom graphics points
 #' @return A plot
 
-RI_plots <- function(bicluster_obj, ...) {
-  model_df <- data.frame(PRI = as.vector(na.omit(bicluster_obj$RIs[, 1])),
-                         QRI = as.vector(na.omit(bicluster_obj$RIs[, 2])))
+RI_plots <- function(x, ...) {
+  model_df <- data.frame(PRI = as.vector(na.omit(x$RIs[, 1])),
+                         QRI = as.vector(na.omit(x$RIs[, 2])))
   model_df$iteration <- seq_along(model_df$PRI)
 
   y_min <- floor(min(model_df) * 100) / 100

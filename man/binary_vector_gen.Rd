@@ -4,12 +4,12 @@
 \alias{binary_vector_gen}
 \title{Make a binary vector with all values equal to zero except for one}
 \usage{
-binary_vector_gen(n, i0)
+binary_vector_gen(n, i)
 }
 \arguments{
 \item{n}{Desired vector length.}
 
-\item{i0}{Index whose value is one.}
+\item{i}{Index whose value is one.}
 }
 \value{
 A vector

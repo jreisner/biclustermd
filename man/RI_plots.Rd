@@ -4,10 +4,10 @@
 \alias{RI_plots}
 \title{Plot each iteration's Rand Indices}
 \usage{
-RI_plots(bicluster_obj, ...)
+RI_plots(x, ...)
 }
 \arguments{
-\item{bicluster_obj}{A bicluster object.}
+\item{x}{A bicluster object.}
 
 \item{...}{Arguments to be passed to base R line and point graphics.}
 }

@@ -10,14 +10,14 @@ random_assign_unassigned_fill_empties_P(data, obj, col_min_num = 10,
 \arguments{
 \item{data}{The data being biclustered. Must to be a data matrix with only numbers and missing values in the data set. It should have row names and column names.}
 
-\item{obj}{A matrix for colum prototypes, typically named P.}
+\item{obj}{A matrix for column clusters, typically named P.}
 
 \item{col_min_num}{Minimum column prototype size in order to be eligible to be chosen when filling an empty column prototype. Default is 10.}
 
 \item{col_num_to_move}{Number of columns to remove from the sampled prototype to put in the empty column prototype. Default is 5.}
 }
 \value{
-A matrix for column prototypes, i.e., a P matrix.
+A matrix for column clusters, i.e., a P matrix.
 }
 \description{
 Randomly select a column prototype to fill an empty column prototype with

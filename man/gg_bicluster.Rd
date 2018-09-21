@@ -4,11 +4,11 @@
 \alias{gg_bicluster}
 \title{Make a heatmap of sparse biclustering results}
 \usage{
-gg_bicluster(bc_object, data, transform_colors = FALSE, c = 1/6,
-  cell_alpha = 1/5, col_clusts = NULL, row_clusts = NULL, ...)
+gg_bicluster(x, data, transform_colors = FALSE, c = 1/6, cell_alpha = 1/5,
+  col_clusts = NULL, row_clusts = NULL, ...)
 }
 \arguments{
-\item{bc_object}{A bicluster object.}
+\item{x}{A bicluster object.}
 
 \item{data}{The raw data that was biclustered.}
 

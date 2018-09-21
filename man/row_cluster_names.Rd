@@ -4,10 +4,10 @@
 \alias{row_cluster_names}
 \title{Get row names in each row cluster}
 \usage{
-row_cluster_names(bc_object, data)
+row_cluster_names(x, data)
 }
 \arguments{
-\item{bc_object}{Biclustering object to extract row cluster designation from}
+\item{x}{Biclustering object to extract row cluster designation from}
 
 \item{data}{Data that contains the row names}
 }

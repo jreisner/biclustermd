@@ -4,10 +4,10 @@
 \alias{gg_sse}
 \title{Plot each iteration's SSE.}
 \usage{
-gg_sse(bicluster_obj, ..., smoother = FALSE, linear = FALSE)
+gg_sse(x, ..., smoother = FALSE, linear = FALSE)
 }
 \arguments{
-\item{bicluster_obj}{A bicluster object.}
+\item{x}{A bicluster object.}
 
 \item{...}{Arguments to be passed to `geom_point`}
 
