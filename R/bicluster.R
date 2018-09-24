@@ -202,8 +202,8 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
       result_list$iteration <- s
       result_list$A <- A
 
-      result_list$InitialSSE <- result_list$SSE[1:result_list$iteration]
-      result_list$InitialSSE <- result_list$RIs[1:result_list$iteration]
+      result_list$InitialSSE <- result_list$SSE[1:result_list$iteration,]
+      result_list$InitialSSE <- result_list$RIs[1:result_list$iteration,]
 
       return(result_list)
       break
