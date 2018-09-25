@@ -49,8 +49,8 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
   m_d <- nrow(data)
   n_d <- ncol(data)
 
-  result_list <- vector("list", 7)
-  names(result_list) <- c("P", "Q", "InitialSSE", "SSE", "RIs", "iteration", "A")
+  result_list <- vector("list", 8)
+  names(result_list) <- c("data", "P", "Q", "InitialSSE", "SSE", "RIs", "iteration", "A")
 
   InitialSSE <- cluster_iteration_sum_sse(data, P, Q)
 
@@ -194,6 +194,7 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
     RIs[s, 3] <- s - 1
 
     if((PRI == 1) && (QRI == 1)) {
+      result_list$data <- data
       result_list$P <- P
       result_list$Q <- Q
       result_list$InitialSSE <- InitialSSE
@@ -205,6 +206,8 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
       result_list$SSE <- result_list$SSE[1:s,]
       result_list$RIs <- result_list$RIs[1:s,]
 
+      class(result_list) <- c("biclustermd", "list")
+
       return(result_list)
       break
     }
@@ -212,6 +215,7 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
 
   }
 
+  result_list$data <- data
   result_list$P <- P
   result_list$Q <- Q
   result_list$InitialSSE <- InitialSSE
@@ -220,6 +224,7 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
   result_list$iteration <- s
   result_list$A <- A
 
+  class(result_list) <- c("biclustermd", "list")
 
   return(result_list)
 
