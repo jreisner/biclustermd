@@ -208,7 +208,7 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
 
       class(result_list) <- c("biclustermd", "list")
 
-      return(result_list)
+      result_list
       break
     }
 
@@ -226,7 +226,7 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
 
   class(result_list) <- c("biclustermd", "list")
 
-  return(result_list)
+  result_list
 
 }
 
