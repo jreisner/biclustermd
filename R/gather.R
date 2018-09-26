@@ -32,7 +32,7 @@ gather.biclustermd <- function(data, key = NULL, value = NULL, ..., na.rm = FALS
   colnames(dat)[1] <- "row_name"
   
   dat <- dat %>% 
-    gather(col_name, val, -row_name)
+    gather(col_name, value, -row_name)
   dat$row_group <- unlist(
     lapply(1:nrow(dat), function(n) {
       which(q[rownames(q) == dat$row_name[n], ] == 1)
@@ -45,6 +45,6 @@ gather.biclustermd <- function(data, key = NULL, value = NULL, ..., na.rm = FALS
   )
   dat <- dat %>% 
     arrange(row_group, col_group) %>%
-    select(row_name, col_name, row_group, col_group, val)
+    select(row_name, col_name, row_group, col_group, value)
   dat
 }
