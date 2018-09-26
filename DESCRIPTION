@@ -11,13 +11,13 @@ Description: Biclustering is a statistical learning technique that simultaneousl
     algorithm to work on sparse data. 
 URL: http://github.com/jreisner/sparseBiclustering
 BugReports: http://github.com/jreisner/sparseBiclustering/issues
-Depends: R (>= 3.5.0)
+Depends: ggplot2 (>= 3.0.0), 
+         R (>= 3.5.0),
+         tidyr (>= 0.8.1)
 Imports: dplyr (>= 0.7.6), 
          gam (>= 1.14.4), 
-         ggplot2 (>= 2.2.1), 
          magrittr (>= 1.5), 
-         phyclust (>= 0.1.22),
-         tidyr (>= 0.7.2)
+         phyclust (>= 0.1.22)
 License: What license is it under?
 Encoding: UTF-8
 LazyData: true
