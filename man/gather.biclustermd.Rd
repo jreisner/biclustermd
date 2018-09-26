@@ -4,10 +4,23 @@
 \alias{gather.biclustermd}
 \title{Gather a biclustermd object}
 \usage{
-\method{gather}{biclustermd}(x)
+\method{gather}{biclustermd}(data, key = NULL, value = NULL, ...,
+  na.rm = FALSE, convert = FALSE, factor_key = FALSE)
 }
 \arguments{
-\item{x}{a \code{biclustermd} object to gather.}
+\item{data}{a \code{biclustermd} object to gather.}
+
+\item{key}{unused; included for consistency with \code{tidyr} generic}
+
+\item{value}{unused; included for consistency with \code{tidyr} generic}
+
+\item{...}{unused; included for consistency with \code{tidyr} generic}
+
+\item{na.rm}{unused; included for consistency with \code{tidyr} generic}
+
+\item{convert}{unused; included for consistency with \code{tidyr} generic}
+
+\item{factor_key}{unused; included for consistency with \code{tidyr} generic}
 }
 \value{
 A data frame containing the row names and column names of both the 

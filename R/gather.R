@@ -1,6 +1,12 @@
 #' Gather a biclustermd object
 #' 
-#' @param x a \code{biclustermd} object to gather.
+#' @param data a \code{biclustermd} object to gather.
+#' @param key unused; included for consistency with \code{tidyr} generic
+#' @param value unused; included for consistency with \code{tidyr} generic
+#' @param ... unused; included for consistency with \code{tidyr} generic
+#' @param na.rm unused; included for consistency with \code{tidyr} generic
+#' @param convert unused; included for consistency with \code{tidyr} generic
+#' @param factor_key unused; included for consistency with \code{tidyr} generic
 #' 
 #' @return A data frame containing the row names and column names of both the 
 #'   two-way table of data biclustered and the cell-average matrix.
@@ -11,33 +17,34 @@
 #' 
 #' @export
 #' 
-gather.biclustermd <- function (x) {
-  data <- as.data.frame(x$data)
-  bc <- x[-1]
+gather.biclustermd <- function(data, key = NULL, value = NULL, ..., na.rm = FALSE,
+                               convert = FALSE, factor_key = FALSE) {
+  dat <- as.data.frame(data$data)
+  bc <- data[-1]
   q <- bc$Q
   p <- bc$P
-  rownames(q) <- rownames(data)
-  rownames(p) <- colnames(data)
-  rnames <- rownames(data)
+  rownames(q) <- rownames(dat)
+  rownames(p) <- colnames(dat)
+  rnames <- rownames(dat)
   
-  data$row_name <- rnames
-  data <- data[, c(ncol(data), 1:(ncol(data) - 1))]
-  colnames(data)[1] <- "row_name"
+  dat$row_name <- rnames
+  dat <- dat[, c(ncol(dat), 1:(ncol(dat) - 1))]
+  colnames(dat)[1] <- "row_name"
   
-  data <- data %>% 
+  dat <- dat %>% 
     gather(col_name, val, -row_name)
-  data$row_group <- unlist(
-    lapply(1:nrow(data), function(n) {
-      which(q[rownames(q) == data$row_name[n], ] == 1)
+  dat$row_group <- unlist(
+    lapply(1:nrow(dat), function(n) {
+      which(q[rownames(q) == dat$row_name[n], ] == 1)
     })
   )
-  data$col_group <- unlist(
-    lapply(1:nrow(data), function(n) {
-      which(p[rownames(p) == data$col_name[n], ] == 1)
+  dat$col_group <- unlist(
+    lapply(1:nrow(dat), function(n) {
+      which(p[rownames(p) == dat$col_name[n], ] == 1)
     })
   )
-  data <- data %>% 
+  dat <- dat %>% 
     arrange(row_group, col_group) %>%
     select(row_name, col_name, row_group, col_group, val)
-  data
+  dat
 }
