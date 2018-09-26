@@ -3,6 +3,7 @@
 S3method(gather,biclustermd)
 S3method(ggplot,biclustermd)
 S3method(print,biclustermd)
+S3method(row.names,biclustermd)
 export(RI_plots)
 export(bicluster)
 export(cell_heatmap)
