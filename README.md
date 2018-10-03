@@ -1,4 +1,4 @@
-# sparseBiclustering
+# biclustermd
 
 ## LAST UPDATE was 13 June 2018: 
 + Fixed the duplicated factor level error with `gg_bicluster()`, 
