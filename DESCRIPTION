@@ -8,9 +8,9 @@ Description: Biclustering is a statistical learning technique that simultaneousl
     partitions and clusters rows and columns of a data matrix. Since biclustering
     is said to be NP-hard, this package uses a greedy heuristic. The algorithm
     featured in this package is, to the best our knowledge, the first biclustering 
-    algorithm to work on sparse data. 
-URL: http://github.com/jreisner/sparseBiclustering
-BugReports: http://github.com/jreisner/sparseBiclustering/issues
+    algorithm to work on data with missing values. 
+URL: http://github.com/jreisner/biclustermd
+BugReports: http://github.com/jreisner/biclustermd/issues
 Depends: ggplot2 (>= 3.0.0), 
          R (>= 3.5.0),
          tidyr (>= 0.8.1)
