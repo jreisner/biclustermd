@@ -15,12 +15,16 @@ cell_mse <- function(x, data) {
 
   row_cluster_count <- colSums(x$Q, na.rm = TRUE)
   col_cluster_count <- colSums(x$P, na.rm = TRUE)
-  mse_df$row_cluster_count <- unlist(lapply(1:nr, function(x) row_cluster_count[mse_df$row_cluster[x]]))
-  mse_df$col_cluster_count <- unlist(lapply(1:nr, function(x) col_cluster_count[mse_df$col_cluster[x]]))
+  mse_df$row_cluster_count <- unlist(lapply(1:nr, function(z) {
+    row_cluster_count[mse_df$row_cluster[z]]
+  }))
+  mse_df$col_cluster_count <- unlist(lapply(1:nr, function(z) {
+    col_cluster_count[mse_df$col_cluster[z]]
+  }))
 
-  mse_df$CellMean <- unlist(lapply(1:nr, function(x) {
+  mse_df$CellMean <- unlist(lapply(1:nr, function(z) {
 
-    x$A[mse_df$row_cluster[x], mse_df$col_cluster[x]]
+    x$A[mse_df$row_cluster[z], mse_df$col_cluster[z]]
 
   }), use.names = FALSE)
 
