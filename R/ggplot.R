@@ -29,6 +29,6 @@ ggplot.biclustermd <- function(data, mapping = NULL, value = c("sse", "ri"), ...
     geom_line() +
     geom_point() +
     theme_bw() +
-    scale_x_continuous(breaks = 0:(x$iteration - 1))
+    scale_x_continuous(breaks = 0:(data$iteration - 1))
 
 }
