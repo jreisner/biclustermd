@@ -31,18 +31,18 @@
 #'                 col_num_to_move = 1, row_num_to_move = 1,
 #'                 max.iter = 10)
 #' # Default shading
-#' gg_bicluster(bc)
+#' results_heatmap(bc)
 #'
 #' # Complete shading
-#' gg_bicluster(bc, cell_alpha = 1)
+#' results_heatmap(bc, cell_alpha = 1)
 #'
 #' # Transformed values and no shading
-#' gg_bicluster(bc, transform_colors = TRUE, c = 1/20, cell_alpha = 0)
+#' results_heatmap(bc, transform_colors = TRUE, c = 1/20, cell_alpha = 0)
 #'
 #' # Focus on row cluster 1 and column cluster 2
-#' gg_bicluster(bc, col_clusts = 2, row_clusts = 1)
+#' results_heatmap(bc, col_clusts = 2, row_clusts = 1)
 
-gg_bicluster <- function (x, reorder = FALSE, transform_colors = FALSE, c = 1/6,
+results_heatmap <- function (x, reorder = FALSE, transform_colors = FALSE, c = 1/6,
                           cell_alpha = 1/5, col_clusts = NULL, row_clusts = NULL,
                           ...) {
   bc <- x
