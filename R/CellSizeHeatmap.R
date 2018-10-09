@@ -45,11 +45,11 @@ cell_heatmap <- function(x, linewidth = 0.1, log_scale = FALSE) {
 
 
   if(log_scale == TRUE) {
-    gg +
+    gg <- gg +
       scale_fill_gradientn(colours = rev(rainbow(250, start = 0, end = 0.7)),
                            na.value = "white", trans = "log10")
   } else {
-    gg +
+    gg <- gg +
       scale_fill_gradientn(colours = rev(rainbow(250, start = 0, end = 0.7)),
                            na.value = "white")
   }
