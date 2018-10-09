@@ -1,6 +1,7 @@
 #' Make a heatmap of sparse biclustering results
 #'
 #' @param x A \code{biclustermd} object.
+#' @param reorder A logical. If TRUE, heatmap will be sorted according to the cell-average matrix, \code{A}.
 #' @param col_clusts A vector of column cluster indices to display. If NULL (default), all are displayed.
 #' @param row_clusts A vector of row cluster indices to display. If NULL (default), all are displayed.
 #' @param cell_alpha A scalar defining the transparency of shading over a cell and by default this equals 1/5.
@@ -41,12 +42,17 @@
 #' # Focus on row cluster 1 and column cluster 2
 #' gg_bicluster(bc, col_clusts = 2, row_clusts = 1)
 
-gg_bicluster <- function (x, transform_colors = FALSE, c = 1/6,
+gg_bicluster <- function (x, reorder = FALSE, transform_colors = FALSE, c = 1/6,
                           cell_alpha = 1/5, col_clusts = NULL, row_clusts = NULL,
                           ...) {
   bc <- x
   P <- bc$P
   Q <- bc$Q
+
+  if(reorder == TRUE) {
+    P <- reorder_biclust(bc)[[1]]
+    Q <- reorder_biclust(bc)[[2]]
+  }
 
   if(is.null(col_clusts)) {
     col_clusts <- c(1:ncol(P))

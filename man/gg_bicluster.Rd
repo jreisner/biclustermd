@@ -4,11 +4,13 @@
 \alias{gg_bicluster}
 \title{Make a heatmap of sparse biclustering results}
 \usage{
-gg_bicluster(x, transform_colors = FALSE, c = 1/6, cell_alpha = 1/5,
-  col_clusts = NULL, row_clusts = NULL, ...)
+gg_bicluster(x, reorder = FALSE, transform_colors = FALSE, c = 1/6,
+  cell_alpha = 1/5, col_clusts = NULL, row_clusts = NULL, ...)
 }
 \arguments{
 \item{x}{A \code{biclustermd} object.}
+
+\item{reorder}{A logical. If TRUE, heatmap will be sorted according to the cell-average matrix, \code{A}.}
 
 \item{transform_colors}{If equals `TRUE` then the data is scaled by
 `c` and run through a standard normal cdf before plotting. If `FALSE` (default), raw data
