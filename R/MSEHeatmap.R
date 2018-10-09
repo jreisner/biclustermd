@@ -1,6 +1,6 @@
 #' Make a heatmap of cell MSEs
 #'
-#' @param mse_obj A data frame returned by `cell_mse`.
+#' @param x An object of class \code{biclustermd}.
 #' @param linewidth Width of vertical and horizontal lines. Default is 0.1.
 #' @param log_scale Logical. If TRUE, fill legend will be on a log10 scale. Default is FALSE.
 #' @export
@@ -11,11 +11,11 @@
 #' @importFrom grDevices rainbow
 #' @return A ggplot object.
 
-mse_heatmap <- function(mse_obj, linewidth = 0.1, log_scale = FALSE) {
+mse_heatmap <- function(x, linewidth = 0.1, log_scale = FALSE) {
+
+  mse_obj <- cell_mse(x)
 
   gg <- mse_obj %>%
-    mutate(trans_mse = pnorm(CellMSE / 50)) %>%
-    mutate(CellMSE_plus1 = CellMSE + 1) %>%
     ggplot(aes(x = col_cluster, y = row_cluster, fill = CellMSE)) +
     geom_tile(colour = "gray35", size = linewidth) +
     theme_bw() +

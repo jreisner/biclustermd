@@ -4,15 +4,15 @@
 \alias{cell_mse}
 \title{Make a data frame containing the MSE for each bicluster cell}
 \usage{
-cell_mse(x, data)
+cell_mse(x)
 }
 \arguments{
-\item{x}{A bicluster object.}
-
-\item{data}{Data the bicluster object was generated from}
+\item{x}{An object of class \code{biclustermd}.}
 }
 \value{
-A data frame
+A data frame giving the row cluster, column cluster, the number of
+  data points in each row and column cluster, the number of data points missing
+  in the cell, and the cell MSE.
 }
 \description{
 Make a data frame containing the MSE for each bicluster cell

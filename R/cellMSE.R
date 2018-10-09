@@ -1,12 +1,13 @@
 #' Make a data frame containing the MSE for each bicluster cell
 #'
-#' @param x A bicluster object.
-#' @param data Data the bicluster object was generated from
+#' @param x An object of class \code{biclustermd}.
 #' @export
-#' @return A data frame
+#' @return A data frame giving the row cluster, column cluster, the number of
+#'   data points in each row and column cluster, the number of data points missing
+#'   in the cell, and the cell MSE.
 
-cell_mse <- function(x, data) {
-  data <- as.matrix(data)
+cell_mse <- function(x) {
+  data <- as.matrix(x$data)
 
   mse_df <- expand.grid(row_cluster = 1:ncol(x$Q),
                         col_cluster = 1:ncol(x$P))

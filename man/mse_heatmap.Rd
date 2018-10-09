@@ -4,10 +4,10 @@
 \alias{mse_heatmap}
 \title{Make a heatmap of cell MSEs}
 \usage{
-mse_heatmap(mse_obj, linewidth = 0.1, log_scale = FALSE)
+mse_heatmap(x, linewidth = 0.1, log_scale = FALSE)
 }
 \arguments{
-\item{mse_obj}{A data frame returned by `cell_mse`.}
+\item{x}{An object of class \code{biclustermd}.}
 
 \item{linewidth}{Width of vertical and horizontal lines. Default is 0.1.}
 
