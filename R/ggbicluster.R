@@ -1,7 +1,6 @@
 #' Make a heatmap of sparse biclustering results
 #'
-#' @param x A bicluster object.
-#' @param data The raw data that was biclustered.
+#' @param x A \code{biclustermd} object.
 #' @param col_clusts A vector of column cluster indices to display. If NULL (default), all are displayed.
 #' @param row_clusts A vector of row cluster indices to display. If NULL (default), all are displayed.
 #' @param cell_alpha A scalar defining the transparency of shading over a cell and by default this equals 1/5.
@@ -31,18 +30,18 @@
 #'                 col_num_to_move = 1, row_num_to_move = 1,
 #'                 max.iter = 10)
 #' # Default shading
-#' gg_bicluster(bc, dat)
+#' gg_bicluster(bc)
 #'
 #' # Complete shading
-#' gg_bicluster(bc, dat, cell_alpha = 1)
+#' gg_bicluster(bc, cell_alpha = 1)
 #'
 #' # Transformed values and no shading
-#' gg_bicluster(bc, dat, transform_colors = TRUE, c = 1/20, cell_alpha = 0)
+#' gg_bicluster(bc, transform_colors = TRUE, c = 1/20, cell_alpha = 0)
 #'
 #' # Focus on row cluster 1 and column cluster 2
-#' gg_bicluster(bc, dat, col_clusts = 2, row_clusts = 1)
+#' gg_bicluster(bc, col_clusts = 2, row_clusts = 1)
 
-gg_bicluster <- function (x, data, transform_colors = FALSE, c = 1/6,
+gg_bicluster <- function (x, transform_colors = FALSE, c = 1/6,
                           cell_alpha = 1/5, col_clusts = NULL, row_clusts = NULL,
                           ...) {
   bc <- x
@@ -76,7 +75,7 @@ gg_bicluster <- function (x, data, transform_colors = FALSE, c = 1/6,
   q_num <- rep(seq_along(unlist(lapply(q_list, length), use.names = FALSE)),
                unlist(lapply(q_list, length), use.names = FALSE))
 
-  ord_dat <- data[row_ord, col_ord]
+  ord_dat <- x$data[row_ord, col_ord]
   ord_dat <- as.data.frame(ord_dat)
   ord_dat$rows <- rownames(ord_dat)
   ord_dat$row_clust <- q_num

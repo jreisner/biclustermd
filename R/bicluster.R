@@ -32,8 +32,6 @@
 #'                 col_num_to_move = 1, row_num_to_move = 1,
 #'                 max.iter = 10)
 #' bc
-#' gg_sse(bc)
-#' gg_bicluster(bc, synthetic)
 
 
 bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,

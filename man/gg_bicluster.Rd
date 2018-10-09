@@ -4,13 +4,11 @@
 \alias{gg_bicluster}
 \title{Make a heatmap of sparse biclustering results}
 \usage{
-gg_bicluster(x, data, transform_colors = FALSE, c = 1/6, cell_alpha = 1/5,
+gg_bicluster(x, transform_colors = FALSE, c = 1/6, cell_alpha = 1/5,
   col_clusts = NULL, row_clusts = NULL, ...)
 }
 \arguments{
-\item{x}{A bicluster object.}
-
-\item{data}{The raw data that was biclustered.}
+\item{x}{A \code{biclustermd} object.}
 
 \item{transform_colors}{If equals `TRUE` then the data is scaled by
 `c` and run through a standard normal cdf before plotting. If `FALSE` (default), raw data
@@ -47,14 +45,14 @@ bc <- bicluster(dat, P01, Q01, miss_val = mean(dat, na.rm = TRUE),
                 col_num_to_move = 1, row_num_to_move = 1,
                 max.iter = 10)
 # Default shading
-gg_bicluster(bc, dat)
+gg_bicluster(bc)
 
 # Complete shading
-gg_bicluster(bc, dat, cell_alpha = 1)
+gg_bicluster(bc, cell_alpha = 1)
 
 # Transformed values and no shading
-gg_bicluster(bc, dat, transform_colors = TRUE, c = 1/20, cell_alpha = 0)
+gg_bicluster(bc, transform_colors = TRUE, c = 1/20, cell_alpha = 0)
 
 # Focus on row cluster 1 and column cluster 2
-gg_bicluster(bc, dat, col_clusts = 2, row_clusts = 1)
+gg_bicluster(bc, col_clusts = 2, row_clusts = 1)
 }

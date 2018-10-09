@@ -56,6 +56,4 @@ bc <- bicluster(synthetic, P01, Q01, miss_val = mean(synthetic, na.rm = TRUE),
                 col_num_to_move = 1, row_num_to_move = 1,
                 max.iter = 10)
 bc
-gg_sse(bc)
-gg_bicluster(bc, synthetic)
 }
