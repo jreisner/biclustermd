@@ -7,7 +7,7 @@
 cell_heatmap(x, linewidth = 0.1, log_scale = FALSE)
 }
 \arguments{
-\item{x}{An object created by biclustering}
+\item{x}{An object of class \code{biclustermd}.}
 
 \item{linewidth}{Width of vertical and horizontal lines. Default is 0.1.}
 
