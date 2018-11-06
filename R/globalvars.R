@@ -1,7 +1,7 @@
-#' Sparse Biclustering
+#' Biclustering with Missing Data
 #'
 #' @docType package
-#' @name sparseBiclustering
+#' @name biclustermd
 NULL
 
 globalVariables(c("col_name", "val", "row_name", "row_proto", "col_proto",
