@@ -1,10 +1,4 @@
 # biclustermd
-
-## LAST UPDATE was 13 June 2018: 
-+ Fixed the duplicated factor level error with `gg_bicluster()`, 
-+ Package is now built on R 3.5.0, and
-+ Added cell shading feature.
-
 ## If you encounter an issue, please open an issue or email me at johntreisner at gmail dot com.
 
 See the file "Airports.rmd" for a walk-through of the package and how it is used.
@@ -14,8 +8,8 @@ This package is currently being updated on a nearly daily basis, so check back f
 Here is a toy example which is also found in the help page for the function `bicluster()`. (This example is from the commented portion of the bicluster.R file in the R folder above.)
 
 ```r
-devtools::install_github("jreisner/sparseBiclustering")
-library(sparseBiclustering)
+devtools::install_github("jreisner/biclustermd")
+library(biclustermd)
 ?bicluster
 
 dat <- kronecker(matrix(1:6, nrow = 2, ncol = 3), matrix(5, nrow = 3, ncol = 4))

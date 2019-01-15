@@ -47,8 +47,8 @@ Now that our data is in correct form we can bicluster it.
 We first need to randomly make groups of months and groups of destination airports. We'll first work on months. `partition_gen()` randomly assigns N objects into K groups. Since rows correspond to months we want to set N equal to the number of rows of our data. Since we are grouping months, in this analysis, setting K = 4 may not be a bad idea: create a group for each season/quarter of the year. The following code generates a partition matrix for rows.
 ```{r}
 # install.packages("devtools")
-# devtools::install_github("jreisner/sparseBiclustering")
-library(sparseBiclustering)
+# devtools::install_github("jreisner/biclustermd")
+library(biclustermd)
 Q01 <- partition_gen(N = nrow(flights), K = 4)
 Q01 %>% head()
 ```
