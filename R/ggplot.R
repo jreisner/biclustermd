@@ -18,12 +18,12 @@ ggplot.biclustermd <- function(data, mapping = NULL, value = c("sse", "ri"), ...
       ggplot(aes(Iteration, SSE))
   } else if(value == "ri") {
     value_df <- data.frame(data$RIs)
-    names(value_df)[-3] <- c("P", "Q")
+    names(value_df)[-3] <- c("Columns (P)", "Rows (Q)")
 
     p <- value_df %>%
       gather(`Rand Index`, Value, -Iteration) %>%
       ggplot(aes(Iteration, Value, colour = `Rand Index`)) +
-      scale_colour_manual(values = c("red", "blue"))
+      scale_colour_manual("Rand Index", values = c("red", "blue"))
   }
   p +
     geom_line() +
