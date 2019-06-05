@@ -17,7 +17,7 @@ Depends: ggplot2 (>= 3.0.0),
 Imports: dplyr (>= 0.7.6), 
          gam (>= 1.14.4), 
          magrittr (>= 1.5), 
-         phyclust (>= 0.1.22)
+         clues (>= 0.5.9)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
