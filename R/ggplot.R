@@ -25,7 +25,7 @@ ggplot.biclustermd <- function(x, mapping = NULL, value = c("sse", "similarity")
     } else if(x$params$similarity == 'Jaccard') {
       value_df <- x$Similarities[, c("P_jaccard", "Q_jaccard")]
     }
-    names(value_df) <- c("Columns (P)", "Rows (Q)")
+    names(value_df)[-3] <- c("Columns (P)", "Rows (Q)")
 
     p <- value_df %>%
       gather(`Similarity Index`, Value, -Iteration) %>%
