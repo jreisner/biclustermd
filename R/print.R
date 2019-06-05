@@ -14,22 +14,22 @@ print.biclustermd <- function(x, ...) {
     cat(
       "\n ", x$params$similarity,
       " similarity used; Indices: ",
-      "Columns (P) = ", round(x$RIs[x$iteration, "P_rand"], 3),
-      ", Rows (Q) = ", round(x$RIs[x$iteration, "Q_rand"], 3), "\n", sep = ""
+      "Columns (P) = ", round(x$Similarities[x$iteration, "P_rand"], 3),
+      ", Rows (Q) = ", round(x$Similarities[x$iteration, "Q_rand"], 3), "\n", sep = ""
     )
   } else if(x$params$similarity == 'HA') {
     cat(
       "\n ", x$params$similarity,
       " similarity used; Indices: ",
-      "Columns (P) = ", round(x$RIs[x$iteration, "P_ha"], 3),
-      ", Rows (Q) = ", round(x$RIs[x$iteration, "Q_ha"], 3), "\n", sep = ""
+      "Columns (P) = ", round(x$Similarities[x$iteration, "P_ha"], 3),
+      ", Rows (Q) = ", round(x$Similarities[x$iteration, "Q_ha"], 3), "\n", sep = ""
     )
   } else if(x$params$similarity == 'Jaccard') {
     cat(
       "\n ", x$params$similarity,
       " similarity used; Indices: ",
-      "Columns (P) = ", round(x$RIs[x$iteration, "P_jaccard"], 3),
-      ", Rows (Q) = ", round(x$RIs[x$iteration, "Q_jaccard"], 3), "\n", sep = ""
+      "Columns (P) = ", round(x$Similarities[x$iteration, "P_jaccard"], 3),
+      ", Rows (Q) = ", round(x$Similarities[x$iteration, "Q_jaccard"], 3), "\n", sep = ""
     )
   }
 

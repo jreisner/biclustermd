@@ -51,7 +51,7 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1, similarity = "Ran
   n_d <- ncol(data)
 
   result_list <- vector("list", 9)
-  names(result_list) <- c("params", "data", "P", "Q", "InitialSSE", "SSE", "RIs", "iteration", "A")
+  names(result_list) <- c("params", "data", "P", "Q", "InitialSSE", "SSE", "Similarities", "iteration", "A")
   result_list$params <- mget(names(formals()),sys.frame(sys.nframe()))
 
   InitialSSE <- cluster_iteration_sum_sse(data, P, Q)
@@ -62,8 +62,8 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1, similarity = "Ran
   # RIs <- matrix(nrow = max.iter, ncol = 3)
   # colnames(RIs) <- c("P_sim", "Q_sim", "Iteration")
 
-  RIs <- matrix(nrow = max.iter, ncol = 7)
-  colnames(RIs) <- c("P_rand", "P_ha", "P_jaccard", "Q_rand", "Q_ha", "Q_jaccard", "Iteration")
+  Similarities <- matrix(nrow = max.iter, ncol = 7)
+  colnames(Similarities) <- c("P_rand", "P_ha", "P_jaccard", "Q_rand", "Q_ha", "Q_jaccard", "Iteration")
 
   n_p <- ncol(P)
   n_q <- ncol(Q)
@@ -199,9 +199,9 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1, similarity = "Ran
     # RIs[s, 1] <- P_sim
     # RIs[s, 2] <- Q_sim
     # RIs[s, 3] <- s - 1
-    RIs[s, 1:3] <- adjustedRand(P_old_vec, P_new_vec, randMethod = c("Rand", "HA", "Jaccard"))
-    RIs[s, 4:6] <- adjustedRand(Q_old_vec, Q_new_vec, randMethod = c("Rand", "HA", "Jaccard"))
-    RIs[s, 7] <- s - 1
+    Similarities[s, 1:3] <- adjustedRand(P_old_vec, P_new_vec, randMethod = c("Rand", "HA", "Jaccard"))
+    Similarities[s, 4:6] <- adjustedRand(Q_old_vec, Q_new_vec, randMethod = c("Rand", "HA", "Jaccard"))
+    Similarities[s, 7] <- s - 1
 
     if((P_sim == 1) && (Q_sim == 1)) {
       result_list$data <- data
@@ -209,12 +209,12 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1, similarity = "Ran
       result_list$Q <- Q
       result_list$InitialSSE <- InitialSSE
       result_list$SSE <- SSE
-      result_list$RIs <- data.frame(RIs)
+      result_list$Similarities <- data.frame(Similarities)
       result_list$iteration <- s
       result_list$A <- A
 
       result_list$SSE <- result_list$SSE[1:s,]
-      result_list$RIs <- result_list$RIs[1:s,]
+      result_list$Similarities <- result_list$Similarities[1:s,]
 
       class(result_list) <- c("biclustermd", "list")
 
@@ -230,10 +230,10 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1, similarity = "Ran
   result_list$Q <- Q
   result_list$InitialSSE <- InitialSSE
   result_list$SSE <- SSE
-  result_list$RIs <- data.frame(RIs)
+  result_list$Similarities <- data.frame(Similarities)
 
   result_list$SSE <- result_list$SSE[1:s,]
-  result_list$RIs <- result_list$RIs[1:s,]
+  result_list$Similarities <- result_list$Similarities[1:s,]
 
   result_list$iteration <- s
   result_list$A <- A

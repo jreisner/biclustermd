@@ -5,14 +5,14 @@
 \title{Plot the SSE or Rand Indices of a \code{biclustermd} object.}
 \usage{
 \method{ggplot}{biclustermd}(data, mapping = NULL, value = c("sse",
-  "ri"), ..., environment = NULL)
+  "similarity"), ..., environment = NULL)
 }
 \arguments{
 \item{data}{an object of class \code{biclustermd}.}
 
 \item{mapping}{unused; included to match \code{ggplot2} generic}
 
-\item{value}{which value to plot. Can be either "sse" or "ri".}
+\item{value}{which value to plot. Can be either "sse" or "similarity".}
 
 \item{...}{unused; included to match \code{ggplot2} generic}
 
