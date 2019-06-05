@@ -136,8 +136,6 @@ results_heatmap <- function (x, reorder = FALSE, transform_colors = FALSE, c = 1
       geom_rect(data = res_list$rect_coords,
                 aes(xmax = xmx, xmin = xmn, ymax = ymx, ymin = ymn, fill = cell_mean_trans),
                 alpha = cell_alpha) +
-      scale_fill_gradientn(colours = rev(rainbow(250, start = 0, end = 0.7)),
-                           na.value = "white") +
       theme_bw() +
       theme(axis.text = element_blank(), axis.ticks = element_blank(),
             panel.grid.major = element_blank(), panel.grid.minor = element_blank())
@@ -150,8 +148,6 @@ results_heatmap <- function (x, reorder = FALSE, transform_colors = FALSE, c = 1
       geom_rect(data = res_list$rect_coords,
                 aes(xmax = xmx, xmin = xmn, ymax = ymx, ymin = ymn, fill = cell_mean),
                 alpha = cell_alpha) +
-      scale_fill_gradientn(colours = rev(rainbow(250, start = 0, end = 0.7)),
-                           na.value = "white") +
       theme_bw() +
       theme(axis.text = element_blank(), axis.ticks = element_blank(),
             panel.grid.major = element_blank(), panel.grid.minor = element_blank())
