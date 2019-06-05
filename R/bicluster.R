@@ -21,9 +21,11 @@
 #' @export
 #' @importFrom clues adjustedRand
 #' @importFrom stats rnorm
-#' @return A list containing all arguments passed to the function, final matrices for column and
-#'     row partitions, the SSE of the original partitioning, the SSE for each iteration, the Rand Indices for row and column
-#'     prototypes, the number of iterations the algorithm ran for, and the final prototype matrix.
+#' @return A list containing all arguments passed to the function, final matrices
+#'     for column and row partitions, the SSE of the original partitioning,
+#'     the SSE for each iteration, the similarity scores for row and column
+#'     prototypes, the number of iterations the algorithm ran for, and the final
+#'     prototype matrix.
 #' @examples
 #' data("synthetic")
 #' P01 <- partition_gen(12, 3)
