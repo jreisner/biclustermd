@@ -19,11 +19,11 @@ ggplot.biclustermd <- function(x, mapping = NULL, value = c("sse", "similarity")
   } else if(value == "similarity") {
     value_df <- data.frame(x$Similarities)
     if(x$params$similarity == 'Rand') {
-      value_df <- x$Similarities[, c("P_rand", "Q_rand")]
+      value_df <- x$Similarities[, c("P_rand", "Q_rand", "Iteration")]
     } else if(x$params$similarity == 'HA') {
-      value_df <- x$Similarities[, c("P_ha", "Q_ha")]
+      value_df <- x$Similarities[, c("P_ha", "Q_ha", "Iteration")]
     } else if(x$params$similarity == 'Jaccard') {
-      value_df <- x$Similarities[, c("P_jaccard", "Q_jaccard")]
+      value_df <- x$Similarities[, c("P_jaccard", "Q_jaccard", "Iteration")]
     }
     names(value_df)[-3] <- c("Columns (P)", "Rows (Q)")
 
