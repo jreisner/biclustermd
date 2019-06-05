@@ -4,9 +4,9 @@
 \alias{old_bicluster}
 \title{Bicluster data (old)}
 \usage{
-old_bicluster(data, P0, Q0, miss_val, col_min_num = 5, row_min_num = 10,
-  col_num_to_move = 5, row_num_to_move = 5, max.iter = 100,
-  verbose = TRUE)
+old_bicluster(data, P0, Q0, miss_val, col_min_num = 5,
+  row_min_num = 10, col_num_to_move = 5, row_num_to_move = 5,
+  max.iter = 100, verbose = TRUE)
 }
 \arguments{
 \item{data}{Dataset to bicluster. Must to be a data matrix with only numbers and missing values in the data set. It should have row names and column names.}

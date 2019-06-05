@@ -4,8 +4,8 @@
 \alias{ggplot.biclustermd}
 \title{Plot the SSE or Rand Indices of a \code{biclustermd} object.}
 \usage{
-\method{ggplot}{biclustermd}(data, mapping = NULL, value = c("sse", "ri"),
-  ..., environment = NULL)
+\method{ggplot}{biclustermd}(data, mapping = NULL, value = c("sse",
+  "ri"), ..., environment = NULL)
 }
 \arguments{
 \item{data}{an object of class \code{biclustermd}.}
