@@ -43,7 +43,7 @@ See \link[clues]{adjustedRand} for details.}
 \item{verbose}{Logical. If TRUE, will report progress.}
 }
 \value{
-A list containing final matrices for column and
+A list containing all arguments passed to the function, final matrices for column and
     row partitions, the SSE of the original partitioning, the SSE for each iteration, the Rand Indices for row and column
     prototypes, the number of iterations the algorithm ran for, and the final prototype matrix.
 }
