@@ -9,8 +9,30 @@ print.biclustermd <- function(x, ...) {
   cat("\n ", x$iteration, " Iterations", sep = "")
   cat("\n ", "Initial SSE = ", round(x$InitialSSE),
       "; Final SSE = ", round(x$SSE[x$iteration, 1]), sep = "")
-  cat("\n ", "Rand Indices: ", "P = ", round(x$RIs[x$iteration, 1], 3), ", Q = ",
-      round(x$RIs[x$iteration, 2], 3), "\n", sep = "")
+
+  if(x$params$similarity == 'Rand') {
+    cat(
+      "\n ", x$params$similarity,
+      " similarity used; Indices: ",
+      "Columns (P) = ", round(x$RIs[x$iteration, "P_rand"], 3),
+      ", Rows (Q) = ", round(x$RIs[x$iteration, "Q_rand"], 3), "\n", sep = ""
+    )
+  } else if(x$params$similarity == 'HA') {
+    cat(
+      "\n ", x$params$similarity,
+      " similarity used; Indices: ",
+      "Columns (P) = ", round(x$RIs[x$iteration, "P_ha"], 3),
+      ", Rows (Q) = ", round(x$RIs[x$iteration, "Q_ha"], 3), "\n", sep = ""
+    )
+  } else if(x$params$similarity == 'Jaccard') {
+    cat(
+      "\n ", x$params$similarity,
+      " similarity used; Indices: ",
+      "Columns (P) = ", round(x$RIs[x$iteration, "P_jaccard"], 3),
+      ", Rows (Q) = ", round(x$RIs[x$iteration, "Q_jaccard"], 3), "\n", sep = ""
+    )
+  }
+
   invisible(x)
 }
 
