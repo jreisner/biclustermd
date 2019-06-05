@@ -16,7 +16,7 @@ ggplot.biclustermd <- function(data, mapping = NULL, value = c("sse", "similarit
 
     p <- value_df %>%
       ggplot(aes(Iteration, SSE))
-  } else if(value == "ri") {
+  } else if(value == "similarity") {
     value_df <- data.frame(data$Similarities)
     if(x$params$similarity == 'Rand') {
       value_df <- x$Similarities[, c("P_rand", "Q_rand")]
