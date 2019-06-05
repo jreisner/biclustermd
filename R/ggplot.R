@@ -25,7 +25,7 @@ ggplot.biclustermd <- function(data, mapping = NULL, value = c("sse", "similarit
     } else if(x$params$similarity == 'Jaccard') {
       value_df <- x$Similarities[, c("P_jaccard", "Q_jaccard")]
     }
-    names(value_df)[-3] <- c("Columns (P)", "Rows (Q)")
+    names(value_df) <- c("Columns (P)", "Rows (Q)")
 
     p <- value_df %>%
       gather(`Rand Index`, Value, -Iteration) %>%
