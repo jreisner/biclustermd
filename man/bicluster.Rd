@@ -4,10 +4,10 @@
 \alias{bicluster}
 \title{Bicluster data}
 \usage{
-bicluster(data, P0, Q0, miss_val, miss_val_sd = 1, row_min_num = 5,
-  col_min_num = 5, row_num_to_move = 1, col_num_to_move = 1,
-  row_shuffles = 1, col_shuffles = 1, max.iter = 100,
-  verbose = TRUE)
+bicluster(data, P0, Q0, miss_val, miss_val_sd = 1, similarity = "Rand",
+  row_min_num = 5, col_min_num = 5, row_num_to_move = 1,
+  col_num_to_move = 1, row_shuffles = 1, col_shuffles = 1,
+  max.iter = 100, verbose = TRUE)
 }
 \arguments{
 \item{data}{Dataset to bicluster. Must to be a data matrix with only numbers and missing values in the data set. It should have row names and column names.}
@@ -21,6 +21,10 @@ If a value, a random normal variable with sd = `miss_val_sd` is used each iterat
 
 \item{miss_val_sd}{Standard deviation of the normal distribution `miss_val` follows
 if `miss_val` is a number. By default this equals 1.}
+
+\item{similarity}{The metric used to compare two successive clusterings. Can be
+"Rand" (default), "HA" for the Hubert and Arabie adjusted Rand index or "Jaccard".
+See \link[clues]{adjustedRand} for details.}
 
 \item{row_min_num}{Minimum row prototype size in order to be eligible to be chosen when filling an empty row prototype. Default is 5.}
 

@@ -7,6 +7,9 @@
 #'     If a value, a random normal variable with sd = `miss_val_sd` is used each iteration.
 #' @param miss_val_sd Standard deviation of the normal distribution `miss_val` follows
 #'     if `miss_val` is a number. By default this equals 1.
+#' @param similarity The metric used to compare two successive clusterings. Can be
+#'     "Rand" (default), "HA" for the Hubert and Arabie adjusted Rand index or "Jaccard".
+#'     See \link[clues]{adjustedRand} for details.
 #' @param col_min_num Minimum column prototype size in order to be eligible to be chosen when filling an empty row prototype. Default is 5.
 #' @param row_min_num Minimum row prototype size in order to be eligible to be chosen when filling an empty row prototype. Default is 5.
 #' @param col_num_to_move Number of columns to remove from the sampled prototype to put in the empty column prototype. Default is 1.
@@ -16,7 +19,7 @@
 #' @param max.iter Maximum number of iterations to let the algorithm run for.
 #' @param verbose Logical. If TRUE, will report progress.
 #' @export
-#' @importFrom phyclust RRand
+#' @importFrom clues adjustedRand
 #' @importFrom stats rnorm
 #' @return A list containing final matrices for column and
 #'     row partitions, the SSE of the original partitioning, the SSE for each iteration, the Rand Indices for row and column
@@ -34,7 +37,7 @@
 #' bc
 
 
-bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
+bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1, similarity = "Rand",
                       row_min_num = 5, col_min_num = 5,
                       row_num_to_move = 1, col_num_to_move = 1,
                       row_shuffles = 1, col_shuffles = 1,
@@ -47,16 +50,20 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
   m_d <- nrow(data)
   n_d <- ncol(data)
 
-  result_list <- vector("list", 8)
-  names(result_list) <- c("data", "P", "Q", "InitialSSE", "SSE", "RIs", "iteration", "A")
+  result_list <- vector("list", 9)
+  names(result_list) <- c("params", "data", "P", "Q", "InitialSSE", "SSE", "RIs", "iteration", "A")
+  result_list$params <- mget(names(formals()),sys.frame(sys.nframe()))
 
   InitialSSE <- cluster_iteration_sum_sse(data, P, Q)
 
   SSE <- matrix(nrow = max.iter, ncol = 2)
   colnames(SSE) <- c("SSE", "Iteration")
 
-  RIs <- matrix(nrow = max.iter, ncol = 3)
-  colnames(RIs) <- c("PRI", "QRI", "Iteration")
+  # RIs <- matrix(nrow = max.iter, ncol = 3)
+  # colnames(RIs) <- c("P_sim", "Q_sim", "Iteration")
+
+  RIs <- matrix(nrow = max.iter, ncol = 7)
+  colnames(RIs) <- c("P_rand", "P_ha", "P_jaccard", "Q_rand", "Q_ha", "Q_jaccard", "Iteration")
 
   n_p <- ncol(P)
   n_q <- ncol(Q)
@@ -184,20 +191,25 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
     Q_old_vec <- part_matrix_to_vector(Q_old) + 1
     Q_new_vec <- part_matrix_to_vector(Q) + 1
 
-    PRI <- RRand(P_old_vec, P_new_vec)[[1]]
-    QRI <- RRand(Q_old_vec, Q_new_vec)[[1]]
+    # PRI <- RRand(P_old_vec, P_new_vec)[[1]]
+    P_sim <- adjustedRand(P_old_vec, P_new_vec, randMethod = similarity)
+    # QRI <- RRand(Q_old_vec, Q_new_vec)[[1]]
+    Q_sim <- adjustedRand(Q_old_vec, Q_new_vec, randMethod = similarity)
 
-    RIs[s, 1] <- PRI
-    RIs[s, 2] <- QRI
-    RIs[s, 3] <- s - 1
+    # RIs[s, 1] <- P_sim
+    # RIs[s, 2] <- Q_sim
+    # RIs[s, 3] <- s - 1
+    RIs[s, 1:3] <- adjustedRand(P_old_vec, P_new_vec, randMethod = c("Rand", "HA", "Jaccard"))
+    RIs[s, 4:6] <- adjustedRand(Q_old_vec, Q_new_vec, randMethod = c("Rand", "HA", "Jaccard"))
+    RIs[s, 7] <- s - 1
 
-    if((PRI == 1) && (QRI == 1)) {
+    if((P_sim == 1) && (Q_sim == 1)) {
       result_list$data <- data
       result_list$P <- P
       result_list$Q <- Q
       result_list$InitialSSE <- InitialSSE
       result_list$SSE <- SSE
-      result_list$RIs <- RIs
+      result_list$RIs <- data.frame(RIs)
       result_list$iteration <- s
       result_list$A <- A
 
@@ -218,7 +230,7 @@ bicluster <- function(data, P0, Q0, miss_val, miss_val_sd = 1,
   result_list$Q <- Q
   result_list$InitialSSE <- InitialSSE
   result_list$SSE <- SSE
-  result_list$RIs <- RIs
+  result_list$RIs <- data.frame(RIs)
 
   result_list$SSE <- result_list$SSE[1:s,]
   result_list$RIs <- result_list$RIs[1:s,]
