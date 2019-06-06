@@ -43,7 +43,7 @@ bicluster <- function(data, col_clusters, row_clusters, miss_val,
                       row_min_num = 5, col_min_num = 5,
                       row_num_to_move = 1, col_num_to_move = 1,
                       row_shuffles = 1, col_shuffles = 1,
-                      max.iter = 100, verbose = TRUE) {
+                      max.iter = 100, verbose = FALSE) {
 
   if(length(similarity) > 1) {
     warning(
