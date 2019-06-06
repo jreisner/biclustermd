@@ -47,18 +47,16 @@ bicluster <- function(data, col_clusters, row_clusters, miss_val,
 
   if(length(similarity) > 1) {
     warning(
-      paste0("Only one similarity metric can be used as a stopping condition. Using the
-      first supplied, ", similarity[1])
+      paste0("Only one similarity metric can be used as a stopping condition. Using the first supplied, ", similarity[1])
     )
     similarity <- similarity[1]
   }
 
   if(!(class(data) %in% c("matrix", "data.frame"))) {
     stop("`data` must be a matrix or a data.frame.")
-  } else if(is.null(rownames(data)) & is.null(colnames(data))) {
-    warning("`data` does not have row or column names. For interpretation of results,
-            it is advised to have row and column names.")
-  }
+  } #else if(is.null(rownames(data)) & is.null(colnames(data))) {
+    # warning("`data` does not have row or column names. For interpretation of results, it is advised to have row and column names.")
+  # }
 
   if(is.expression(miss_val)) {
     condition_call <- substitute(miss_val)
