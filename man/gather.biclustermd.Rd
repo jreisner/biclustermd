@@ -23,7 +23,7 @@
 \item{factor_key}{unused; included for consistency with \code{tidyr} generic}
 }
 \value{
-A data frame containing the row names and column names of both the 
+A data frame containing the row names and column names of both the
   two-way table of data biclustered and the cell-average matrix.
 }
 \description{

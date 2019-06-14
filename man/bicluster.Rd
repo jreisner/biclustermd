@@ -7,7 +7,7 @@
 bicluster(data, col_clusters, row_clusters, miss_val, miss_val_sd = 1,
   similarity = "Rand", row_min_num = 5, col_min_num = 5,
   row_num_to_move = 1, col_num_to_move = 1, row_shuffles = 1,
-  col_shuffles = 1, max.iter = 100, verbose = TRUE)
+  col_shuffles = 1, max.iter = 100, verbose = FALSE)
 }
 \arguments{
 \item{data}{Dataset to bicluster. Must to be a data matrix with only numbers and missing values in the data set. It should have row names and column names.}

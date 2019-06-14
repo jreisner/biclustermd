@@ -1,5 +1,5 @@
 #' Gather a biclustermd object
-#' 
+#'
 #' @param data a \code{biclustermd} object to gather.
 #' @param key unused; included for consistency with \code{tidyr} generic
 #' @param value unused; included for consistency with \code{tidyr} generic
@@ -7,18 +7,41 @@
 #' @param na.rm unused; included for consistency with \code{tidyr} generic
 #' @param convert unused; included for consistency with \code{tidyr} generic
 #' @param factor_key unused; included for consistency with \code{tidyr} generic
-#' 
-#' @return A data frame containing the row names and column names of both the 
+#'
+#' @return A data frame containing the row names and column names of both the
 #'   two-way table of data biclustered and the cell-average matrix.
-#' 
+#'
 #' @importFrom dplyr arrange select
 #' @importFrom magrittr %>%
 #' @importFrom tidyr gather
-#' 
+#'
 #' @export
-#' 
+#'
 gather.biclustermd <- function(data, key = NULL, value = NULL, ..., na.rm = FALSE,
                                convert = FALSE, factor_key = FALSE) {
+
+  if(is.null(rownames(data$data))) {
+    row_name_map <- data.frame(
+      row_name = as.character(seq_len(nrow(bc$data))),
+      row_no = seq_len(nrow(bc$data))
+    ) %>%
+      mutate(row_name = formatC(row_name, width = nchar(max(row_no)), flag = '0')) %>%
+      mutate(row_name = paste0("R", row_name))
+
+    rownames(data$data) <- row_name_map$row_name
+  }
+
+  if(is.null(colnames(data$data))) {
+    col_name_map <- data.frame(
+      col_name = as.character(seq_len(ncol(data$data))),
+      col_no = seq_len(ncol(data$data))
+    ) %>%
+      mutate(col_name = formatC(col_name, width = nchar(max(col_no)), flag = '0')) %>%
+      mutate(col_name = paste0("C", col_name))
+
+    colnames(data$data) <- col_name_map$col_name
+  }
+
   dat <- as.data.frame(data$data)
   bc <- data[-1]
   q <- bc$Q
@@ -26,12 +49,12 @@ gather.biclustermd <- function(data, key = NULL, value = NULL, ..., na.rm = FALS
   rownames(q) <- rownames(dat)
   rownames(p) <- colnames(dat)
   rnames <- rownames(dat)
-  
+
   dat$row_name <- rnames
   dat <- dat[, c(ncol(dat), 1:(ncol(dat) - 1))]
   colnames(dat)[1] <- "row_name"
-  
-  dat <- dat %>% 
+
+  dat <- dat %>%
     gather(col_name, value, -row_name)
   dat$row_group <- unlist(
     lapply(1:nrow(dat), function(n) {
@@ -43,8 +66,10 @@ gather.biclustermd <- function(data, key = NULL, value = NULL, ..., na.rm = FALS
       which(p[rownames(p) == dat$col_name[n], ] == 1)
     })
   )
-  dat <- dat %>% 
+  dat <- dat %>%
     arrange(row_group, col_group) %>%
-    select(row_name, col_name, row_group, col_group, value)
+    mutate(bicluster_no = as.integer(paste0(row_group, col_group))) %>%
+    mutate(bicluster_no = as.numeric(factor(rank(bicluster_no)))) %>%
+    select(row_name, col_name, row_group, col_group, bicluster_no, value)
   dat
 }
