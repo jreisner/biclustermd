@@ -244,6 +244,8 @@ bicluster <- function(data, col_clusters, row_clusters, miss_val,
       result_list$SSE <- result_list$SSE[1:s,]
       result_list$Similarities <- result_list$Similarities[1:s,]
 
+      class(result_list$SSE) <- c("biclustermd_sse", "matrix")
+      class(result_list$Similarities) <- c("biclustermd_sim", "data.frame")
       class(result_list) <- c("biclustermd", "list")
 
       result_list
@@ -266,6 +268,8 @@ bicluster <- function(data, col_clusters, row_clusters, miss_val,
   result_list$iteration <- s
   result_list$A <- A
 
+  class(result_list$SSE) <- c("biclustermd_sse", "matrix")
+  class(result_list$Similarities) <- c("biclustermd_sim", "data.frame")
   class(result_list) <- c("biclustermd", "list")
 
   result_list
