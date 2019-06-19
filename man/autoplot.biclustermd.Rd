@@ -49,4 +49,13 @@ autoplot(bc)
 
 autoplot(bc) + ggplot2::scale_fill_distiller(palette = "Spectral", na.value = "white")
 
+# Complete shading
+autoplot(bc, cell_alpha = 1)
+
+# Transformed values and no shading
+autoplot(bc, transform_colors = TRUE, c = 1/20, cell_alpha = 0)
+
+# Focus on row cluster 1 and column cluster 2
+autoplot(bc, col_clusts = 2, row_clusts = 1)
+
 }
