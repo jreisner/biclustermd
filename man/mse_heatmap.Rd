@@ -4,14 +4,12 @@
 \alias{mse_heatmap}
 \title{Make a heatmap of cell MSEs}
 \usage{
-mse_heatmap(x, linewidth = 0.1, log_scale = FALSE)
+mse_heatmap(x, ...)
 }
 \arguments{
 \item{x}{An object of class \code{biclustermd}.}
 
-\item{linewidth}{Width of vertical and horizontal lines. Default is 0.1.}
-
-\item{log_scale}{Logical. If TRUE, fill legend will be on a log10 scale. Default is FALSE.}
+\item{...}{Arguments to pass to \code{geom_tile()}}
 }
 \value{
 A ggplot object.
@@ -21,13 +19,14 @@ Make a heatmap of cell MSEs
 }
 \examples{
 data("synthetic")
-P01 <- partition_gen(12, 3)
-Q01 <- partition_gen(6, 2)
-
-bc <- bicluster(synthetic, P01, Q01, miss_val = mean(synthetic, na.rm = TRUE),
+bc <- bicluster(synthetic, col_clusters = 3, row_clusters = 2,
+                miss_val = mean(synthetic, na.rm = TRUE),
                 miss_val_sd = sd(synthetic, na.rm = TRUE),
                 col_min_num = 2, row_min_num = 2,
                 col_num_to_move = 1, row_num_to_move = 1,
                 max.iter = 10)
+
 mse_heatmap(bc)
+
+mse_heatmap(bc) + ggplot2::scale_fill_viridis_c()
 }
