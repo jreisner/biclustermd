@@ -4,27 +4,27 @@
 \alias{cell_heatmap}
 \title{Make a heat map of bicluster cell sizes.}
 \usage{
-cell_heatmap(x, linewidth = 0.1, log_scale = FALSE)
+cell_heatmap(x, ...)
 }
 \arguments{
 \item{x}{An object of class \code{biclustermd}.}
 
-\item{linewidth}{Width of vertical and horizontal lines. Default is 0.1.}
-
-\item{log_scale}{Logical. If TRUE, log10 scale on the legend is used. Default is FALSE.}
+\item{...}{Arguments to pass to \code{geom_tile()}}
 }
 \description{
 Make a heat map of bicluster cell sizes.
 }
 \examples{
 data("synthetic")
-P01 <- partition_gen(12, 3)
-Q01 <- partition_gen(6, 2)
 
-bc <- bicluster(synthetic, P01, Q01, miss_val = mean(synthetic, na.rm = TRUE),
+bc <- bicluster(synthetic, col_clusters = 3, row_clusters = 2,
+                miss_val = mean(synthetic, na.rm = TRUE),
                 miss_val_sd = sd(synthetic, na.rm = TRUE),
                 col_min_num = 2, row_min_num = 2,
                 col_num_to_move = 1, row_num_to_move = 1,
                 max.iter = 10)
+
 cell_heatmap(bc)
+
+cell_heatmap(bc) + ggplot2::scale_fill_viridis_c()
 }
