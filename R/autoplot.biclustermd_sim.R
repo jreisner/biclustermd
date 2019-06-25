@@ -32,6 +32,7 @@ autoplot.biclustermd_sim <- function(object, facet = TRUE, ncol = NULL, ...) {
   dat <- gather(object, metric, value, -Iteration)
   
   dat <- separate(dat, metric, into = c("Dimension", "Metric"))
+  dat$Metric[dat$Metric == 'HA'] <- "Adjusted Rand (HA)"
   
   if(facet) {
     if(is.null(ncol)) {
