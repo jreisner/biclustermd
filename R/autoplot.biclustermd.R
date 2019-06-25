@@ -14,6 +14,7 @@
 #' @param ... Arguments to be passed to `geom_vline()` and `geom_hline()`.
 #' @export
 #' @importFrom tidyr gather
+#' @importFrom stats pnorm
 #' @importFrom dplyr group_by left_join mutate ungroup
 #' @importFrom ggplot2 ggplot aes geom_rect geom_tile geom_hline geom_vline scale_fill_gradientn theme_bw theme
 #' @return An object of class ggplot.
