@@ -16,7 +16,7 @@ given in one plot.}
 
 \item{ncol}{If faceting, the number of columns to arrange the plots in.}
 
-\item{...}{Other ggplot parameters (not currently used)}
+\item{...}{Arguments to pass to \code{ggplot2::geom_point()}}
 }
 \value{
 A ggplot object.

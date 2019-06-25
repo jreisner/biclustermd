@@ -9,7 +9,7 @@
 \arguments{
 \item{object}{Object of class "biclustermd_sse" with columns "Iteration" and "SSE"}
 
-\item{...}{Other ggplot parameters (not currently used)}
+\item{...}{Arguments to pass to \code{ggplot2::geom_point()}}
 }
 \value{
 A ggplot object.

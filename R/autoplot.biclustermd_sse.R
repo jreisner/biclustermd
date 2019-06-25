@@ -3,7 +3,7 @@
 #' Creates a ggplot of the decrease in SSE recorded in \code{biclustermd::bicluster()}.
 #'
 #' @param object Object of class "biclustermd_sse" with columns "Iteration" and "SSE"
-#' @param ... Other ggplot parameters (not currently used)
+#' @param ... Arguments to pass to \code{ggplot2::geom_point()}
 #' 
 #' @export
 #' @importFrom ggplot2 aes autoplot geom_line geom_point ggplot
@@ -24,6 +24,6 @@ autoplot.biclustermd_sse <- function(object, ...) {
   
   ggplot(data.frame(object), aes(Iteration, SSE)) +
     geom_line() +
-    geom_point()
+    geom_point(...)
   
 }

@@ -8,7 +8,7 @@
 #'     if \code{FALSE}, all three similarity measures for rows and columns are 
 #'     given in one plot.
 #' @param ncol If faceting, the number of columns to arrange the plots in.
-#' @param ... Other ggplot parameters (not currently used)
+#' @param ... Arguments to pass to \code{ggplot2::geom_point()}
 #' 
 #' @export
 #' @importFrom ggplot2 aes autoplot facet_wrap geom_line geom_point ggplot ylim
@@ -40,7 +40,7 @@ autoplot.biclustermd_sim <- function(object, facet = TRUE, ncol = NULL, ...) {
     
     p <- ggplot(dat, aes(Iteration, value, color = Dimension)) +
       geom_line() +
-      geom_point() +
+      geom_point(...) +
       ylim(0, 1) + 
       facet_wrap(~ Metric, ncol = ncol)
     
@@ -48,7 +48,7 @@ autoplot.biclustermd_sim <- function(object, facet = TRUE, ncol = NULL, ...) {
     
     p <- ggplot(dat, aes(Iteration, value, color = Dimension)) +
       geom_line(aes(linetype = Metric)) +
-      geom_point() +
+      geom_point(...) +
       ylim(0, 1) 
     
   }
