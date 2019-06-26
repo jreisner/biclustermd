@@ -25,7 +25,7 @@ gather.biclustermd <- function(data, key = NULL, value = NULL, ..., na.rm = FALS
       row_name = as.character(seq_len(nrow(bc$data))),
       row_no = seq_len(nrow(bc$data))
     ) %>%
-      mutate(row_name = formatC(row_name, width = nchar(max(row_no)), flag = '0')) %>%
+      mutate(row_name = formatC(row_no, width = nchar(max(row_no)), flag = '0')) %>%
       mutate(row_name = paste0("R", row_name))
 
     rownames(data$data) <- row_name_map$row_name
@@ -36,7 +36,7 @@ gather.biclustermd <- function(data, key = NULL, value = NULL, ..., na.rm = FALS
       col_name = as.character(seq_len(ncol(data$data))),
       col_no = seq_len(ncol(data$data))
     ) %>%
-      mutate(col_name = formatC(col_name, width = nchar(max(col_no)), flag = '0')) %>%
+      mutate(col_name = formatC(col_no, width = nchar(max(col_no)), flag = '0')) %>%
       mutate(col_name = paste0("C", col_name))
 
     colnames(data$data) <- col_name_map$col_name
