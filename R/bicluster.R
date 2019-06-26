@@ -1,4 +1,4 @@
-#' Bicluster data
+#' Bicluster data with non-random missing data
 #'
 #' @param data Dataset to bicluster. Must to be a data matrix with only numbers and missing values in the data set. It should have row names and column names.
 #' @param col_clusters The number of clusters to partition the columns into.

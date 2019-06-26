@@ -2,7 +2,7 @@
 % Please edit documentation in R/bicluster.R
 \name{bicluster}
 \alias{bicluster}
-\title{Bicluster data}
+\title{Bicluster data with non-random missing data}
 \usage{
 bicluster(data, col_clusters, row_clusters, miss_val, miss_val_sd = 1,
   similarity = "Rand", row_min_num = 5, col_min_num = 5,
@@ -50,7 +50,7 @@ A list containing all arguments passed to the function, final matrices
     prototype matrix.
 }
 \description{
-Bicluster data
+Bicluster data with non-random missing data
 }
 \examples{
 data("synthetic")
