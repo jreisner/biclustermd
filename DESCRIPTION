@@ -14,7 +14,8 @@ BugReports: http://github.com/jreisner/biclustermd/issues
 Depends: ggplot2 (>= 3.0.0), 
          R (>= 3.5.0),
          tidyr (>= 0.8.1)
-Imports: dplyr (>= 0.7.6), 
+Imports: biclust (>= 2.0.1),
+         dplyr (>= 0.7.6), 
          gam (>= 1.14.4), 
          magrittr (>= 1.5), 
          clues (>= 0.5.9)
