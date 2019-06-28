@@ -22,14 +22,13 @@ Get row names in each row cluster
 data("synthetic")
 rownames(synthetic) <- letters[1:nrow(synthetic)]
 colnames(synthetic) <- letters[1:ncol(synthetic)]
-P01 <- partition_gen(12, 3)
-Q01 <- partition_gen(6, 2)
-
-bc <- bicluster(synthetic, P01, Q01, miss_val = mean(synthetic, na.rm = TRUE),
+bc <- biclustermd(synthetic, col_clusters = 3, row_clusters = 2,
+                miss_val = mean(synthetic, na.rm = TRUE),
                 miss_val_sd = sd(synthetic, na.rm = TRUE),
                 col_min_num = 2, row_min_num = 2,
                 col_num_to_move = 1, row_num_to_move = 1,
                 max.iter = 10)
+bc
 row_cluster_names(bc, synthetic)
 col_cluster_names(bc, synthetic)
 }

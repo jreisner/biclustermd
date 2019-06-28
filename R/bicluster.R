@@ -29,7 +29,7 @@
 #' @examples
 #' data("synthetic")
 #'
-#' bc <- bicluster(synthetic, col_clusters = 3, row_clusters = 2,
+#' bc <- biclustermd(synthetic, col_clusters = 3, row_clusters = 2,
 #'                 miss_val = mean(synthetic, na.rm = TRUE),
 #'                 miss_val_sd = sd(synthetic, na.rm = TRUE),
 #'                 col_min_num = 2, row_min_num = 2,
@@ -38,7 +38,7 @@
 #' bc
 
 
-bicluster <- function(data, col_clusters, row_clusters, miss_val,
+biclustermd <- function(data, col_clusters, row_clusters, miss_val,
                       miss_val_sd = 1, similarity = "Rand",
                       row_min_num = 5, col_min_num = 5,
                       row_num_to_move = 1, col_num_to_move = 1,

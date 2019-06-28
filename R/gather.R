@@ -17,6 +17,24 @@
 #'
 #' @export
 #'
+#'
+#' @examples
+#' data("synthetic")
+#'
+#' bc <- biclustermd(synthetic, col_clusters = 3, row_clusters = 2,
+#'                 miss_val = mean(synthetic, na.rm = TRUE),
+#'                 miss_val_sd = sd(synthetic, na.rm = TRUE),
+#'                 col_min_num = 2, row_min_num = 2,
+#'                 col_num_to_move = 1, row_num_to_move = 1,
+#'                 max.iter = 10)
+#' gather(bc)
+#'
+#' # bicluster 6 is in the top right-hand corner here:
+#' autoplot(bc)
+#'
+#' # bicluster 3 is in the bottom right-hand corner here:
+#' autoplot(bc)
+#'
 gather.biclustermd <- function(data, key = NULL, value = NULL, ..., na.rm = FALSE,
                                convert = FALSE, factor_key = FALSE) {
 

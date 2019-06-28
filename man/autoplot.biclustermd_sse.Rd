@@ -20,7 +20,7 @@ Creates a ggplot of the decrease in SSE recorded in \code{biclustermd::bicluster
 \examples{
 data("synthetic")
 
-bc <- bicluster(synthetic, col_clusters = 3, row_clusters = 2,
+bc <- biclustermd(synthetic, col_clusters = 3, row_clusters = 2,
                 miss_val = mean(synthetic, na.rm = TRUE),
                 miss_val_sd = sd(synthetic, na.rm = TRUE),
                 col_min_num = 2, row_min_num = 2,
