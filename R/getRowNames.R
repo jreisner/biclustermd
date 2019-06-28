@@ -3,7 +3,6 @@
 #' @param x Biclustering object to extract row cluster designation from
 #' @param data Data that contains the row names
 #'
-#' @export
 #' @return A data frame with two columns: \code{cluster} corresponds to the row
 #'   cluster and \code{name} gives the row names in each cluster.
 #'
