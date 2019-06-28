@@ -86,6 +86,7 @@ rep_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2,
       
       if(sse[i] < best_sse) {
         
+        best_sse <- sse[i]
         best_bc <- bc
         
       }
