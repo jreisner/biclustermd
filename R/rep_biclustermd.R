@@ -65,7 +65,6 @@ rep_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2,
     
     st <- proc.time()
     best_sse <- .Machine$double.xmax
-    best_ssev <- best_sse
     sse <- numeric(nrep)
     for(i in 1:nrep) {
       
@@ -88,7 +87,6 @@ rep_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2,
       if(sse[i] < best_sse) {
         
         best_sse <- sse[i]
-        best_ssev <- c(best_ssev, best_sse)
         best_bc <- bc
         
       }
@@ -98,7 +96,6 @@ rep_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2,
     list(
       best_bc = best_bc,
       rep_sse = sse,
-      best_ssev = best_ssev,
       runtime = et - st
     )
     
