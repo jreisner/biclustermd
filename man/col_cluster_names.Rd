@@ -29,6 +29,4 @@ bc <- biclustermd(synthetic, col_clusters = 3, row_clusters = 2,
                 col_num_to_move = 1, row_num_to_move = 1,
                 max.iter = 10)
 bc
-row_cluster_names(bc, synthetic)
-col_cluster_names(bc, synthetic)
 }

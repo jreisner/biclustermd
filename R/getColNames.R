@@ -17,8 +17,6 @@
 #'                 col_num_to_move = 1, row_num_to_move = 1,
 #'                 max.iter = 10)
 #' bc
-#' row_cluster_names(bc, synthetic)
-#' col_cluster_names(bc, synthetic)
 col_cluster_names <- function(x, data) {
   col_clust <- data.frame(col_cluster = part_matrix_to_vector(x$P))
 
