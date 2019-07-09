@@ -7,7 +7,7 @@
 #' @param environment unused; included to match \code{ggplot2} generic
 #' @export
 #' @importFrom magrittr %>%
-#' @importFrom ggplot2 ggplot aes scale_colour_manual geom_line geom_point theme_bw scale_x_continuous
+#' @importFrom ggplot2 ggplot aes scale_colour_manual geom_line geom_point theme_bw scale_x_continuous ylim
 #' @importFrom tidyr gather
 #' @return A data frame
 ggplot.biclustermd <- function(data, mapping = NULL, value = c("sse", "similarity"), ..., environment = NULL) {
@@ -30,6 +30,7 @@ ggplot.biclustermd <- function(data, mapping = NULL, value = c("sse", "similarit
     p <- value_df %>%
       gather(similarity_index, Value, -Iteration) %>%
       ggplot(aes(Iteration, Value, colour = similarity_index)) +
+      ylim(min(c(0, min(data$Similarities[, -7]))), 1) +
       scale_colour_manual(paste0(data$params$similarity, " Index"), values = c("red", "blue"))
   }
   p +
