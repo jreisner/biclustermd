@@ -56,15 +56,16 @@
 
 
 rep_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2,
-                          col_clusters, row_clusters, miss_val, miss_val_sd = 1,
-                          similarity = "Rand", row_min_num = 5, col_min_num = 5,
-                          row_num_to_move = 1, col_num_to_move = 1, row_shuffles = 1,
-                          col_shuffles = 1, max.iter = 100, verbose = FALSE) {
+                            col_clusters, row_clusters, miss_val, miss_val_sd = 1,
+                            similarity = "Rand", row_min_num = 5, col_min_num = 5,
+                            row_num_to_move = 1, col_num_to_move = 1, row_shuffles = 1,
+                            col_shuffles = 1, max.iter = 100, verbose = FALSE) {
   
   if(!parallel) {
     
     st <- proc.time()
     best_sse <- .Machine$double.xmax
+    best_ssev <- best_sse
     sse <- numeric(nrep)
     for(i in 1:nrep) {
       
@@ -87,6 +88,7 @@ rep_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2,
       if(sse[i] < best_sse) {
         
         best_sse <- sse[i]
+        best_ssev <- c(best_ssev, best_sse)
         best_bc <- bc
         
       }
@@ -96,6 +98,7 @@ rep_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2,
     list(
       best_bc = best_bc,
       rep_sse = sse,
+      best_ssev = best_ssev,
       runtime = et - st
     )
     
