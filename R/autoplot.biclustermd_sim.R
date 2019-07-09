@@ -42,7 +42,7 @@ autoplot.biclustermd_sim <- function(object, facet = TRUE, ncol = NULL, ...) {
     p <- ggplot(dat, aes(Iteration, value, color = Dimension)) +
       geom_line() +
       geom_point(...) +
-      ylim(0, 1) + 
+      ylim(min(c(0, min(object[, -7]))), 1) +
       facet_wrap(~ Metric, ncol = ncol)
     
   } else if(!facet) {
@@ -50,7 +50,7 @@ autoplot.biclustermd_sim <- function(object, facet = TRUE, ncol = NULL, ...) {
     p <- ggplot(dat, aes(Iteration, value, color = Dimension)) +
       geom_line(aes(linetype = Metric)) +
       geom_point(...) +
-      ylim(0, 1) 
+      ylim(min(c(0, min(object[, -7]))), 1)
     
   }
   p
