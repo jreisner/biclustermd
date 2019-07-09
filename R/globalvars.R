@@ -12,5 +12,6 @@ globalVariables(c("col_name", "val", "row_name", "row_proto", "col_proto",
                   "Var1", "xmx", "xmn", "ymx", "ymn", "cell_mean_trans",
                   "cell_mean", "cluster", "col_name_var", "row_name_var", "x",
                   "mapping", "environment", "data", "row_no", "col_no", "bicluster_no",
-                  "metric", "Metric", "Dimension", "in_bicluster"))
+                  "metric", "Metric", "Dimension", "in_bicluster", "min_sse",
+                  "sd_sse", "orig_order"))
 
