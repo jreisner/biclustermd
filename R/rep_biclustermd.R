@@ -21,7 +21,6 @@
 #' @param row_shuffles Number of times to shuffle rows in each iteration. Default is 1.
 #' @param col_shuffles Number of times to shuffle columns in each iteration. Default is 1.
 #' @param max.iter Maximum number of iterations to let the algorithm run for.
-#' @param verbose Logical. If TRUE, will report progress.
 #' @export
 #' @importFrom foreach %dopar% foreach
 #' @importFrom doParallel registerDoParallel
@@ -59,7 +58,7 @@ rep_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2,
                             col_clusters, row_clusters, miss_val, miss_val_sd = 1,
                             similarity = "Rand", row_min_num = 5, col_min_num = 5,
                             row_num_to_move = 1, col_num_to_move = 1, row_shuffles = 1,
-                            col_shuffles = 1, max.iter = 100, verbose = FALSE) {
+                            col_shuffles = 1, max.iter = 100) {
   
   if(!parallel) {
     
@@ -69,17 +68,19 @@ rep_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2,
     for(i in 1:nrep) {
       
       bc <- biclustermd(
-        data,
-        col_clusters,
-        row_clusters,
-        miss_val,
-        miss_val_sd,
-        similarity,
-        col_min_num,
-        row_min_num,
-        col_num_to_move,
-        row_num_to_move,
-        max.iter
+        data = data, 
+        col_clusters = col_clusters, 
+        row_clusters = row_clusters, 
+        miss_val = miss_val, 
+        miss_val_sd = miss_val_sd, 
+        similarity = similarity, 
+        row_min_num = row_min_num, 
+        col_min_num = col_min_num, 
+        row_num_to_move = row_num_to_move, 
+        col_num_to_move = col_num_to_move, 
+        row_shuffles = row_shuffles, 
+        col_shuffles = col_shuffles, 
+        max.iter = max.iter
       )
       
       sse[i] <- bc$SSE[bc$iteration, 1]
@@ -108,17 +109,19 @@ rep_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2,
     results <- foreach(i = 1:nrep) %dopar% {
       
       biclustermd(
-        data,
-        col_clusters,
-        row_clusters,
-        miss_val,
-        miss_val_sd,
-        similarity,
-        col_min_num,
-        row_min_num,
-        col_num_to_move,
-        row_num_to_move,
-        max.iter
+        data = data, 
+        col_clusters = col_clusters, 
+        row_clusters = row_clusters, 
+        miss_val = miss_val, 
+        miss_val_sd = miss_val_sd, 
+        similarity = similarity, 
+        row_min_num = row_min_num, 
+        col_min_num = col_min_num, 
+        row_num_to_move = row_num_to_move, 
+        col_num_to_move = col_num_to_move, 
+        row_shuffles = row_shuffles, 
+        col_shuffles = col_shuffles, 
+        max.iter = max.iter
       )
       
     }
