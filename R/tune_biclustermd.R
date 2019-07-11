@@ -6,9 +6,7 @@
 #'     \code{foreach} parallel backend. Default is FALSE.
 #' @param ncores The number of cores to use if parallel computing. Default 2.
 #' @param tune_grid A data frame of parameters to tune over. The column names of 
-#'     this must match the arguments passed to \code{biclustermd()}. This must
-#'     contain at least \code{col_clusters} and \code{row_clusters}, as there is
-#'     no default in \code{biclustermd}.
+#'     this must match the arguments passed to \code{biclustermd()}. 
 #'     
 #' @export
 #' 
@@ -35,7 +33,7 @@
 #' col_min_num = 2,
 #' row_min_num = 2,
 #' col_clusters = 3:5,
-#' row_clusters = 3
+#' row_clusters = 2
 #' )
 #' tg
 #' tbc <- tune_biclustermd(synthetic, nrep = 10, tune_grid = tg)
