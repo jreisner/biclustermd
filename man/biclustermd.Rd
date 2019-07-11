@@ -6,20 +6,25 @@
 \alias{biclustermd-package}
 \title{Bicluster data with non-random missing data}
 \usage{
-biclustermd(data, col_clusters, row_clusters, miss_val, miss_val_sd = 1,
-  similarity = "Rand", row_min_num = 5, col_min_num = 5,
-  row_num_to_move = 1, col_num_to_move = 1, row_shuffles = 1,
-  col_shuffles = 1, max.iter = 100, verbose = FALSE)
+biclustermd(data, col_clusters = floor(sqrt(ncol(data))),
+  row_clusters = floor(sqrt(nrow(data))), miss_val = mean(data, na.rm =
+  TRUE), miss_val_sd = 1, similarity = "Rand", row_min_num = 5,
+  col_min_num = 5, row_num_to_move = 1, col_num_to_move = 1,
+  row_shuffles = 1, col_shuffles = 1, max.iter = 100,
+  verbose = FALSE)
 }
 \arguments{
 \item{data}{Dataset to bicluster. Must to be a data matrix with only numbers and missing values in the data set. It should have row names and column names.}
 
-\item{col_clusters}{The number of clusters to partition the columns into.}
+\item{col_clusters}{The number of clusters to partition the columns into. The
+default is \code{floor(sqrt(ncol(data)))}.}
 
-\item{row_clusters}{The number of clusters to partition the rows into.}
+\item{row_clusters}{The number of clusters to partition the rows into. The
+default is \code{floor(sqrt(nrow(data)))}.}
 
 \item{miss_val}{Value or function to put in empty cells of the prototype matrix.
-If a value, a random normal variable with sd = `miss_val_sd` is used each iteration.}
+If a value, a random normal variable with sd = `miss_val_sd` is used each
+iteration. By default, this equals the mean of \code{data}.}
 
 \item{miss_val_sd}{Standard deviation of the normal distribution `miss_val` follows
 if `miss_val` is a number. By default this equals 1.}
@@ -45,11 +50,19 @@ See \link[clues]{adjustedRand} for details.}
 \item{verbose}{Logical. If TRUE, will report progress.}
 }
 \value{
-A list containing all arguments passed to the function, final matrices
-    for column and row partitions, the SSE of the original partitioning,
-    the SSE for each iteration, the similarity scores for row and column
-    prototypes, the number of iterations the algorithm ran for, and the final
-    prototype matrix.
+A list of class \code{biclustermd}:
+"params", "data", "P0", "Q0", "InitialSSE", "P", "Q", "SSE", "Similarities", "iteration", "A")
+    \item{params }{a list of all arguments passed to the function, including defaults.}
+    \item{data }{the inputted two way table of data.}
+    \item{P0 }{the initial column partition matrix.}
+    \item{Q0 }{the initial row partition matrix.}
+    \item{InitialSSE }{the SSE of the original partitioning.}
+    \item{P }{the final column partition matrix.}
+    \item{Q }{the final row partition matrix.}
+    \item{SSE }{a matrix of class biclustermd_sse detailing the SSE recorded at the end of each iteration.}
+    \item{Similarities }{a matrix of class biclustermd_sim detailing the value of row and column similarity measures recorded at the end of each iteration. Contains information for all three similarity measures.}
+    \item{iteration }{the number of iterations the algorithm ran for, whether \code{max.iter} was reached or convergence was achieved.}
+    \item{A }{the final prototype matrix which gives the average of each bicluster.}
 }
 \description{
 Bicluster data with non-random missing data
@@ -58,12 +71,13 @@ Biclustering with Missing Data
 }
 \examples{
 data("synthetic")
-
-bc <- biclustermd(synthetic, col_clusters = 3, row_clusters = 2,
-                miss_val = mean(synthetic, na.rm = TRUE),
-                miss_val_sd = sd(synthetic, na.rm = TRUE),
-                col_min_num = 2, row_min_num = 2,
-                col_num_to_move = 1, row_num_to_move = 1,
-                max.iter = 10)
+# default parameters
+bc <- biclustermd(synthetic)
 bc
+autoplot(bc)
+
+# providing the true number of row and column clusters
+bc <- biclustermd(synthetic, col_clusters = 3, row_clusters = 2)
+bc
+autoplot(bc)
 }
