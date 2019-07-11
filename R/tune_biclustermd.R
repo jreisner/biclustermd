@@ -66,8 +66,6 @@ tune_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2, tune
   defaults$data <- data
   defaults$nrep <- nrep
   
-  defaults$miss_val <- mean(data, na.rm = TRUE)
-  
   nparams <- ncol(tune_grid)
   tune_params <- names(tune_grid)
   if("similarity" %in% tune_params) {
