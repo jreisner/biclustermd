@@ -40,8 +40,8 @@ gather.biclustermd <- function(data, key = NULL, value = NULL, ..., na.rm = FALS
 
   if(is.null(rownames(data$data))) {
     row_name_map <- data.frame(
-      row_name = as.character(seq_len(nrow(bc$data))),
-      row_no = seq_len(nrow(bc$data))
+      row_name = as.character(seq_len(nrow(data$data))),
+      row_no = seq_len(nrow(data$data))
     ) %>%
       mutate(row_name = formatC(row_no, width = nchar(max(row_no)), flag = '0')) %>%
       mutate(row_name = paste0("R", row_name))
