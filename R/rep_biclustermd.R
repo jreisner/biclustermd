@@ -55,10 +55,16 @@
 
 
 rep_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2,
-                            col_clusters, row_clusters, miss_val, miss_val_sd = 1,
-                            similarity = "Rand", row_min_num = 5, col_min_num = 5,
-                            row_num_to_move = 1, col_num_to_move = 1, row_shuffles = 1,
-                            col_shuffles = 1, max.iter = 100) {
+                            col_clusters = floor(sqrt(ncol(data))),
+                            row_clusters = floor(sqrt(nrow(data))), 
+                            miss_val = mean(data, na.rm = TRUE), 
+                            miss_val_sd = 1, similarity = "Rand", 
+                            row_min_num = 5, col_min_num = 5, 
+                            row_num_to_move = 1, col_num_to_move = 1,
+                            row_shuffles = 1, col_shuffles = 1, max.iter = 100) {
+  mcall <- as.list(match.call())
+  mcall <- mcall[-1]
+  mcall <- mcall[!(names(mcall) %in% c("nrep", "parallel", "ncores"))]
   
   if(!parallel) {
     
@@ -67,21 +73,7 @@ rep_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2,
     sse <- numeric(nrep)
     for(i in 1:nrep) {
       
-      bc <- biclustermd(
-        data = data, 
-        col_clusters = col_clusters, 
-        row_clusters = row_clusters, 
-        miss_val = miss_val, 
-        miss_val_sd = miss_val_sd, 
-        similarity = similarity, 
-        row_min_num = row_min_num, 
-        col_min_num = col_min_num, 
-        row_num_to_move = row_num_to_move, 
-        col_num_to_move = col_num_to_move, 
-        row_shuffles = row_shuffles, 
-        col_shuffles = col_shuffles, 
-        max.iter = max.iter
-      )
+      bc <- do.call(biclustermd, mcall)
       
       sse[i] <- bc$SSE[bc$iteration, 1]
       
@@ -106,23 +98,9 @@ rep_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2,
     cl <- makeCluster(ncores)
     registerDoParallel(cl)
     
-    results <- foreach(i = 1:nrep) %dopar% {
+    results <- foreach(i = 1:nrep, .packages = 'biclustermd') %dopar% {
       
-      biclustermd(
-        data = data, 
-        col_clusters = col_clusters, 
-        row_clusters = row_clusters, 
-        miss_val = miss_val, 
-        miss_val_sd = miss_val_sd, 
-        similarity = similarity, 
-        row_min_num = row_min_num, 
-        col_min_num = col_min_num, 
-        row_num_to_move = row_num_to_move, 
-        col_num_to_move = col_num_to_move, 
-        row_shuffles = row_shuffles, 
-        col_shuffles = col_shuffles, 
-        max.iter = max.iter
-      )
+      do.call(biclustermd, mcall)
       
     }
     
@@ -130,6 +108,7 @@ rep_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2,
     
     sse <- sapply(results, function(z) z$SSE[z$iteration, 1])
     best_bc <- results[[which.min(sse)]]
+    rm(results)
     et <- proc.time()
     
     list(
