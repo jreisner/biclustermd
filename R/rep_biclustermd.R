@@ -64,7 +64,7 @@ rep_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2,
                             row_shuffles = 1, col_shuffles = 1, max.iter = 100) {
   mcall <- as.list(match.call())
   mcall <- mcall[-1]
-  mcall <- mcall[!(names(mcall) %in% c("nrep", "parallel", "ncores"))]
+  mcall <- mcall[!(names(mcall) %in% c("nrep", "parallel", "ncores", "verbose"))]
   
   if(!parallel) {
     
