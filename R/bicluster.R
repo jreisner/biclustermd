@@ -13,10 +13,14 @@
 #' @param similarity The metric used to compare two successive clusterings. Can be
 #'     "Rand" (default), "HA" for the Hubert and Arabie adjusted Rand index or "Jaccard".
 #'     See \link[clues]{adjustedRand} for details.
-#' @param col_min_num Minimum column prototype size in order to be eligible to be chosen when filling an empty row prototype. Default is 5.
-#' @param row_min_num Minimum row prototype size in order to be eligible to be chosen when filling an empty row prototype. Default is 5.
-#' @param col_num_to_move Number of columns to remove from the sampled prototype to put in the empty column prototype. Default is 1.
-#' @param row_num_to_move Number of rows to remove from the sampled prototype to put in the empty row prototype. Default is 1.
+#' @param col_min_num Minimum column prototype size in order to be eligible to be
+#'     chosen when filling an empty row prototype. Default is \code{floor(sqrt(ncol(data)))}.
+#' @param row_min_num Minimum row prototype size in order to be eligible to be
+#'     chosen when filling an empty row prototype. Default is \code{floor(sqrt(nrow(data)))}.
+#' @param col_num_to_move Number of columns to remove from the sampled prototype to
+#'     put in the empty column prototype. Default is 1.
+#' @param row_num_to_move Number of rows to remove from the sampled prototype to
+#'     put in the empty row prototype. Default is 1.
 #' @param row_shuffles Number of times to shuffle rows in each iteration. Default is 1.
 #' @param col_shuffles Number of times to shuffle columns in each iteration. Default is 1.
 #' @param max.iter Maximum number of iterations to let the algorithm run for.
@@ -56,7 +60,8 @@ biclustermd <- function(data,
                         row_clusters = floor(sqrt(nrow(data))),
                         miss_val = mean(data, na.rm = TRUE),
                         miss_val_sd = 1, similarity = "Rand",
-                        row_min_num = 5, col_min_num = 5,
+                        row_min_num = floor(sqrt(nrow(data))),
+                        col_min_num = floor(sqrt(ncol(data))),
                         row_num_to_move = 1, col_num_to_move = 1,
                         row_shuffles = 1, col_shuffles = 1,
                         max.iter = 100, verbose = FALSE) {

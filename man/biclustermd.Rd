@@ -8,10 +8,11 @@
 \usage{
 biclustermd(data, col_clusters = floor(sqrt(ncol(data))),
   row_clusters = floor(sqrt(nrow(data))), miss_val = mean(data, na.rm =
-  TRUE), miss_val_sd = 1, similarity = "Rand", row_min_num = 5,
-  col_min_num = 5, row_num_to_move = 1, col_num_to_move = 1,
-  row_shuffles = 1, col_shuffles = 1, max.iter = 100,
-  verbose = FALSE)
+  TRUE), miss_val_sd = 1, similarity = "Rand",
+  row_min_num = floor(sqrt(nrow(data))),
+  col_min_num = floor(sqrt(ncol(data))), row_num_to_move = 1,
+  col_num_to_move = 1, row_shuffles = 1, col_shuffles = 1,
+  max.iter = 100, verbose = FALSE)
 }
 \arguments{
 \item{data}{Dataset to bicluster. Must to be a data matrix with only numbers and missing values in the data set. It should have row names and column names.}
@@ -33,13 +34,17 @@ if `miss_val` is a number. By default this equals 1.}
 "Rand" (default), "HA" for the Hubert and Arabie adjusted Rand index or "Jaccard".
 See \link[clues]{adjustedRand} for details.}
 
-\item{row_min_num}{Minimum row prototype size in order to be eligible to be chosen when filling an empty row prototype. Default is 5.}
+\item{row_min_num}{Minimum row prototype size in order to be eligible to be
+chosen when filling an empty row prototype. Default is \code{floor(sqrt(nrow(data)))}.}
 
-\item{col_min_num}{Minimum column prototype size in order to be eligible to be chosen when filling an empty row prototype. Default is 5.}
+\item{col_min_num}{Minimum column prototype size in order to be eligible to be
+chosen when filling an empty row prototype. Default is \code{floor(sqrt(ncol(data)))}.}
 
-\item{row_num_to_move}{Number of rows to remove from the sampled prototype to put in the empty row prototype. Default is 1.}
+\item{row_num_to_move}{Number of rows to remove from the sampled prototype to
+put in the empty row prototype. Default is 1.}
 
-\item{col_num_to_move}{Number of columns to remove from the sampled prototype to put in the empty column prototype. Default is 1.}
+\item{col_num_to_move}{Number of columns to remove from the sampled prototype to
+put in the empty column prototype. Default is 1.}
 
 \item{row_shuffles}{Number of times to shuffle rows in each iteration. Default is 1.}
 
