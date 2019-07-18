@@ -1,5 +1,5 @@
 ---
-title: "Biclustering Example"
+title: "Biclustering Airport Delay Data"
 author: "John Reisner"
 output:
   html_document: default
@@ -32,99 +32,113 @@ flights <- flights %>%
 flights <- flights %>%
   group_by(month, dest) %>%
   summarise(mean_arr_delay = mean(arr_delay, na.rm = TRUE)) %>%
-  reshape2::dcast(month ~ dest)
+  reshape2::dcast(month ~ dest) 
 ```
 
-Now we name the rows using `month` followed by removing `month` and converting the data to a matrix.
+Now we name the rows using the text version of `month` followed by removing `month` and converting the data to a matrix.
 ```{r}
-rownames(flights) <- flights$month
+rownames(flights) <- month.name[flights$month]
 flights <- as.matrix(flights[, -1])
+flights[1:5, 1:5]
 ```
 
 ## Biclustering
 Now that our data is in correct form we can bicluster it.
 
-We first need to randomly make groups of months and groups of destination airports. We'll first work on months. `partition_gen()` randomly assigns N objects into K groups. Since rows correspond to months we want to set N equal to the number of rows of our data. Since we are grouping months, in this analysis, setting K = 4 may not be a bad idea: create a group for each season/quarter of the year. The following code generates a partition matrix for rows.
+We first need to determine how many groups of months (*r*) and how many groups of destination airports (*c*) to define. Since rows correspond to months, in this analysis, setting *r* = 4 may not be a bad idea: create a group for each season/quarter of the year. For the columns (airports) the number of groups is a bit more ambiguous, just like with k-means clustering. Since each continent of the world may take a different amount of time and may have different policies for flights from the US, let's set *c* = 6.
+
+Now we're ready to bicluster. I'll put the code first and give brief descriptions to selected arguments. This will mostly be a repeat of the documentation for `biclustermd()`. 
 ```{r}
-# install.packages("devtools")
-# devtools::install_github("jreisner/biclustermd")
 library(biclustermd)
-Q01 <- partition_gen(N = nrow(flights), K = 4)
-Q01 %>% head()
+bc <- biclustermd(data = flights, col_clusters = 6, row_clusters = 4)
+bc
 ```
 
-As you can see, a partition matrix has N rows and K columns. In each row, the entry equal to one tells us what row group it belongs to.
+`biclustermd` outputs a list of class `biclustermd` with useful information. Execute `?biclustermd` to view the output in detail.
 
-For the columns the value of K is a bit more ambiguous, just like with k-means clustering. Since each continent of the world may take a different amount of time and may have different policies for flights from the US, let's set K = 6.
+This list is used to make plots and training data, for example.
+
+## Plotting
+To plot SSE by iteration, use `autoplot.biclustermd_sse()`, which outputs points by default:
 ```{r}
-P01 <- partition_gen(N = ncol(flights), K = 6)
-P01 %>% head()
+?autoplot.biclustermd_sse
+autoplot(bc$SSE)
 ```
 
-Now we're ready to bicluster. I'll put the code first and give brief descriptions to selected arguments. This will mostly be a repeat of the documentation for `bicluster()`. Since the algorithm uses randomness I recommend running `bicluster()` multiple times and keeping the result with the lowest SSE.
+Next, cluster similarity measures. If a similarity measure for rows equals one, that means that the row shuffling from the last iteration and second to last iteration are identical. If zero, the two shufflings have nothing in common. The same goes for column similarities. `autoplot.biclustermd_sim()` plots the RIs by iteration.
 ```{r}
-bc <- bicluster(data = flights, P0 = P01, Q0 = Q01,
-                miss_val = mean(flights, na.rm = TRUE), miss_val_sd = 1,
-                row_min_num = 3, col_min_num = 5,
-                row_num_to_move = 1, col_num_to_move = 1,
-                row_shuffles = 1, col_shuffles = 1,
-                max.iter = 20, verbose = TRUE)
+?autoplot.biclustermd_sim
+autoplot(bc$Similarities)
 ```
 
-+ `miss_val`: if a cell (an intersection of a row group and a column group) is empty, what value should be imputed? This value is somewhat arbitrary but setting it equal to the data mean seems to work well. This value follows a normal distribution with mean of `miss_val` and standard deviation `miss_val_sd`. Note that this value is specified to merely keep the algorithm running.
-+ `miss_val_sd`: standard deviation of the random normal variable `miss_val`. Empirical results show that this value doesn't play a huge role in clustering, so I'll keep it at the default of one.
-+ `row_min_num`: if an entire row group is empty we need to fill it. We do this by randomly selecting a row group to take members from. This value specifies the minimum size needed for a group to be selected. Parallel reasoning applies for `col_min_num`.
-+ `row_num_to_move`: When filling an empty row group, this value specifies the number of members to take from the selected group and put into the empty group. By default the number is equal to one. The members selected are ones most dissimilar to the group, so if one, the least dissimilar is moved. If two, the two least similar members are moved, etc. Parallel reasoning applies for `col_num_to_move`.
-
-`bicluster` outputs a list of useful information, ordered as following: 
-+ The final partition matrices,
-+ SSE of each iteration,
-+ Rand Indices for rows and columns for each iteration,
-+ The number of iterations `bicluster()` ran for,
-+ Table of resulting cell means 
-
-This list is used to make plots and training data.
-
-To plot SSE by iteration, use `gg_sse()`, which outputs points by default:
+`autoplot.biclustermd()` makes visual analysis of biclustering results easy by making a heat map of the clustered data. The algorithm does use randomness, so my results may look different from yours.
 ```{r}
-?gg_sse
-gg_sse(bc) + geom_line()
-```
-
-Next, Rand Indices (RI). If an RI for rows equals one, that means that the row shuffling from the last iteration and second to last iteration are identical. If zero, the two shufflings have nothing in common. The same goes for column RIs. `gg_ri()` plots the RIs by iteration.
-```{r}
-?gg_ri
-gg_ri(bc)
-```
-
-`gg_bicluster()` makes visual analysis of biclustering results easy by making a heat map of the clustered data. The algorithm does use randomness, so my results may look different from yours.
-```{r}
-?gg_bicluster
-gg_bicluster(bc, data = flights, transform_colors = FALSE) +
+?autoplot.biclustermd
+autoplot(bc) +
+  scale_fill_viridis_c(na.value = "white") +
   labs(x = "Destination Airport", y = "Month", fill = "Average Delay")
 ```
 
-Often times it is helpful to run the data through an S-shaped function before plotting. This is easy with `gg_bicluster()`: set `transform_colors = TRUE` and specify by what constant you'd like to scale your data by (with `c`) before running it through a standard normal CDF:
+Often times it is helpful to run the data through an S-shaped function before plotting. This is easy with `autoplot.biclustermd()`: set `transform_colors = TRUE` and specify by what constant you'd like to scale your data by (with `c`) before running it through a standard normal CDF:
 ```{r}
-gg_bicluster(bc, data = flights, transform_colors = TRUE, c = 1/10) +
+autoplot(bc, transform_colors = TRUE, c = 1/10) +
+  scale_fill_viridis_c(na.value = "white", limits = c(0, 1)) +
   labs(x = "Destination Airport", y = "Month", fill = "Average Delay")
 ```
 
-To make the results really stand out we can reorder the row and column groups using the means table:
+To make the results really stand out we can reorder the row and column groups with the `reorder` argument:
 ```{r}
-bq <- bc$Q[, order(rowMeans(bc$A))]
-bp <- bc$P[, order(-colMeans(bc$A))]
-bc_l <- list(P = bp, Q = bq)
-
-gg_bicluster(bc_l, flights, transform_colors = TRUE, c = 1/10) +
+autoplot(bc, transform_colors = TRUE, c = 1/10, reorder = TRUE) +
+  scale_fill_viridis_c(na.value = "white", limits = c(0, 1)) +
   labs(x = "Destination Airport", y = "Month", fill = "Average Delay")
 ```
 
-We'll end this tutorial by making a training dataset from the clustered data using `make_train_set()`, which gives the name of the row and column the data point comes from as well as the row and column group it belongs to.
+
+## Minimization of SSE for a set of parameters
+Since the algorithm uses purposeful randomness, it is recommend that analysts run the biclustering multiple times and keep the one with the smallest SSE. The function `rep_biclustermd()` does exactly that. Arguments to `rep_biclustermd()` are the same as those for `biclustermd()` with 3 additional arguments:
+1. `nrep`: the number of times to repeat the biclustering.
+2. `parallel`: a logical indicating if parallelization should be used or not. By default this is `FALSE`.
+3. `ncores`: the number of cores to parallelize over. Ignored if `parallel = FALSE`.
+
+Below we run biclustering 100 times without using parallelization.
 ```{r}
-training <- make_train_set(data = flights, bc)
+repeated_bc <- rep_biclustermd(flights, nrep = 100, col_clusters = 6, row_clusters = 4)
+repeated_bc
+```
+
+1. `repeated_bc$best_bc` returns the best biclustering, and has the same structure as the output of `biclustermd()`. 
+2. `repeated_bc$rep_sse` is the SSE for each repeat, in order.
+3. `repeated_bc$runtime` provides the CPU runtime for the user and system as well as elapsed time in seconds.
+
+The 100 repeats take approximately 20 seconds to complete. Parallelization is quicker given sufficient complexity. However, as `nrep` gets large, parallelization gets slow, since all `nrep` objects have to be written to memory versus the minimum SSE object when processing serially. These remarks are current as of July 17, 2019.
+```{r}
+repeated_bc$runtime
+```
+
+We can plot the best SSE at each repeat, that is, we can take the cumulative minimum of `rep_sse` and plot:
+```{r}
+plot(cummin(repeated_bc$rep_sse), type = 'o', ylab = 'Cumulative Minimum', xlab = 'Repeat Number')
+```
+
+
+## Predicting average delays 
+We'll end this tutorial by making a training dataset from the clustered data using `gather.biclustermd()`, which gives the name of the row and column the data point comes from as well as the row and column group it belongs to.
+```{r}
+training <- gather(repeated_bc$best_bc)
 training %>% head()
 ```
 
+Now we'll plot cell (1, 4) and fit a linear model to it.
+```{r}
+autoplot(repeated_bc$best_bc, row_clusts = 1, col_clusts = 4) +
+  scale_fill_viridis_c(na.value = "white") +
+  labs(x = "Destination Airport", y = "Month", fill = "Average Delay")
 
-Hopefully this example was useful to you. If you have questions you can email me at johntreisner@gmail.com. In the case you've found an error please open up an issue.
+model <- training %>% 
+  filter(row_group == 1, col_group == 4) %>% 
+  lm(value ~ row_name + col_name, data = .)
+summary(model)
+sqrt(mean(resid(model) ^ 2))
+```
+
+If you have questions you can email me at johntreisner@gmail.com. In the case you've found an error please open up an issue.
