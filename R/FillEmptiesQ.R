@@ -28,6 +28,15 @@ random_assign_unassigned_fill_empties_Q <- function(data, obj,
 
     num_to_fill <- length(empty_protos)
 
+    if(all(colSums(obj, na.rm = TRUE) < row_min_num)) {
+      stop(
+        paste0(
+          "No row groups with at least row_min_num = ", row_min_num,
+          " rows. Specify a smaller row_min_num value."
+        )
+      )
+    }
+
     for(j in 1:num_to_fill) {
 
       protos_to_choose_from <- which(colSums(obj, na.rm = TRUE) >= row_min_num)

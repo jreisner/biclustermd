@@ -26,6 +26,15 @@ random_assign_unassigned_fill_empties_P <- function(data, obj, col_min_num = 10,
 
     num_to_fill <- length(empty_protos)
 
+    if(all(colSums(obj, na.rm = TRUE) < col_min_num)) {
+      stop(
+        paste0(
+          "No column groups with at least col_min_num = ", col_min_num,
+          " columns. Specify a smaller col_min_num value."
+        )
+      )
+    }
+
     for(j in 1:num_to_fill) {
       protos_to_choose_from <- which(colSums(obj, na.rm = TRUE) >= col_min_num)
 
