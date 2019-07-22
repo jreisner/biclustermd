@@ -9,8 +9,8 @@
 biclustermd(data, col_clusters = floor(sqrt(ncol(data))),
   row_clusters = floor(sqrt(nrow(data))), miss_val = mean(data, na.rm =
   TRUE), miss_val_sd = 1, similarity = "Rand",
-  row_min_num = floor(sqrt(nrow(data))),
-  col_min_num = floor(sqrt(ncol(data))), row_num_to_move = 1,
+  row_min_num = floor(nrow(data)/row_clusters),
+  col_min_num = floor(ncol(data)/col_clusters), row_num_to_move = 1,
   col_num_to_move = 1, row_shuffles = 1, col_shuffles = 1,
   max.iter = 100, verbose = FALSE)
 }
@@ -35,10 +35,10 @@ if `miss_val` is a number. By default this equals 1.}
 See \link[clues]{adjustedRand} for details.}
 
 \item{row_min_num}{Minimum row prototype size in order to be eligible to be
-chosen when filling an empty row prototype. Default is \code{floor(sqrt(nrow(data)))}.}
+chosen when filling an empty row prototype. Default is \code{floor(nrow(data) / row_clusters)}.}
 
 \item{col_min_num}{Minimum column prototype size in order to be eligible to be
-chosen when filling an empty row prototype. Default is \code{floor(sqrt(ncol(data)))}.}
+chosen when filling an empty row prototype. Default is \code{floor(ncol(data) / col_clusters)}.}
 
 \item{row_num_to_move}{Number of rows to remove from the sampled prototype to
 put in the empty row prototype. Default is 1.}
