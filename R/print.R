@@ -9,7 +9,7 @@ print.biclustermd <- function(x, ...) {
   cat("\n ", x$iteration, " Iterations", sep = "")
   cat("\n ", "Initial SSE = ", round(x$InitialSSE),
       "; Final SSE = ", round(x$SSE[x$iteration, 1]),
-      ", a ", round(1 - x$SSE[x$iteration, 1] / x$InitialSSE) * 100, "% reduction",
+      ", a ", round(1 - x$SSE[x$iteration, 1] / x$InitialSSE, 3) * 100, "% reduction",
       sep = "")
 
   if(x$params$similarity == 'Rand') {
