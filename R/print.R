@@ -8,7 +8,9 @@ print.biclustermd <- function(x, ...) {
   cat("\n ", "Data has ", prod(dim(x$data)), " values, ", round(100 * sum(is.na(x$data)) / prod(dim(x$data)), 2), "% of which are missing", sep = "")
   cat("\n ", x$iteration, " Iterations", sep = "")
   cat("\n ", "Initial SSE = ", round(x$InitialSSE),
-      "; Final SSE = ", round(x$SSE[x$iteration, 1]), sep = "")
+      "; Final SSE = ", round(x$SSE[x$iteration, 1]),
+      ", a ", round(1 - x$SSE[x$iteration, 1] / x$InitialSSE) * 100, "% reduction",
+      sep = "")
 
   if(x$params$similarity == 'Rand') {
     cat(
