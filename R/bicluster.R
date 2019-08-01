@@ -66,17 +66,43 @@ biclustermd <- function(data,
                         row_shuffles = 1, col_shuffles = 1,
                         max.iter = 100, verbose = FALSE) {
 
+  if(!(class(data) %in% c("matrix", "data.frame"))) {
+    stop("`data` must be a matrix or a data.frame.")
+  }
+  if(is.null(rownames(data))) {
+    stop("`data` does not have row names.")
+  }
+  if(is.null(colnames(data))) {
+    stop("`data` does not have column names.")
+  }
+  if(is.expression(col_clusters)) {
+    condition_call <- substitute(col_clusters)
+    if(is.na(eval(condition_call))) {
+      stop("`col_clusters` must not be NA.")
+    }
+    if(length(eval(condition_call)) > 0) {
+      stop("`col_clusters` must be a single integer or function which evaluates to such.")
+    }
+  } else if(length(col_clusters) > 1) {
+    stop("`col_clusters` must be a single integer or function which evaluates to such.")
+  }
+  if(is.expression(row_clusters)) {
+    condition_call <- substitute(row_clusters)
+    if(is.na(eval(condition_call))) {
+      stop("`row_clusters` must not be NA.")
+    }
+    if(length(eval(condition_call)) > 0) {
+      stop("`row_clusters` must be a single integer or function which evaluates to such.")
+    }
+  } else if(length(row_clusters) > 1) {
+    stop("`row_clusters` must be a single integer or function which evaluates to such.")
+  }
+
   if(length(similarity) > 1) {
     warning(
       paste0("Only one similarity metric can be used as a stopping condition. Using the first supplied, ", similarity[1])
     )
     similarity <- similarity[1]
-  }
-
-  if(!(class(data) %in% c("matrix", "data.frame"))) {
-    stop("`data` must be a matrix or a data.frame.")
-  } else if(is.null(rownames(data)) & is.null(colnames(data))) {
-    warning("`data` does not have row or column names. For interpretation of results, it is advised to have row and column names.")
   }
 
   if(is.expression(miss_val)) {
