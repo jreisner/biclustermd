@@ -27,3 +27,10 @@ test_that("test that gather()$value matches the sparsity of the provided data", 
   
   expect_equal(mean(is.na(gsbc$value)), mean(is.na(sbc$data)))
 })
+
+test_that("test that gather() contains the correct number of biclusters", {
+  sbc <- biclustermd(synthetic)
+  gsbc <- gather(sbc)
+  
+  expect_equal(max(gsbc$bicluster_no), prod(dim(sbc$A)))
+})
