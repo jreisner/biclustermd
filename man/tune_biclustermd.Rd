@@ -12,20 +12,20 @@ tune_biclustermd(data, nrep = 10, parallel = FALSE, ncores = 2,
 
 \item{nrep}{The number of times to repeat the biclustering for each set of parameters. Default 10.}
 
-\item{parallel}{Logical indicating if the user would like to utilize the 
+\item{parallel}{Logical indicating if the user would like to utilize the
 \code{foreach} parallel backend. Default is FALSE.}
 
 \item{ncores}{The number of cores to use if parallel computing. Default 2.}
 
-\item{tune_grid}{A data frame of parameters to tune over. The column names of 
+\item{tune_grid}{A data frame of parameters to tune over. The column names of
 this must match the arguments passed to \code{biclustermd()}.}
 }
 \value{
 A list of:
     \item{best_combn }{The best combination of parameters,}
-    \item{best_bc }{The minimum SSE biclustering using the parameters in 
-    \code{best_combn},} \item{grid }{\code{tune_grid} with columns giving the 
-    minimum, mean, and standard deviation of the final SSE for each parameter 
+    \item{best_bc }{The minimum SSE biclustering using the parameters in
+    \code{best_combn},} \item{grid }{\code{tune_grid} with columns giving the
+    minimum, mean, and standard deviation of the final SSE for each parameter
     combination, and} \item{runtime }{CPU runtime & elapsed time.}
 }
 \description{
@@ -43,20 +43,20 @@ col_clusters = 3:5,
 row_clusters = 2
 )
 tg
-tbc <- tune_biclustermd(synthetic, nrep = 10, tune_grid = tg)
+tbc <- tune_biclustermd(synthetic, nrep = 2, tune_grid = tg)
 tbc
 
-tbc$grid \%>\% 
-  group_by(miss_val, col_clusters) \%>\% 
-  summarise(avg_sd = mean(sd_sse)) \%>\% 
+tbc$grid \%>\%
+  group_by(miss_val, col_clusters) \%>\%
+  summarise(avg_sd = mean(sd_sse)) \%>\%
   ggplot(aes(miss_val, avg_sd, color = col_clusters, group = col_clusters)) +
-  geom_line() + 
+  geom_line() +
   geom_point()
 
 
 
 # in parallel: two cores:
-tbc <- tune_biclustermd(synthetic, nrep = 20, parallel = TRUE, ncores = 2, tune_grid = tg)
+tbc <- tune_biclustermd(synthetic, nrep = 2, parallel = TRUE, ncores = 2, tune_grid = tg)
 tbc
 
 boxplot(tbc$grid$mean_sse ~ tbc$grid$similarity)
