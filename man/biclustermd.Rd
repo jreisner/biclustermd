@@ -6,8 +6,8 @@
 \alias{biclustermd-package}
 \title{Bicluster data with non-random missing data}
 \usage{
-biclustermd(data, col_clusters = floor(sqrt(ncol(data))),
-  row_clusters = floor(sqrt(nrow(data))), miss_val = mean(data, na.rm =
+biclustermd(data, row_clusters = floor(sqrt(nrow(data))),
+  col_clusters = floor(sqrt(ncol(data))), miss_val = mean(data, na.rm =
   TRUE), miss_val_sd = 1, similarity = "Rand",
   row_min_num = floor(nrow(data)/row_clusters),
   col_min_num = floor(ncol(data)/col_clusters), row_num_to_move = 1,
@@ -15,13 +15,14 @@ biclustermd(data, col_clusters = floor(sqrt(ncol(data))),
   max.iter = 100, verbose = FALSE)
 }
 \arguments{
-\item{data}{Dataset to bicluster. Must to be a data matrix with only numbers and missing values in the data set. It should have row names and column names.}
-
-\item{col_clusters}{The number of clusters to partition the columns into. The
-default is \code{floor(sqrt(ncol(data)))}.}
+\item{data}{Dataset to bicluster. Must to be a data matrix with only numbers
+and missing values in the data set. It should have row names and column names.}
 
 \item{row_clusters}{The number of clusters to partition the rows into. The
 default is \code{floor(sqrt(nrow(data)))}.}
+
+\item{col_clusters}{The number of clusters to partition the columns into. The
+default is \code{floor(sqrt(ncol(data)))}.}
 
 \item{miss_val}{Value or function to put in empty cells of the prototype matrix.
 If a value, a random normal variable with sd = `miss_val_sd` is used each
