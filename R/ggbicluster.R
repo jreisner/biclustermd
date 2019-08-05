@@ -19,7 +19,7 @@
 #' @importFrom grDevices rainbow
 #' @return An object of class ggplot.
 #' @examples
-#' data("synthetic")
+#' \dontrun{data("synthetic")
 #'
 #' bc <- biclustermd(synthetic, col_clusters = 3, row_clusters = 2,
 #'                 miss_val = mean(synthetic, na.rm = TRUE),
@@ -41,7 +41,7 @@
 #' results_heatmap(bc, transform_colors = TRUE, c = 1/20, cell_alpha = 0)
 #'
 #' # Focus on row cluster 1 and column cluster 2
-#' results_heatmap(bc, col_clusts = 2, row_clusts = 1)
+#' results_heatmap(bc, col_clusts = 2, row_clusts = 1)}
 
 results_heatmap <- function (x, reorder = FALSE, transform_colors = FALSE, c = 1/6,
                           cell_alpha = 1/5, col_clusts = NULL, row_clusts = NULL,
