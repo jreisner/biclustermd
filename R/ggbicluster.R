@@ -12,7 +12,7 @@
 #' @param c Value to scale the data by before running it through a standard normal CDF.
 #'     Default is 1/6.
 #' @param ... Arguments to be passed to `geom_vline()` and `geom_hline()`.
-#' @export
+
 #' @importFrom tidyr gather
 #' @importFrom dplyr left_join group_by ungroup
 #' @importFrom ggplot2 ggplot aes geom_rect geom_tile geom_hline geom_vline scale_fill_gradientn theme_bw theme
