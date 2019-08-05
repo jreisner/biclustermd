@@ -1,15 +1,16 @@
 #' Make a data frame containing the MSE for each bicluster cell
 #'
 #' @param x An object of class \code{biclustermd}.
+#'
+#' @importFrom stats na.omit
+#'
 #' @export
+#'
 #' @return A data frame giving the row cluster, column cluster, the number of
 #'   data points in each row and column cluster, the number of data points missing
 #'   in the cell, and the cell MSE.
 #' @examples
 #' data("synthetic")
-#' P01 <- partition_gen(12, 3)
-#' Q01 <- partition_gen(6, 2)
-#'
 #' bc <- biclustermd(synthetic, col_clusters = 3, row_clusters = 2,
 #'                 miss_val = mean(synthetic, na.rm = TRUE),
 #'                 miss_val_sd = sd(synthetic, na.rm = TRUE),

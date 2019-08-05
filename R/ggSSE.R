@@ -10,6 +10,8 @@
 #' @importFrom magrittr %>%
 #' @importFrom dplyr mutate
 #' @importFrom ggplot2 ggplot aes geom_point geom_smooth theme_bw
+#' @importFrom stats na.omit
+#'
 #' @return A ggplot.
 
 gg_sse <- function(x, ..., smoother = FALSE, linear = FALSE) {

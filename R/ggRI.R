@@ -7,6 +7,8 @@
 #' @importFrom tidyr gather
 #' @importFrom magrittr %>%
 #' @importFrom ggplot2 ggplot aes geom_line geom_point scale_colour_manual theme_bw
+#' @importFrom stats na.omit
+#'
 #' @return A ggplot
 #'
 #'
