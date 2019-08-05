@@ -4,8 +4,6 @@
 #' @param K Number of prototypes to create
 #' @param p Integer vector containing the cluster each row in a partition matrix is to be assigned to.
 #'
-#' @export
-#'
 #' @return A partition matrix.
 #'
 partition_gen_by_p <- function(N, K, p) {
