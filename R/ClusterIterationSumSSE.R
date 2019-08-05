@@ -3,16 +3,17 @@
 #' @param data The data being biclustered. Must to be a data matrix with only numbers and missing values in the data set. It should have row names and column names.
 #' @param P Matrix for column prototypes.
 #' @param Q Matrix for row prototypes.
-#' @export
+#'
 #' @return The SSE for the parameters specified.
 #'
 #' @examples
+#' \dontrun{
 #' # Get the initial SSE
 #' data("synthetic")
 #' P01 <- partition_gen(12, 3)
 #' Q01 <- partition_gen(6, 2)
 #'
-#' cluster_iteration_sum_sse(synthetic, P01, Q01)
+#' cluster_iteration_sum_sse(synthetic, P01, Q01)}
 cluster_iteration_sum_sse <- function(data, P, Q) {
   np <- ncol(P)
   nq <- ncol(Q)
