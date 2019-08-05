@@ -15,12 +15,12 @@ Depends: ggplot2 (>= 3.0.0),
          R (>= 3.5.0),
          tidyr (>= 0.8.1)
 Imports: biclust (>= 2.0.1),
+         clues (>= 0.5.9),
          doParallel (>= 1.0.14),
          dplyr (>= 0.7.6), 
          foreach (>= 1.4.4),
-         gam (>= 1.14.4), 
          magrittr (>= 1.5), 
-         clues (>= 0.5.9)
+         nycflights13 (>= 1.0.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
