@@ -1,7 +1,7 @@
 #' Reorder a bicluster object for making a heat map
 #'
 #' @param x A bicluster object.
-#' @export
+#'
 #' @return A list containing the two partition matrices used by gg_bicluster.
 
 reorder_biclust <- function(x) {
