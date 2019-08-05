@@ -19,9 +19,6 @@ Make a data frame containing the MSE for each bicluster cell
 }
 \examples{
 data("synthetic")
-P01 <- partition_gen(12, 3)
-Q01 <- partition_gen(6, 2)
-
 bc <- biclustermd(synthetic, col_clusters = 3, row_clusters = 2,
                 miss_val = mean(synthetic, na.rm = TRUE),
                 miss_val_sd = sd(synthetic, na.rm = TRUE),
