@@ -6,7 +6,7 @@
 #'     By default it is FALSE and no smoother is added to the plot.
 #' @param linear Logical. If TRUE, a line is added to the plot.
 #'     By default it is FALSE and no line is added to the plot.
-#' @export
+#'
 #' @importFrom magrittr %>%
 #' @importFrom dplyr mutate
 #' @importFrom ggplot2 ggplot aes geom_point geom_smooth theme_bw

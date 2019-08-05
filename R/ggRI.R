@@ -2,7 +2,7 @@
 #'
 #' @param x A bicluster object.
 #' @param ... Arguments to be passed to `geom_point()` and `geom_line()`.
-#' @export
+#'
 #' @importFrom graphics points
 #' @importFrom tidyr gather
 #' @importFrom magrittr %>%

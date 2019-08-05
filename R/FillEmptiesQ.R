@@ -5,8 +5,6 @@
 #' @param row_min_num Minimum row prototype size in order to be eligible to be chosen when filling an empty row prototype. Default is 10.
 #' @param row_num_to_move Number of rows to remove from the sampled prototype to put in the empty row prototype. Default is 5.
 #'
-#' @export
-#'
 #' @importFrom utils head
 #' @return A matrix for row clusters, i.e., a Q matrix.
 

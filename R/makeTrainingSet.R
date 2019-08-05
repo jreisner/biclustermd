@@ -2,7 +2,7 @@
 #'
 #' @param data Data that was fed into the bicluster function.
 #' @param x A bicluster object.
-#' @export
+#'
 #' @importFrom magrittr %>%
 #' @importFrom dplyr arrange
 #' @importFrom tidyr gather

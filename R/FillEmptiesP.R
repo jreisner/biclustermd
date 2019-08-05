@@ -5,8 +5,6 @@
 #' @param col_min_num Minimum column prototype size in order to be eligible to be chosen when filling an empty column prototype. Default is 10.
 #' @param col_num_to_move Number of columns to remove from the sampled prototype to put in the empty column prototype. Default is 5.
 #'
-#' @export
-#'
 #' @importFrom utils head
 #' @return A matrix for column clusters, i.e., a P matrix.
 
