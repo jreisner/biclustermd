@@ -25,7 +25,8 @@
 #'     combination, and} \item{runtime }{CPU runtime & elapsed time.}
 #'
 #' @examples
-#' library(tidyverse)
+#' library(dplyr)
+#' library(ggplot2)
 #' data("synthetic")
 #' tg <- expand.grid(
 #' miss_val = fivenum(synthetic),
