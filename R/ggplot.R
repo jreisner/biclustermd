@@ -5,7 +5,7 @@
 #' @param value which value to plot. Can be either "sse" or "similarity".
 #' @param ... unused; included to match \code{ggplot2} generic
 #' @param environment unused; included to match \code{ggplot2} generic
-#' @export
+#'
 #' @importFrom magrittr %>%
 #' @importFrom ggplot2 ggplot aes scale_colour_manual geom_line geom_point theme_bw scale_x_continuous ylim
 #' @importFrom tidyr gather
