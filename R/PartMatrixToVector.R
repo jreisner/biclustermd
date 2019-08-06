@@ -9,16 +9,9 @@
 # each row of Q/P, get the column of Q/P that is nonzero (has a 1 in it).)
 # pmat2vec.f
 part_matrix_to_vector <- function(P0){
-  P <- as.matrix(P0)
 
-  a <- nrow(P)
-  b <- ncol(P)
+  D <- diag(1:ncol(P0))
+  PD <- P0 %*% D
+  rowSums(PD)
 
-  vec <- numeric(a)
-
-  Q <- diag(1:b)
-  for (i in 1:a){
-    vec[i] <- sum(Q %*% P[i,])
-  }
-  return(vec)
 }
