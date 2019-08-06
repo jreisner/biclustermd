@@ -4,7 +4,7 @@
 \name{biclustermd}
 \alias{biclustermd}
 \alias{biclustermd-package}
-\title{Bicluster data with non-random missing data}
+\title{Bicluster data with non-random missing values}
 \usage{
 biclustermd(data, row_clusters = floor(sqrt(nrow(data))),
   col_clusters = floor(sqrt(ncol(data))), miss_val = mean(data, na.rm =
@@ -71,7 +71,7 @@ A list of class \code{biclustermd}:
     \item{A }{the final prototype matrix which gives the average of each bicluster.}
 }
 \description{
-Bicluster data with non-random missing data
+Bicluster data with non-random missing values
 
 Biclustering with Missing Data
 }
