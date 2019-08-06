@@ -8,7 +8,7 @@
 #' @importFrom utils head
 #' @return A matrix for column clusters, i.e., a P matrix.
 
-random_assign_unassigned_fill_empties_P <- function(data, obj, col_min_num = 10,
+fill_empties_P <- function(data, obj, col_min_num = 10,
                                                     col_num_to_move = 5) {
   data <- as.matrix(data)
 

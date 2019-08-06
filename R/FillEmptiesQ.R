@@ -8,7 +8,7 @@
 #' @importFrom utils head
 #' @return A matrix for row clusters, i.e., a Q matrix.
 
-random_assign_unassigned_fill_empties_Q <- function(data, obj,
+fill_empties_Q <- function(data, obj,
                                                     row_min_num = 10,
                                                     row_num_to_move = 5) {
   data <- as.matrix(data)
