@@ -4,18 +4,19 @@
 \name{runtimes}
 \alias{runtimes}
 \title{Algorithm run time data}
-\format{An object of class \code{data.frame} with 2400 rows and 12 columns.}
+\format{An object of class \code{data.frame} with 2400 rows and 13 columns.}
 \usage{
 runtimes
 }
 \description{
-This dataset stems from the R journal article introducing \code{biclustermd} 
+This dataset stems from the R journal article introducing \code{biclustermd}
   to R users. It describes the data attributes and run time for varying data
   sizes and structures.
 }
 \details{
 A data frame of 2400 rows and 13 variables (defined range, inclusive):
 \describe{
+   \item{combination_no}{Unique identifier of a combination of parameters.}
    \item{rows}{Number of rows in the data matrix. (50, 1500)}
    \item{cols}{Number of columns in the data matrix. (50, 1500)}
    \item{N}{Product of the dimensions of the data. (2500, 2250000)}
