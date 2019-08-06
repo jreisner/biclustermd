@@ -55,6 +55,11 @@ fill_empties_P <- function(data, obj, col_min_num = 10,
                                             n = col_num_to_move))
 
       for(i in 1:col_num_to_move) {
+        if(is.na(chosen_proto_members[to_move[i]])) {
+          stop(
+            "No column clusters with at least col_num_to_move - 1 columns. Specify a smaller col_num_to_move value."
+          )
+        }
         obj[chosen_proto_members[to_move[i]],] <- dummy_var
       }
 
