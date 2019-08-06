@@ -212,7 +212,7 @@ biclustermd <- function(data,
 
       Q <- partition_gen_by_p(m_d, n_q, q1)
 
-      Q <- random_assign_unassigned_fill_empties_Q(data, Q, row_min_num, row_num_to_move)
+      Q <- fill_empties_Q(data, Q, row_min_num, row_num_to_move)
     }
 
     for(k in 1:col_shuffles) {
@@ -254,7 +254,7 @@ biclustermd <- function(data,
 
       P <- partition_gen_by_p(n_d, n_p, p1)
 
-      P <- random_assign_unassigned_fill_empties_P(data, P, col_min_num, col_num_to_move)
+      P <- fill_empties_P(data, P, col_min_num, col_num_to_move)
     }
 
     s <- s + 1
