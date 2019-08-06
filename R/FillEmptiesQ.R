@@ -63,7 +63,7 @@ fill_empties_Q <- function(data, obj,
       for(i in 1:row_num_to_move) {
         if(is.na(chosen_proto_members[to_move[i]])) {
           stop(
-            "No row clusters with at least row_num_to_move - 1 rows Specify a smaller row_num_to_move value."
+            "No row clusters with at least row_num_to_move - 1 rows. Specify a smaller row_num_to_move value."
           )
         }
         obj[chosen_proto_members[to_move[i]],] <- dummy_var
