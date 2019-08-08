@@ -54,6 +54,29 @@
 #' bc <- biclustermd(synthetic, col_clusters = 3, row_clusters = 2)
 #' bc
 #' autoplot(bc)
+#'
+#' # an example with the nycflights13::flights dataset
+#' library(nycflights13)
+#' data("flights")
+#'
+#' library(dplyr)
+#' flights_bcd <- flights %>%
+#'   select(month, dest, arr_delay)
+#'
+#' flights_bcd <- flights_bcd %>%
+#'   group_by(month, dest) %>%
+#'   summarise(mean_arr_delay = mean(arr_delay, na.rm = TRUE)) %>%
+#'   spread(dest, mean_arr_delay) %>%
+#'   as.data.frame()
+#'
+#' rownames(flights_bcd) <- flights_bcd$month
+#' flights_bcd <- as.matrix(flights_bcd[, -1])
+#'
+#' flights_bc <- biclustermd(data = flights_bcd, col_clusters = 6, row_clusters = 4,
+#'                   row_min_num = 3, col_min_num = 5,
+#'                   max.iter = 20, verbose = TRUE)
+#' flights_bc
+#'
 
 
 biclustermd <- function(data,
@@ -162,7 +185,7 @@ biclustermd <- function(data,
   while(s < max.iter) {
     if(verbose) {
       if(s %% 10 == 0) {
-        cat("Iteration ", s, "\n")
+        cat("Iteration ", s, "\r")
       }
     }
 
