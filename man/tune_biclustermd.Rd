@@ -54,12 +54,49 @@ tbc$grid \%>\%
   geom_line() +
   geom_point()
 
-
-
 # in parallel: two cores:
+\dontrun{
 tbc <- tune_biclustermd(synthetic, nrep = 2, parallel = TRUE, ncores = 2, tune_grid = tg)
 tbc
 
 boxplot(tbc$grid$mean_sse ~ tbc$grid$similarity)
 boxplot(tbc$grid$sd_sse ~ tbc$grid$similarity)
+}
+
+# nycflights13::flights dataset
+\dontrun{
+library(nycflights13)
+data("flights")
+
+library(dplyr)
+flights_bcd <- flights \%>\%
+  select(month, dest, arr_delay)
+
+flights_bcd <- flights_bcd \%>\%
+  group_by(month, dest) \%>\%
+  summarise(mean_arr_delay = mean(arr_delay, na.rm = TRUE)) \%>\%
+  spread(dest, mean_arr_delay) \%>\%
+  as.data.frame()
+
+# months as rows
+rownames(flights_bcd) <- flights_bcd$month
+flights_bcd <- as.matrix(flights_bcd[, -1])
+
+flights_grid <- expand.grid(
+row_clusters = 4,
+col_clusters = c(6, 9, 12),
+miss_val = fivenum(flights_bcd),
+similarity = c("Rand", "Jaccard")
+)
+
+# RUN TIME: approximately 40 seconds across two cores.
+flights_tune <- tune_biclustermd(
+  flights_bcd,
+  nrep = 10,
+  parallel = TRUE,
+  ncores = 2,
+  tune_grid = flights_grid
+)
+flights_tune
+}
 }
