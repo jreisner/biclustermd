@@ -16,7 +16,7 @@ rep_biclustermd(data, nrep = 10, parallel = FALSE, ncores = 2,
 
 \item{nrep}{The number of times to repeat the biclustering. Default 10.}
 
-\item{parallel}{Logical indicating if the user would like to utilize the 
+\item{parallel}{Logical indicating if the user would like to utilize the
 \code{foreach} parallel backend. Default is FALSE.}
 
 \item{ncores}{The number of cores to use if parallel computing. Default 2.}
@@ -60,7 +60,7 @@ Repeat a biclustering to achieve a minimum SSE solution
 data("synthetic")
 
 # 20 repeats without parallelization
-repeat_bc <- rep_biclustermd(synthetic, nrep = 20, 
+repeat_bc <- rep_biclustermd(synthetic, nrep = 20,
                              col_clusters = 3, row_clusters = 2,
                              miss_val = mean(synthetic, na.rm = TRUE),
                              miss_val_sd = sd(synthetic, na.rm = TRUE),
