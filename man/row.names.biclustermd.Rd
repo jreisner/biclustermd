@@ -15,3 +15,13 @@ a data frame with row names of the shuffled matrix and corresponding row cluster
 \description{
 Get data matrix row names and their corresponding row cluster membership
 }
+\examples{
+data("synthetic")
+# default parameters
+bc <- biclustermd(synthetic)
+bc
+row.names(bc)
+# this is a simplified version of the output for gather(bc):
+library(dplyr)
+gather(bc) \%>\% distinct(row_group, row_name)
+}
