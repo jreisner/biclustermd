@@ -6,7 +6,20 @@ test_that(
     sbc <- biclustermd(synthetic)
     expect_equal(nrow(col.names(sbc)), ncol(synthetic))
     expect_equal(ncol(col.names(sbc)), 2)
-    expect_equal(all(colnames(synthetic) %in% col.names(sbc)$name), TRUE)
+    expect_equal(all(colnames(synthetic) %in% col.names(sbc)$col_name), TRUE)
+    
+  }
+)
+
+test_that(
+  "col.names() is a subset of gather()", {
+    
+    sbc <- biclustermd(synthetic)
+    library(dplyr)
+    expect_equal(
+      col.names(sbc),
+      gather(sbc) %>% distinct(col_group, col_name)
+    )
     
   }
 )
