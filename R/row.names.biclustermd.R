@@ -14,10 +14,10 @@
 #' row.names(bc)
 #' # this is a simplified version of the output for gather(bc):
 #' library(dplyr)
-#' gather(bc) %>% distinct(row_group, row_name)
+#' gather(bc) %>% distinct(row_cluster, row_name)
 
 row.names.biclustermd <- function (x) {
-  row_clust <- data.frame(row_group = part_matrix_to_vector(x$Q))
+  row_clust <- data.frame(row_cluster = part_matrix_to_vector(x$Q))
   row_clust$row_name <- rownames(x$data)
-  row_clust %>% arrange(row_group)
+  row_clust %>% arrange(row_cluster)
 }

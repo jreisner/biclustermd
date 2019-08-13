@@ -18,7 +18,7 @@ test_that(
     library(dplyr)
     expect_equal(
       col.names(sbc),
-      gather(sbc) %>% distinct(col_group, col_name)
+      gather(sbc) %>% distinct(col_cluster, col_name)
     )
     
   }

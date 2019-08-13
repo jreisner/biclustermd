@@ -151,7 +151,7 @@ autoplot(repeated_bc$best_bc, row_clusts = 1, col_clusts = 4) +
   labs(x = "Destination Airport", y = "Month", fill = "Average Delay")
 
 model <- training %>% 
-  filter(row_group == 1, col_group == 4) %>% 
+  filter(row_cluster == 1, col_cluster == 4) %>% 
   lm(value ~ row_name + col_name, data = .)
 summary(model)
 sqrt(mean(resid(model) ^ 2))

@@ -23,5 +23,5 @@ bc
 row.names(bc)
 # this is a simplified version of the output for gather(bc):
 library(dplyr)
-gather(bc) \%>\% distinct(row_group, row_name)
+gather(bc) \%>\% distinct(row_cluster, row_name)
 }

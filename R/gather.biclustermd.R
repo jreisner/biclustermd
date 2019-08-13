@@ -74,20 +74,20 @@ gather.biclustermd <- function(data, key = NULL, value = NULL, ..., na.rm = FALS
 
   dat <- dat %>%
     gather(col_name, value, -row_name)
-  dat$row_group <- unlist(
+  dat$row_cluster <- unlist(
     lapply(1:nrow(dat), function(n) {
       which(q[rownames(q) == dat$row_name[n], ] == 1)
     })
   )
-  dat$col_group <- unlist(
+  dat$col_cluster <- unlist(
     lapply(1:nrow(dat), function(n) {
       which(p[rownames(p) == dat$col_name[n], ] == 1)
     })
   )
   dat <- dat %>%
-    arrange(row_group, col_group) %>%
-    mutate(bicluster_no = as.integer(paste0(row_group, col_group))) %>%
+    arrange(row_cluster, col_cluster) %>%
+    mutate(bicluster_no = as.integer(paste0(row_cluster, col_cluster))) %>%
     mutate(bicluster_no = as.numeric(factor(rank(bicluster_no)))) %>%
-    select(row_name, col_name, row_group, col_group, bicluster_no, value)
+    select(row_name, col_name, row_cluster, col_cluster, bicluster_no, value)
   dat
 }
