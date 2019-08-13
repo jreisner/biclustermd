@@ -17,8 +17,7 @@
 #' gather(bc) %>% distinct(col_group, col_name)
 
 col.names.biclustermd <- function(x) {
-  col_clust <- data.frame(col_cluster = part_matrix_to_vector(x$P))
-  col_clust$name <- colnames(x$data)
-  col_clust <- col_clust %>% arrange(col_cluster)
-  col_clust
+  col_clust <- data.frame(col_group = part_matrix_to_vector(x$P))
+  col_clust$col_name <- colnames(x$data)
+  col_clust %>% arrange(col_group)
 }
