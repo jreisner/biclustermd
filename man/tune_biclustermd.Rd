@@ -100,6 +100,9 @@ flights_tune <- tune_biclustermd(
 flights_tune
 }
 }
+\references{
+Li, J., Reisner, J., Pham, H., Olafsson, S., and Vardeman, S. (2019) \emph{Biclustering for Missing Data. Information Sciences, Submitted}
+}
 \seealso{
 \code{\link{biclustermd}}, \code{\link{rep_biclustermd}}
 }

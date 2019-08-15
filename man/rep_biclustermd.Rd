@@ -82,6 +82,9 @@ repeat_bc <- rep_biclustermd(synthetic, nrep = 20, parallel = TRUE, ncores = 2,
                              max.iter = 10)
 repeat_bc$runtime
 }
+\references{
+Li, J., Reisner, J., Pham, H., Olafsson, S., and Vardeman, S. (2019) \emph{Biclustering for Missing Data. Information Sciences, Submitted}
+}
 \seealso{
 \code{\link{biclustermd}}, \code{\link{tune_biclustermd}}
 }
