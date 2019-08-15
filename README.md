@@ -1,11 +1,8 @@
 # biclustermd
-## If you encounter an issue, please open an issue or email me at johntreisner at gmail dot com.
 
-See the file "Airports.rmd" for a walk-through of the package and how it is used.
+See the vignette "Airports.rmd" for a walk-through of the package and how it is used.
 
-This package is currently being updated on a nearly daily basis, so check back for updates.
-
-Here is a toy example which is also found in the help page for the function `bicluster()`. (This example is from the commented portion of the bicluster.R file in the R folder above.)
+Here is a toy example which is also found in the help page for `biclustermd()`. 
 
 ```r
 devtools::install_github("jreisner/biclustermd")
