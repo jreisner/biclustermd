@@ -24,6 +24,8 @@
 #'     minimum, mean, and standard deviation of the final SSE for each parameter
 #'     combination, and} \item{runtime }{CPU runtime & elapsed time.}
 #'
+#' @seealso \code{\link{biclustermd}}, \code{\link{rep_biclustermd}}
+#'
 #' @examples
 #' library(dplyr)
 #' library(ggplot2)

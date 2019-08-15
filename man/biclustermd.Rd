@@ -110,3 +110,9 @@ flights_bc <- biclustermd(data = flights_bcd, col_clusters = 6, row_clusters = 4
 flights_bc
 
 }
+\references{
+Li, J., Reisner, J., Pham, H., Olafsson, S., and Vardeman, S. (2019) \emph{Biclustering for Missing Data. Information Sciences, Submitted}
+}
+\seealso{
+\code{\link{rep_biclustermd}}, \code{\link{tune_biclustermd}}
+}

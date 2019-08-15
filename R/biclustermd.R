@@ -43,6 +43,10 @@
 #'     \item{iteration }{the number of iterations the algorithm ran for, whether \code{max.iter} was reached or convergence was achieved.}
 #'     \item{A }{the final prototype matrix which gives the average of each bicluster.}
 #'
+#' @seealso \code{\link{rep_biclustermd}}, \code{\link{tune_biclustermd}}
+#'
+#' @references Li, J., Reisner, J., Pham, H., Olafsson, S., and Vardeman, S. (2019) \emph{Biclustering for Missing Data. Information Sciences, Submitted}
+#'
 #' @examples
 #' data("synthetic")
 #' # default parameters

@@ -82,3 +82,6 @@ repeat_bc <- rep_biclustermd(synthetic, nrep = 20, parallel = TRUE, ncores = 2,
                              max.iter = 10)
 repeat_bc$runtime
 }
+\seealso{
+\code{\link{biclustermd}}, \code{\link{tune_biclustermd}}
+}

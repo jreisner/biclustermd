@@ -27,6 +27,9 @@
 #' @importFrom parallel makeCluster stopCluster
 #' @return A list of the minimum SSE biclustering, a vector containing
 #'     the final SSE of each repeat, and the time it took the function to run.
+#'
+#' @seealso \code{\link{biclustermd}}, \code{\link{tune_biclustermd}}
+#'
 #' @examples
 #' data("synthetic")
 #'

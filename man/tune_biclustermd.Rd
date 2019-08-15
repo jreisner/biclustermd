@@ -100,3 +100,6 @@ flights_tune <- tune_biclustermd(
 flights_tune
 }
 }
+\seealso{
+\code{\link{biclustermd}}, \code{\link{rep_biclustermd}}
+}
