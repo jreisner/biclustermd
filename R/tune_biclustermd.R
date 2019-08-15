@@ -26,6 +26,8 @@
 #'
 #' @seealso \code{\link{biclustermd}}, \code{\link{rep_biclustermd}}
 #'
+#' @references Li, J., Reisner, J., Pham, H., Olafsson, S., and Vardeman, S. (2019) \emph{Biclustering for Missing Data. Information Sciences, Submitted}
+#'
 #' @examples
 #' library(dplyr)
 #' library(ggplot2)
