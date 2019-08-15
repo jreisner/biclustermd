@@ -30,7 +30,6 @@
 #' @importFrom clues adjustedRand
 #' @importFrom stats rnorm
 #' @return A list of class \code{biclustermd}:
-#' "params", "data", "P0", "Q0", "InitialSSE", "P", "Q", "SSE", "Similarities", "iteration", "A")
 #'     \item{params }{a list of all arguments passed to the function, including defaults.}
 #'     \item{data }{the inputted two way table of data.}
 #'     \item{P0 }{the initial column partition matrix.}
