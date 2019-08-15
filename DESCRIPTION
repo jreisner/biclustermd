@@ -2,11 +2,10 @@ Package: biclustermd
 Type: Package
 Title: Biclustering with Missing Data
 Version: 0.1.0
-Authors@R: as.person(c(
-    "John Reisner <johntreisner@gmail.com> [cre, aut]", 
-    "Hieu Pham <phieu93@gmail.com> [ctb]",
-    "Jing Li <jingli2014cymail@gmail.com> [ctb]"
-  ))
+Authors@R: c(
+    person("John", "Reisner", email = "johntreisner@gmail.com", role = c("cre", "aut", "cph")),
+    person("Hieu", "Pham", email = "phieu93@gmail.com", role = c("ctb", "cph")),
+    person("Jing", "Li", email = "jingli2014cymail@gmail.com", role = c("ctb", "cph")))
 Maintainer: John Reisner <johntreisner@gmail.com>
 Description: Biclustering is a statistical learning technique that simultaneously 
     partitions and clusters rows and columns of a data matrix. Since biclustering
