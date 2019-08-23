@@ -52,7 +52,7 @@
 #'   geom_point()
 #'
 #' # in parallel: two cores:
-#' \dontrun{
+#' \donttest{
 #' tbc <- tune_biclustermd(synthetic, nrep = 2, parallel = TRUE, ncores = 2, tune_grid = tg)
 #' tbc
 #'
@@ -61,7 +61,7 @@
 #' }
 #'
 #' # nycflights13::flights dataset
-#' \dontrun{
+#' \donttest{
 #' library(nycflights13)
 #' data("flights")
 #'
