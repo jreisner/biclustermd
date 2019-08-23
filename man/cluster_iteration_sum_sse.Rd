@@ -19,12 +19,3 @@ The SSE for the parameters specified.
 \description{
 Calculate the sum cluster SSE in each iteration
 }
-\examples{
-\dontrun{
-# Get the initial SSE
-data("synthetic")
-P01 <- partition_gen(12, 3)
-Q01 <- partition_gen(6, 2)
-
-cluster_iteration_sum_sse(synthetic, P01, Q01)}
-}

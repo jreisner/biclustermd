@@ -18,30 +18,6 @@
 #' @importFrom ggplot2 ggplot aes geom_rect geom_tile geom_hline geom_vline scale_fill_gradientn theme_bw theme
 #' @importFrom grDevices rainbow
 #' @return An object of class ggplot.
-#' @examples
-#' \dontrun{data("synthetic")
-#'
-#' bc <- biclustermd(synthetic, col_clusters = 3, row_clusters = 2,
-#'                 miss_val = mean(synthetic, na.rm = TRUE),
-#'                 miss_val_sd = sd(synthetic, na.rm = TRUE),
-#'                 col_min_num = 2, row_min_num = 2,
-#'                 col_num_to_move = 1, row_num_to_move = 1,
-#'                 max.iter = 10)
-#' bc
-#' # Default
-#' results_heatmap(bc)
-#'
-#' # Distiller color palette
-#' results_heatmap(bc) + ggplot2::scale_fill_distiller(palette = "Spectral", na.value = "white")
-#'
-#' # Complete shading
-#' results_heatmap(bc, cell_alpha = 1)
-#'
-#' # Transformed values and no shading
-#' results_heatmap(bc, transform_colors = TRUE, c = 1/20, cell_alpha = 0)
-#'
-#' # Focus on row cluster 1 and column cluster 2
-#' results_heatmap(bc, col_clusts = 2, row_clusts = 1)}
 
 results_heatmap <- function (x, reorder = FALSE, transform_colors = FALSE, c = 1/6,
                           cell_alpha = 1/5, col_clusts = NULL, row_clusts = NULL,
