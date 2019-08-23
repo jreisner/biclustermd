@@ -11,4 +11,4 @@ This is the second submission of this package to CRAN.
   * Removed examples for `cluster_iteration_sum_sse()`
   * Removed examples for `results_heatmap()`
   * Replaced `\dontrun{}` in `tune_biclustermd()` examples with `\donttest{}`
-* Reviewer cited `tune_biclustermd()` and claimed an example uses `ggplot.bicluster()`. The example uses the standard `ggplot2::ggplot()` function.
+* Reviewer cited `tune_biclustermd()` and claimed an example uses `ggplot.biclustermd()`. The example uses the standard `ggplot2::ggplot()` function.
