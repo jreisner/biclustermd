@@ -29,7 +29,7 @@ bc
 as.Biclust(bc)
 
 # biclust::drawHeatmap won't work since it doesn't exclude NAs
-# biclust::drawHeatmap(synthetic, as.Biclust(bc), 6)
+\dontrun{biclust::drawHeatmap(synthetic, as.Biclust(bc), 6)}
 
 # bicluster 6 is in the top right-hand corner here:
 autoplot(bc)
