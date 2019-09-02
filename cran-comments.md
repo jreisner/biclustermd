@@ -6,9 +6,9 @@
 0 errors | 0 warnings | 0 notes
 
 ## Other notes
-This is the second submission of this package to CRAN.
-* Changes since first submission:
-  * Removed examples for `cluster_iteration_sum_sse()`
-  * Removed examples for `results_heatmap()`
-  * Replaced `\dontrun{}` in `tune_biclustermd()` examples with `\donttest{}`
-* Reviewer cited `tune_biclustermd()` and claimed an example uses `ggplot.biclustermd()`. The example uses the standard `ggplot2::ggplot()` function.
+This is the third submission of this package to CRAN.
+* Changes since second submission:
+  * Removed `old_bicluster()` as it just redirected to `biclustermd()`
+  * Uncommented an example in `as.Biclust()` and wrapped `\dontrun{}` around it, since that example fails, and the example is there specifically to show that behavior.
+  * Replaced "NP-hard" with its definition in the description.
+  * Added the reference for the algorithm to the description.
