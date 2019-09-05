@@ -104,7 +104,7 @@ rep_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2,
     cl <- makeCluster(ncores)
     registerDoParallel(cl)
 
-    results <- foreach(i = 1:nrep, .packages = 'biclustermd') %dopar% {
+    results <- foreach(i = 1:nrep) %dopar% {
 
       do.call(biclustermd, mcall)
 
