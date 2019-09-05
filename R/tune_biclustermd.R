@@ -165,7 +165,7 @@ tune_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2, tune
 
     st <- proc.time()
     grid_n <- nrow(tune_grid)
-    results <- try(foreach(i = 1:grid_n, .packages = 'biclustermd') %dopar% {
+    results <- try(foreach(i = 1:grid_n) %dopar% {
 
       defaults[tune_params] <- tune_grid[i,]
 
