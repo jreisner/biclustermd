@@ -70,6 +70,7 @@ rep_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2,
   mcall <- as.list(match.call())
   mcall <- mcall[-1]
   mcall <- mcall[!(names(mcall) %in% c("nrep", "parallel", "ncores", "verbose"))]
+  mcall <- lapply(mcall, function(z) ifelse(class(z) == "call", eval(z), z))
   mcall$data <- data
 
   if(!parallel) {
@@ -104,7 +105,7 @@ rep_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2,
     cl <- makeCluster(ncores)
     registerDoParallel(cl)
 
-    results <- foreach(i = 1:nrep) %dopar% {
+    results <- foreach(i = 1:nrep, .export = 'biclustermd') %dopar% {
 
       do.call(biclustermd, mcall)
 
