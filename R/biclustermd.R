@@ -96,6 +96,9 @@ biclustermd <- function(data,
   if(!(class(data) %in% c("matrix", "data.frame"))) {
     stop("`data` must be a matrix or a data.frame.")
   }
+  if(class(data) == "data.frame") {
+    data <- as.matrix(data)
+  }
   if(is.null(rownames(data))) {
     stop("`data` does not have row names.")
   }
