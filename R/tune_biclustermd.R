@@ -41,7 +41,9 @@
 #' row_clusters = 2
 #' )
 #' tg
-#' tbc <- tune_biclustermd(synthetic, nrep = 2, tune_grid = tg)
+#'
+#' # in parallel: two cores:
+#' tbc <- tune_biclustermd(synthetic, nrep = 2, parallel = TRUE, ncores = 2, tune_grid = tg)
 #' tbc
 #'
 #' tbc$grid %>%
@@ -51,14 +53,11 @@
 #'   geom_line() +
 #'   geom_point()
 #'
-#' # in parallel: two cores:
-#' \donttest{
-#' tbc <- tune_biclustermd(synthetic, nrep = 2, parallel = TRUE, ncores = 2, tune_grid = tg)
+#' tbc <- tune_biclustermd(synthetic, nrep = 2, tune_grid = tg)
 #' tbc
 #'
 #' boxplot(tbc$grid$mean_sse ~ tbc$grid$similarity)
 #' boxplot(tbc$grid$sd_sse ~ tbc$grid$similarity)
-#' }
 #'
 #' # nycflights13::flights dataset
 #' \donttest{
@@ -165,7 +164,7 @@ tune_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2, tune
 
     st <- proc.time()
     grid_n <- nrow(tune_grid)
-    results <- try(foreach(i = 1:grid_n) %dopar% {
+    results <- try(foreach(i = 1:grid_n, .export = 'rep_biclustermd') %dopar% {
 
       defaults[tune_params] <- tune_grid[i,]
 
