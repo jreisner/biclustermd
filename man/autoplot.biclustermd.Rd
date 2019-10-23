@@ -4,17 +4,22 @@
 \alias{autoplot.biclustermd}
 \title{Make a heatmap of sparse biclustering results}
 \usage{
-\method{autoplot}{biclustermd}(object, reorder = FALSE,
-  transform_colors = FALSE, c = 1/6, cell_alpha = 1/5,
-  col_clusts = NULL, row_clusts = NULL, ...)
+\method{autoplot}{biclustermd}(object, axis.text = NULL,
+  reorder = FALSE, transform_colors = FALSE, c = 1/6,
+  cell_alpha = 1/5, col_clusts = NULL, row_clusts = NULL, ...)
 }
 \arguments{
 \item{object}{An object of class "biclustermd".}
 
-\item{reorder}{A logical. If TRUE, heatmap will be sorted according to the cell-average matrix, \code{A}.}
+\item{axis.text}{A character vector specifying for which axes text should be
+drawn. Can be any of \code{"x"}, \code{"col"} for columns, \code{"y"}, \code{"row"} for rows,
+or any combination of the four. By default this is \code{NULL}; no axis text
+is drawn.}
 
-\item{transform_colors}{If equals `TRUE` then the data is scaled by
-`c` and run through a standard normal cdf before plotting. If `FALSE` (default), raw data
+\item{reorder}{A logical. If \code{TRUE}, heatmap will be sorted according to the cell-average matrix, \code{A}.}
+
+\item{transform_colors}{If equals \code{TRUE} then the data is scaled by
+\code{c} and run through a standard normal cdf before plotting. If \code{FALSE} (default), raw data
 values are used in the heat map.}
 
 \item{c}{Value to scale the data by before running it through a standard normal CDF.
@@ -23,11 +28,11 @@ Default is 1/6.}
 \item{cell_alpha}{A scalar defining the transparency of shading over a cell and by default this equals 1/5.
 The color corresponds to the cell mean.}
 
-\item{col_clusts}{A vector of column cluster indices to display. If NULL (default), all are displayed.}
+\item{col_clusts}{A vector of column cluster indices to display. If \code{NULL} (default), all are displayed.}
 
-\item{row_clusts}{A vector of row cluster indices to display. If NULL (default), all are displayed.}
+\item{row_clusts}{A vector of row cluster indices to display. If \code{NULL} (default), all are displayed.}
 
-\item{...}{Arguments to be passed to `geom_vline()` and `geom_hline()`.}
+\item{...}{Arguments to be passed to \code{geom_vline()} and \code{geom_hline()}.}
 }
 \value{
 An object of class ggplot.
@@ -47,10 +52,11 @@ bc <- biclustermd(synthetic, col_clusters = 3, row_clusters = 2,
 bc
 autoplot(bc)
 
-autoplot(bc) + ggplot2::scale_fill_distiller(palette = "Spectral", na.value = "white")
+autoplot(bc, axis.text = c('x', 'row')) +
+    ggplot2::scale_fill_distiller(palette = "Spectral", na.value = "white")
 
 # Complete shading
-autoplot(bc, cell_alpha = 1)
+autoplot(bc, axis.text = c('col', 'row'), cell_alpha = 1)
 
 # Transformed values and no shading
 autoplot(bc, transform_colors = TRUE, c = 1/20, cell_alpha = 0)

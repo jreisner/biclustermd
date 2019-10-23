@@ -1,9 +1,13 @@
 #' Make a heatmap of sparse biclustering results
 #'
 #' @param object An object of class "biclustermd".
-#' @param reorder A logical. If TRUE, heatmap will be sorted according to the cell-average matrix, \code{A}.
-#' @param col_clusts A vector of column cluster indices to display. If NULL (default), all are displayed.
-#' @param row_clusts A vector of row cluster indices to display. If NULL (default), all are displayed.
+#' @param axis.text A character vector specifying for which axes text should be
+#'     drawn. Can be any of `"x"`, `"col"` for columns, `"y"`, `"row"` for rows,
+#'     or any combination of the four. By default this is `NULL`; no axis text
+#'     is drawn.
+#' @param reorder A logical. If `TRUE`, heatmap will be sorted according to the cell-average matrix, \code{A}.
+#' @param col_clusts A vector of column cluster indices to display. If `NULL` (default), all are displayed.
+#' @param row_clusts A vector of row cluster indices to display. If `NULL` (default), all are displayed.
 #' @param cell_alpha A scalar defining the transparency of shading over a cell and by default this equals 1/5.
 #'   The color corresponds to the cell mean.
 #' @param transform_colors If equals `TRUE` then the data is scaled by
@@ -30,10 +34,11 @@
 #' bc
 #' autoplot(bc)
 #'
-#' autoplot(bc) + ggplot2::scale_fill_distiller(palette = "Spectral", na.value = "white")
+#' autoplot(bc, axis.text = c('x', 'row')) +
+#'     ggplot2::scale_fill_distiller(palette = "Spectral", na.value = "white")
 #'
 #' # Complete shading
-#' autoplot(bc, cell_alpha = 1)
+#' autoplot(bc, axis.text = c('col', 'row'), cell_alpha = 1)
 #'
 #' # Transformed values and no shading
 #' autoplot(bc, transform_colors = TRUE, c = 1/20, cell_alpha = 0)
@@ -42,8 +47,8 @@
 #' autoplot(bc, col_clusts = 2, row_clusts = 1)
 #'
 
-autoplot.biclustermd <- function(object, reorder = FALSE, transform_colors = FALSE, c = 1/6,
-                                 cell_alpha = 1/5, col_clusts = NULL, row_clusts = NULL, ...) {
+autoplot.biclustermd <- function(object, axis.text = NULL, reorder = FALSE, transform_colors = FALSE, c = 1/6,
+                                  cell_alpha = 1/5, col_clusts = NULL, row_clusts = NULL, ...) {
 
   bc <- object
   P <- bc$P
@@ -60,6 +65,18 @@ autoplot.biclustermd <- function(object, reorder = FALSE, transform_colors = FAL
 
   if(is.null(row_clusts)) {
     row_clusts <- c(1:ncol(Q))
+  }
+
+  if(any(c("x", "col") %in% axis.text)) {
+    col_text <- TRUE
+  } else {
+    col_text <- FALSE
+  }
+
+  if(any(c("y", "row") %in% axis.text)) {
+    row_text <- TRUE
+  } else {
+    row_text <- FALSE
   }
 
   cols <- as.integer(part_matrix_to_vector(P))
@@ -137,8 +154,7 @@ autoplot.biclustermd <- function(object, reorder = FALSE, transform_colors = FAL
       geom_vline(data = res_list$vlines, aes(xintercept = v), ...) +
       geom_hline(data = res_list$hlines, aes(yintercept = h), ...) +
       theme_bw() +
-      theme(axis.text = element_blank(), axis.ticks = element_blank(),
-            panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+      theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
   }
   else if (transform_colors == FALSE) {
     p <- ggplot() +
@@ -149,8 +165,15 @@ autoplot.biclustermd <- function(object, reorder = FALSE, transform_colors = FAL
       geom_vline(data = res_list$vlines, aes(xintercept = v), ...) +
       geom_hline(data = res_list$hlines, aes(yintercept = h), ...) +
       theme_bw() +
-      theme(axis.text = element_blank(), axis.ticks = element_blank(),
-            panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+      theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank())
+  }
+
+  if(!col_text) {
+    p <- p + theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
+  }
+
+  if(!row_text) {
+    p <- p + theme(axis.text.y = element_blank(), axis.ticks.y = element_blank())
   }
 
   p
