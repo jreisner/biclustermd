@@ -24,7 +24,7 @@
 }
 \value{
 A data frame containing the row names and column names of both the
-  two-way table of data biclustered and the cell-average matrix.
+two-way table of data biclustered and the cell-average matrix.
 }
 \description{
 Gather a biclustermd object

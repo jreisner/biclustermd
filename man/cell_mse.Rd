@@ -11,8 +11,8 @@ cell_mse(x)
 }
 \value{
 A data frame giving the row cluster, column cluster, the number of
-  data points in each row and column cluster, the number of data points missing
-  in the cell, and the cell MSE.
+data points in each row and column cluster, the number of data points missing
+in the cell, and the cell MSE.
 }
 \description{
 Make a data frame containing the MSE for each bicluster cell

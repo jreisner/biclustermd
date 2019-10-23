@@ -10,6 +10,6 @@ synthetic
 }
 \description{
 This simple dataset allows users to use data that are easy to understand while learning
-  \code{biclustermd}. This is a matrix with 6 rows and 12 columns. 50% of values are missing.
+\code{biclustermd}. This is a matrix with 6 rows and 12 columns. 50% of values are missing.
 }
 \keyword{datasets}

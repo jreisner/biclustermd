@@ -11,7 +11,7 @@
 \item{object}{Object of class "biclustermd_sim"}
 
 \item{facet}{If \code{TRUE} (default), each similarity measure will be in its own plot.
-if \code{FALSE}, all three similarity measures for rows and columns are 
+if \code{FALSE}, all three similarity measures for rows and columns are
 given in one plot.}
 
 \item{ncol}{If faceting, the number of columns to arrange the plots in.}
@@ -22,8 +22,8 @@ given in one plot.}
 A ggplot object.
 }
 \description{
-Creates a ggplot of the three similarity measures used in \code{biclustermd::bicluster()} 
-    for both row and column dimensions.
+Creates a ggplot of the three similarity measures used in \code{biclustermd::bicluster()}
+for both row and column dimensions.
 }
 \examples{
 data("synthetic")

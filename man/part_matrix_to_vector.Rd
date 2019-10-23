@@ -14,5 +14,5 @@ An integer vector
 }
 \description{
 For each row in a partition matrix, this function gets the column index for which the row is equal to one.
-  That is, for row i, this function returns the index of the row entry that is equal to one.
+That is, for row i, this function returns the index of the row entry that is equal to one.
 }

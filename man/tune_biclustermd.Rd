@@ -22,11 +22,11 @@ this must match the arguments passed to \code{biclustermd()}.}
 }
 \value{
 A list of:
-    \item{best_combn }{The best combination of parameters,}
-    \item{best_bc }{The minimum SSE biclustering using the parameters in
-    \code{best_combn},} \item{grid }{\code{tune_grid} with columns giving the
-    minimum, mean, and standard deviation of the final SSE for each parameter
-    combination, and} \item{runtime }{CPU runtime & elapsed time.}
+\item{best_combn }{The best combination of parameters,}
+\item{best_bc }{The minimum SSE biclustering using the parameters in
+\code{best_combn},} \item{grid }{\code{tune_grid} with columns giving the
+minimum, mean, and standard deviation of the final SSE for each parameter
+combination, and} \item{runtime }{CPU runtime & elapsed time.}
 }
 \description{
 Bicluster data over a grid of tuning parameters

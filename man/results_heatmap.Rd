@@ -13,8 +13,8 @@ results_heatmap(x, reorder = FALSE, transform_colors = FALSE,
 
 \item{reorder}{A logical. If TRUE, heatmap will be sorted according to the cell-average matrix, \code{A}.}
 
-\item{transform_colors}{If equals `TRUE` then the data is scaled by
-`c` and run through a standard normal cdf before plotting. If `FALSE` (default), raw data
+\item{transform_colors}{If equals \code{TRUE} then the data is scaled by
+\code{c} and run through a standard normal cdf before plotting. If \code{FALSE} (default), raw data
 values are used in the heat map.}
 
 \item{c}{Value to scale the data by before running it through a standard normal CDF.
@@ -27,7 +27,7 @@ The color corresponds to the cell mean.}
 
 \item{row_clusts}{A vector of row cluster indices to display. If NULL (default), all are displayed.}
 
-\item{...}{Arguments to be passed to `geom_vline()` and `geom_hline()`.}
+\item{...}{Arguments to be passed to \code{geom_vline()} and \code{geom_hline()}.}
 }
 \value{
 An object of class ggplot.

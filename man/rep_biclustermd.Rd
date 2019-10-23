@@ -26,10 +26,10 @@ rep_biclustermd(data, nrep = 10, parallel = FALSE, ncores = 2,
 \item{row_clusters}{The number of clusters to partition the rows into.}
 
 \item{miss_val}{Value or function to put in empty cells of the prototype matrix.
-If a value, a random normal variable with sd = `miss_val_sd` is used each iteration.}
+If a value, a random normal variable with sd = \code{miss_val_sd} is used each iteration.}
 
-\item{miss_val_sd}{Standard deviation of the normal distribution `miss_val` follows
-if `miss_val` is a number. By default this equals 1.}
+\item{miss_val_sd}{Standard deviation of the normal distribution \code{miss_val} follows
+if \code{miss_val} is a number. By default this equals 1.}
 
 \item{similarity}{The metric used to compare two successive clusterings. Can be
 "Rand" (default), "HA" for the Hubert and Arabie adjusted Rand index or "Jaccard".
@@ -51,7 +51,7 @@ See \link[clues]{adjustedRand} for details.}
 }
 \value{
 A list of the minimum SSE biclustering, a vector containing
-    the final SSE of each repeat, and the time it took the function to run.
+the final SSE of each repeat, and the time it took the function to run.
 }
 \description{
 Repeat a biclustering to achieve a minimum SSE solution

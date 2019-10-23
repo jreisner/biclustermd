@@ -25,11 +25,11 @@ default is \code{floor(sqrt(nrow(data)))}.}
 default is \code{floor(sqrt(ncol(data)))}.}
 
 \item{miss_val}{Value or function to put in empty cells of the prototype matrix.
-If a value, a random normal variable with sd = `miss_val_sd` is used each
+If a value, a random normal variable with sd = \code{miss_val_sd} is used each
 iteration. By default, this equals the mean of \code{data}.}
 
-\item{miss_val_sd}{Standard deviation of the normal distribution `miss_val` follows
-if `miss_val` is a number. By default this equals 1.}
+\item{miss_val_sd}{Standard deviation of the normal distribution \code{miss_val} follows
+if \code{miss_val} is a number. By default this equals 1.}
 
 \item{similarity}{The metric used to compare two successive clusterings. Can be
 "Rand" (default), "HA" for the Hubert and Arabie adjusted Rand index or "Jaccard".
@@ -57,17 +57,17 @@ put in the empty column prototype. Default is 1.}
 }
 \value{
 A list of class \code{biclustermd}:
-    \item{params }{a list of all arguments passed to the function, including defaults.}
-    \item{data }{the inputted two way table of data.}
-    \item{P0 }{the initial column partition matrix.}
-    \item{Q0 }{the initial row partition matrix.}
-    \item{InitialSSE }{the SSE of the original partitioning.}
-    \item{P }{the final column partition matrix.}
-    \item{Q }{the final row partition matrix.}
-    \item{SSE }{a matrix of class biclustermd_sse detailing the SSE recorded at the end of each iteration.}
-    \item{Similarities }{a matrix of class biclustermd_sim detailing the value of row and column similarity measures recorded at the end of each iteration. Contains information for all three similarity measures.}
-    \item{iteration }{the number of iterations the algorithm ran for, whether \code{max.iter} was reached or convergence was achieved.}
-    \item{A }{the final prototype matrix which gives the average of each bicluster.}
+\item{params }{a list of all arguments passed to the function, including defaults.}
+\item{data }{the inputted two way table of data.}
+\item{P0 }{the initial column partition matrix.}
+\item{Q0 }{the initial row partition matrix.}
+\item{InitialSSE }{the SSE of the original partitioning.}
+\item{P }{the final column partition matrix.}
+\item{Q }{the final row partition matrix.}
+\item{SSE }{a matrix of class biclustermd_sse detailing the SSE recorded at the end of each iteration.}
+\item{Similarities }{a matrix of class biclustermd_sim detailing the value of row and column similarity measures recorded at the end of each iteration. Contains information for all three similarity measures.}
+\item{iteration }{the number of iterations the algorithm ran for, whether \code{max.iter} was reached or convergence was achieved.}
+\item{A }{the final prototype matrix which gives the average of each bicluster.}
 }
 \description{
 Bicluster data with non-random missing values

@@ -13,7 +13,7 @@ row_cluster_names(x, data)
 }
 \value{
 A data frame with two columns: \code{cluster} corresponds to the row
-  cluster and \code{name} gives the row names in each cluster.
+cluster and \code{name} gives the row names in each cluster.
 }
 \description{
 Get row names in each row cluster

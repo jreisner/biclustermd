@@ -13,7 +13,7 @@ col_cluster_names(x, data)
 }
 \value{
 A data frame with two columns: \code{cluster} corresponds to the column
-  cluster and \code{name} gives the column names in each cluster.
+cluster and \code{name} gives the column names in each cluster.
 }
 \description{
 Get column names in each column cluster

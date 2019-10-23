@@ -7,16 +7,16 @@
 compare_biclusters(bc1, bc2)
 }
 \arguments{
-\item{bc1}{the first biclustering or partition matrix. Must be either of class 
+\item{bc1}{the first biclustering or partition matrix. Must be either of class
 \code{biclustermd} or \code{matrix}.}
 
-\item{bc2}{the second biclustering or partition matrix. Must be either of class 
+\item{bc2}{the second biclustering or partition matrix. Must be either of class
 \code{biclustermd} or \code{matrix}.}
 }
 \value{
-If comparing a pair of biclusterings, a list containing the column 
-  similarity indices and the row similarity indices, in that order. If a pair of matrices,
-  a vector of similarity indices.
+If comparing a pair of biclusterings, a list containing the column
+similarity indices and the row similarity indices, in that order. If a pair of matrices,
+a vector of similarity indices.
 }
 \description{
 Compare two biclusterings or a pair of partition matrices
