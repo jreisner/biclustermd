@@ -38,7 +38,11 @@
 #'     \item{P }{the final column partition matrix.}
 #'     \item{Q }{the final row partition matrix.}
 #'     \item{SSE }{a matrix of class biclustermd_sse detailing the SSE recorded at the end of each iteration.}
-#'     \item{Similarities }{a matrix of class biclustermd_sim detailing the value of row and column similarity measures recorded at the end of each iteration. Contains information for all three similarity measures.}
+#'     \item{Similarities }{a data frame of class biclustermd_sim detailing the
+#'         value of row and column similarity measures recorded at the end of each
+#'         iteration. Contains information for all three similarity measures.
+#'         This carries an attribute `"used"` which provides the similarity
+#'         measure used as the stopping condition for the algorithm.}
 #'     \item{iteration }{the number of iterations the algorithm ran for, whether \code{max.iter} was reached or convergence was achieved.}
 #'     \item{A }{the final prototype matrix which gives the average of each bicluster.}
 #'
@@ -323,6 +327,7 @@ biclustermd <- function(data,
 
       class(result_list$SSE) <- c("biclustermd_sse", "matrix")
       class(result_list$Similarities) <- c("biclustermd_sim", "data.frame")
+      attr(result_list$Similarities, "used") <- similarity[1]
       class(result_list) <- c("biclustermd", "list")
 
       result_list
@@ -347,6 +352,7 @@ biclustermd <- function(data,
 
   class(result_list$SSE) <- c("biclustermd_sse", "matrix")
   class(result_list$Similarities) <- c("biclustermd_sim", "data.frame")
+  attr(result_list$Similarities, "used") <- similarity[1]
   class(result_list) <- c("biclustermd", "list")
 
   result_list
