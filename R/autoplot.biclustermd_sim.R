@@ -7,7 +7,8 @@
 #' @param similarity A character vector indicating which similarity measure to plot.
 #'     Can be any of `"Rand"`, `"HA"`, `"Jaccard"`, or `"used"`. If `"used"`,
 #'     plot only the measure used as the stopping condition in the algorithm).
-#'     By default (`NULL`) all three are plotted.
+#'     By default (`NULL`) all three are plotted. When plotted, the used measure
+#'     will have an asterisk.
 #' @param facet If \code{TRUE} (default), each similarity measure will be in its own plot.
 #'     if \code{FALSE}, all three similarity measures for rows and columns are
 #'     given in one plot.
