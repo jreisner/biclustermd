@@ -4,11 +4,16 @@
 \alias{autoplot.biclustermd_sim}
 \title{Plot similarity measures between two consecutive biclusterings.}
 \usage{
-\method{autoplot}{biclustermd_sim}(object, facet = TRUE, ncol = NULL,
-  ...)
+\method{autoplot}{biclustermd_sim}(object, similarity = NULL,
+  facet = TRUE, ncol = NULL, ...)
 }
 \arguments{
 \item{object}{Object of class "biclustermd_sim"}
+
+\item{similarity}{A character vector indicating which similarity measure to plot.
+Can be any of \code{"Rand"}, \code{"HA"}, \code{"Jaccard"}, or \code{"used"}. If \code{"used"},
+plot only the measure used as the stopping condition in the algorithm).
+By default (\code{NULL}) all three are plotted.}
 
 \item{facet}{If \code{TRUE} (default), each similarity measure will be in its own plot.
 if \code{FALSE}, all three similarity measures for rows and columns are
