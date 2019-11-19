@@ -11,7 +11,7 @@
 #' @return A data frame containing the row names and column names of both the
 #'   two-way table of data biclustered and the cell-average matrix.
 #'
-#' @importFrom dplyr arrange select
+#' @importFrom dplyr arrange group_by group_indices select ungroup
 #' @importFrom magrittr %>%
 #' @importFrom tidyr gather
 #'
@@ -86,8 +86,11 @@ gather.biclustermd <- function(data, key = NULL, value = NULL, ..., na.rm = FALS
   )
   dat <- dat %>%
     arrange(row_cluster, col_cluster) %>%
-    mutate(bicluster_no = as.integer(paste0(row_cluster, col_cluster))) %>%
-    mutate(bicluster_no = as.numeric(factor(rank(bicluster_no)))) %>%
-    select(row_name, col_name, row_cluster, col_cluster, bicluster_no, value)
+    group_by(row_cluster, col_cluster) %>%
+    mutate(bicluster_no = group_indices()) %>%
+    ungroup() %>%
+    select(row_name, col_name, row_cluster, col_cluster, bicluster_no, value) %>%
+    data.frame()
   dat
 }
+
