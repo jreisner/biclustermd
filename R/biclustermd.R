@@ -97,10 +97,10 @@ biclustermd <- function(data,
                         row_shuffles = 1, col_shuffles = 1,
                         max.iter = 100, verbose = FALSE) {
 
-  if(!(class(data) %in% c("matrix", "data.frame"))) {
+  if(!inherits(data, c("matrix", "data.frame"))) {
     stop("`data` must be a matrix or a data.frame.")
   }
-  if(class(data) == "data.frame") {
+  if(inherits(data, "data.frame")) {
     data <- as.matrix(data)
   }
   if(is.null(rownames(data))) {
