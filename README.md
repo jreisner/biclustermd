@@ -1,4 +1,6 @@
 # biclustermd
+[![CRAN](http://www.r-pkg.org/badges/version-last-release/biclustermd)](https://cran.r-project.org/package=biclustermd) 
+[![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/biclustermd)](https://cran.r-project.org/package=biclustermd)
 
 See the vignette "Airports.rmd" for a walk-through of the package and how it is used.
 
