@@ -174,7 +174,7 @@ tune_biclustermd <- function(data, nrep = 10, parallel = FALSE, ncores = 2, tune
 
     stopCluster(cl)
 
-    if("try-error" %in% class(results)) {
+    if(inherits(results, "try-error")) {
       return(list(msg = 'foreach failed', results = results))
     }
 
