@@ -48,7 +48,7 @@
 #'
 #' @seealso \code{\link{rep_biclustermd}}, \code{\link{tune_biclustermd}}
 #'
-#' @references Li, J., Reisner, J., Pham, H., Olafsson, S., and Vardeman, S. (2019) \emph{Biclustering for Missing Data. Information Sciences, Submitted}
+#' @references Li, J., Reisner, J., Pham, H., Olafsson, S., and Vardeman, S. (2020) \emph{Biclustering with Missing Data. Information Sciences, 510, 304–316.}
 #'
 #' @examples
 #' data("synthetic")

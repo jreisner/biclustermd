@@ -13,8 +13,8 @@ Description: Biclustering is a statistical learning technique that simultaneousl
     computational mechanisms, this package uses a greedy heuristic. The algorithm 
     featured in this package is, to the best our knowledge, the first biclustering 
     algorithm to work on data with missing values. Li, J., Reisner, J., Pham, H., 
-    Olafsson, S., and Vardeman, S. (2019) Biclustering for Missing Data. Information 
-    Sciences, Submitted.
+    Olafsson, S., and Vardeman, S. (2020) Biclustering with Missing Data. Information 
+    Sciences, 510, 304–316.
 URL: http://github.com/jreisner/biclustermd
 BugReports: http://github.com/jreisner/biclustermd/issues
 Depends: ggplot2 (>= 3.0.0), 
