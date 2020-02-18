@@ -1,3 +1,7 @@
+# biclustermd 0.2.1
+## Bug fixes
++ autoplot.biclustermd() tests fixed in anticipation of ggplot2 v3.3.0.
+
 # biclustermd 0.2.0
 ## New features
 + `autoplot.biclustermd()` now has an `axis.text` argument which allows users to 
