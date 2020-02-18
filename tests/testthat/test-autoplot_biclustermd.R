@@ -15,7 +15,7 @@ test_that("autoplot_biclustermd() plots column clusters in correct clusters", {
 
   plot_df <- data.frame(
     col_clust = rep(1:ncol(sbc$P), colSums(sbc$P)),
-    col_name = ap$layout$panel_params[[1]]$x.labels
+    col_name = ap$layout$panel_params[[1]]$x$breaks
   )
   plot_df <- plot_df[order(plot_df$col_clust, plot_df$col_name),]
 
@@ -37,7 +37,7 @@ test_that("autoplot_biclustermd() plots row clusters in correct clusters", {
 
   plot_df <- data.frame(
     row_clust = rep(1:ncol(sbc$Q), colSums(sbc$Q)),
-    row_name = ap$layout$panel_params[[1]]$y.labels
+    row_name = ap$layout$panel_params[[1]]$y$breaks
   )
   plot_df <- plot_df[order(plot_df$row_clust, plot_df$row_name),]
 
