@@ -7,7 +7,8 @@
 #'
 #' @export
 #'
-#' @importFrom clues adjustedRand
+#' @importFrom phyclust RRand
+#' @importFrom clusteval cluster_similarity
 #'
 #' @return If comparing a pair of biclusterings, a list containing the column
 #'   similarity indices and the row similarity indices, in that order. If a pair of matrices,
@@ -34,17 +35,39 @@ compare_biclusters <- function(bc1, bc2) {
     Q1 <- part_matrix_to_vector(bc1$Q)
     Q2 <- part_matrix_to_vector(bc2$Q)
 
+    P_similarity <- c(
+      "Rand" = RRand(P1, P2)[[1]],
+      "HA" = RRand(P1, P2)[[2]],
+      "Jaccard" = cluster_similarity(P1, P2, similarity = 'jaccard')
+    )
+    Q_similarity <- c(
+      "Rand" = RRand(Q1, Q2)[[1]],
+      "HA" = RRand(Q1, Q2)[[2]],
+      "Jaccard" = cluster_similarity(Q1, Q2, similarity = 'jaccard')
+    )
+
+    # list(
+    #   "P Similarity" = adjustedRand(P1, P2, randMethod = c("Rand", "HA", "Jaccard")),
+    #   "Q Similarity" = adjustedRand(Q1, Q2, randMethod = c("Rand", "HA", "Jaccard"))
+    # )
+
     list(
-      "P Similarity" = adjustedRand(P1, P2, randMethod = c("Rand", "HA", "Jaccard")),
-      "Q Similarity" = adjustedRand(Q1, Q2, randMethod = c("Rand", "HA", "Jaccard"))
+      "P Similarity" = P_similarity,
+      "Q Similarity" = Q_similarity
     )
 
   } else if(inherits(bc1, "matrix") & inherits(bc2, "matrix")) {
 
-    adjustedRand(
-      part_matrix_to_vector(bc1),
-      part_matrix_to_vector(bc2),
-      randMethod = c("Rand", "HA", "Jaccard")
+    # adjustedRand(
+    #   part_matrix_to_vector(bc1),
+    #   part_matrix_to_vector(bc2),
+    #   randMethod = c("Rand", "HA", "Jaccard")
+    # )
+
+    c(
+      "Rand" = RRand(part_matrix_to_vector(bc1), part_matrix_to_vector(bc2))[[1]],
+      "HA" = RRand(part_matrix_to_vector(bc1), part_matrix_to_vector(bc2))[[2]],
+      "Jaccard" = cluster_similarity(part_matrix_to_vector(bc1), part_matrix_to_vector(bc2), similarity = 'jaccard')
     )
 
   }
