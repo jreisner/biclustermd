@@ -33,7 +33,7 @@ if \code{miss_val} is a number. By default this equals 1.}
 
 \item{similarity}{The metric used to compare two successive clusterings. Can be
 "Rand" (default), "HA" for the Hubert and Arabie adjusted Rand index or "Jaccard".
-See \link[clues]{adjustedRand} for details.}
+See \link[phyclust]{RRand} and \link[clusteval]{cluster_similarity} for details.}
 
 \item{row_min_num}{Minimum row prototype size in order to be eligible to be chosen when filling an empty row prototype. Default is 5.}
 
