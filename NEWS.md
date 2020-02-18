@@ -1,6 +1,7 @@
 # biclustermd 0.2.1
 ## Bug fixes
 + autoplot.biclustermd() tests fixed in anticipation of ggplot2 v3.3.0.
++ `clusteval` and `phyclust` packages are now used instead of `clues`. `clues` is orphaned.
 
 # biclustermd 0.2.0
 ## New features
