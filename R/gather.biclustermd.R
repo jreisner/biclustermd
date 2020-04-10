@@ -11,7 +11,7 @@
 #' @return A data frame containing the row names and column names of both the
 #'   two-way table of data biclustered and the cell-average matrix.
 #'
-#' @importFrom dplyr arrange group_by group_indices select ungroup
+#' @importFrom dplyr arrange group_by inner_join select ungroup
 #' @importFrom magrittr %>%
 #' @importFrom tidyr gather
 #'
@@ -38,6 +38,7 @@
 gather.biclustermd <- function(data, key = NULL, value = NULL, ..., na.rm = FALSE,
                                convert = FALSE, factor_key = FALSE) {
 
+  # if statements shouldn't be necessary but keep as safeguard
   if(is.null(rownames(data$data))) {
     row_name_map <- data.frame(
       row_name = as.character(seq_len(nrow(data$data))),
@@ -84,13 +85,30 @@ gather.biclustermd <- function(data, key = NULL, value = NULL, ..., na.rm = FALS
       which(p[rownames(p) == dat$col_name[n], ] == 1)
     })
   )
+
+  bicluster_no_tbl <- unique(dat[, c('row_cluster', 'col_cluster')])
+  bicluster_no_tbl$bicluster_no <- seq_along(bicluster_no_tbl$row_cluster)
+
+  # bicluster_no_tbl <- dat %>%
+  #   select(row_cluster, col_cluster) %>%
+  #   arrange(row_cluster, col_cluster) %>%
+  #   distinct() %>%
+  #   mutate(bicluster_no = row_number())
+
   dat <- dat %>%
+    inner_join(bicluster_no_tbl, by = c('row_cluster', 'col_cluster')) %>%
     arrange(row_cluster, col_cluster) %>%
-    group_by(row_cluster, col_cluster) %>%
-    mutate(bicluster_no = group_indices()) %>%
-    ungroup() %>%
     select(row_name, col_name, row_cluster, col_cluster, bicluster_no, value) %>%
     data.frame()
+
+  # prior to dplyr 0.8.99.9002
+  # dat <- dat %>%
+  #   arrange(row_cluster, col_cluster) %>%
+  #   group_by(row_cluster, col_cluster) %>%
+  #   mutate(bicluster_no = group_indices()) %>%
+  #   ungroup() %>%
+  #   select(row_name, col_name, row_cluster, col_cluster, bicluster_no, value) %>%
+  #   data.frame()
   dat
 }
 
