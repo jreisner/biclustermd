@@ -1,3 +1,8 @@
+# biclustermd 0.2.2
+## Bug fixes
++ two tests fixed to work with dplyr v1.0.0 release.
++ discontinued the use of the deprecated dplyr::group_indices() and replaced with a base R equivalent.
+
 # biclustermd 0.2.1
 ## Bug fixes
 + autoplot.biclustermd() tests fixed in anticipation of ggplot2 v3.3.0.
