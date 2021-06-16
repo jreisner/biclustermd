@@ -8,7 +8,6 @@
 #' @export
 #'
 #' @importFrom phyclust RRand
-#' @importFrom clusteval cluster_similarity
 #'
 #' @return If comparing a pair of biclusterings, a list containing the column
 #'   similarity indices and the row similarity indices, in that order. If a pair of matrices,
@@ -38,12 +37,12 @@ compare_biclusters <- function(bc1, bc2) {
     P_similarity <- c(
       "Rand" = RRand(P1, P2)[[1]],
       "HA" = RRand(P1, P2)[[2]],
-      "Jaccard" = cluster_similarity(P1, P2, similarity = 'jaccard')
+      "Jaccard" = jaccard_similarity(P1, P2)
     )
     Q_similarity <- c(
       "Rand" = RRand(Q1, Q2)[[1]],
       "HA" = RRand(Q1, Q2)[[2]],
-      "Jaccard" = cluster_similarity(Q1, Q2, similarity = 'jaccard')
+      "Jaccard" = jaccard_similarity(Q1, Q2)
     )
 
     # list(
@@ -67,7 +66,7 @@ compare_biclusters <- function(bc1, bc2) {
     c(
       "Rand" = RRand(part_matrix_to_vector(bc1), part_matrix_to_vector(bc2))[[1]],
       "HA" = RRand(part_matrix_to_vector(bc1), part_matrix_to_vector(bc2))[[2]],
-      "Jaccard" = cluster_similarity(part_matrix_to_vector(bc1), part_matrix_to_vector(bc2), similarity = 'jaccard')
+      "Jaccard" = jaccard_similarity(part_matrix_to_vector(bc1), part_matrix_to_vector(bc2))
     )
 
   }

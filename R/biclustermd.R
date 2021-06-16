@@ -28,7 +28,6 @@
 #' @param verbose Logical. If TRUE, will report progress.
 #' @export
 #' @importFrom phyclust RRand
-#' @importFrom clusteval cluster_similarity
 #' @importFrom stats rnorm
 #' @return A list of class \code{biclustermd}:
 #'     \item{params }{a list of all arguments passed to the function, including defaults.}
@@ -313,8 +312,10 @@ biclustermd <- function(data,
       P_sim <- RRand(P_old_vec, P_new_vec)[[2]]
       Q_sim <- RRand(Q_old_vec, Q_new_vec)[[2]]
     } else if(similarity == 'Jaccard') {
-      P_sim <- cluster_similarity(P_old_vec, P_new_vec, similarity = 'jaccard')
-      Q_sim <- cluster_similarity(Q_old_vec, Q_new_vec, similarity = 'jaccard')
+      # P_sim <- cluster_similarity(P_old_vec, P_new_vec, similarity = 'jaccard')
+      # Q_sim <- cluster_similarity(Q_old_vec, Q_new_vec, similarity = 'jaccard')
+      P_sim <- jaccard_similarity(P_old_vec, P_new_vec)
+      Q_sim <- jaccard_similarity(Q_old_vec, Q_new_vec)
     }
 
     # RIs[s, 1] <- P_sim
@@ -322,10 +323,12 @@ biclustermd <- function(data,
     # RIs[s, 3] <- s - 1
     Similarities[s, 1:2] <- unlist(RRand(P_old_vec, P_new_vec)[1:2])
     # Similarities[s, 2] <- RRand(P_old_vec, P_new_vec)[[2]]
-    Similarities[s, 3] <- cluster_similarity(P_old_vec, P_new_vec, similarity = 'jaccard')
+    # Similarities[s, 3] <- cluster_similarity(P_old_vec, P_new_vec, similarity = 'jaccard')
+    Similarities[s, 3] <- jaccard_similarity(P_old_vec, P_new_vec)
     Similarities[s, 4:5] <- unlist(RRand(Q_old_vec, Q_new_vec)[1:2])
     # Similarities[s, 5] <- RRand(Q_old_vec, Q_new_vec)[[2]]
-    Similarities[s, 6] <- cluster_similarity(Q_old_vec, Q_new_vec, similarity = 'jaccard')
+    # Similarities[s, 6] <- cluster_similarity(Q_old_vec, Q_new_vec, similarity = 'jaccard')
+    Similarities[s, 6] <- jaccard_similarity(Q_old_vec, Q_new_vec)
 
     # Similarities[s, 1:3] <- adjustedRand(P_old_vec, P_new_vec, randMethod = c("Rand", "HA", "Jaccard"))
     # Similarities[s, 4:6] <- adjustedRand(Q_old_vec, Q_new_vec, randMethod = c("Rand", "HA", "Jaccard"))
