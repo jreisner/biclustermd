@@ -3,7 +3,7 @@
 * win-builder (devel, release, and old release)
 * Rhub
     * Windows Server 2008 R2 SP1, R-devel, 32/64 bit
-    * Ubuntu Linux 16.04 LTS, R-release, GCC
+    * Ubuntu Linux 20.04.1 LTS, R-release, GCC
     * Fedora Linux, R-devel, clang, gfortran
 
 ## R CMD Check Results
@@ -11,6 +11,5 @@
 
 
 ## Other notes
-The changes since v0.2.1:
-1. two tests fixed to work with dplyr v1.0.0 release.
-2. discontinued the use of the deprecated dplyr::group_indices() and replaced with a base R equivalent.
+The changes since v0.2.2:
+1. clusteval is looking like it'll be archived, so I wrote a jaccard_similarity() function to replace clusteval::cluster_similarity().
