@@ -13,7 +13,7 @@
 #'     if `miss_val` is a number. By default this equals 1.
 #' @param similarity The metric used to compare two successive clusterings. Can be
 #'     "Rand" (default), "HA" for the Hubert and Arabie adjusted Rand index or "Jaccard".
-#'     See \link[phyclust]{RRand} and \link[clusteval]{cluster_similarity} for details.
+#'     See \link[phyclust]{RRand} and for details.
 #' @param col_min_num Minimum column prototype size in order to be eligible to be chosen when filling an empty row prototype. Default is 5.
 #' @param row_min_num Minimum row prototype size in order to be eligible to be chosen when filling an empty row prototype. Default is 5.
 #' @param col_num_to_move Number of columns to remove from the sampled prototype to put in the empty column prototype. Default is 1.
