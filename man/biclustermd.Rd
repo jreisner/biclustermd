@@ -81,6 +81,9 @@ measure used as the stopping condition for the algorithm.}
 \item{iteration }{the number of iterations the algorithm ran for, whether \code{max.iter} was reached or convergence was achieved.}
 \item{A }{the final prototype matrix which gives the average of each bicluster.}
 }
+\description{
+Bicluster data with non-random missing values
+}
 \examples{
 data("synthetic")
 # default parameters

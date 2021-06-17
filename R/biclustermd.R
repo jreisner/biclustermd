@@ -1,4 +1,5 @@
 #' @title Bicluster data with non-random missing values
+#' @description Bicluster data with non-random missing values
 #'
 #' @param data Dataset to bicluster. Must to be a data matrix with only numbers
 #'     and missing values in the data set. It should have row names and column names.
