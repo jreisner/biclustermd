@@ -15,8 +15,8 @@ Description: Biclustering is a statistical learning technique that simultaneousl
     algorithm to work on data with missing values. Li, J., Reisner, J., Pham, H., 
     Olafsson, S., and Vardeman, S. (2020) Biclustering with Missing Data. Information 
     Sciences, 510, 304–316.
-URL: http://github.com/jreisner/biclustermd
-BugReports: http://github.com/jreisner/biclustermd/issues
+URL: https://github.com/jreisner/biclustermd
+BugReports: https://github.com/jreisner/biclustermd/issues
 Depends: ggplot2 (>= 3.0.0), 
          R (>= 3.5.0),
          tidyr (>= 0.8.1)
@@ -30,7 +30,7 @@ Imports: biclust (>= 2.0.1),
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 Suggests: 
     knitr,
