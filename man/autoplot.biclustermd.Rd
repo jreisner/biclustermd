@@ -4,9 +4,17 @@
 \alias{autoplot.biclustermd}
 \title{Make a heatmap of sparse biclustering results}
 \usage{
-\method{autoplot}{biclustermd}(object, axis.text = NULL,
-  reorder = FALSE, transform_colors = FALSE, c = 1/6,
-  cell_alpha = 1/5, col_clusts = NULL, row_clusts = NULL, ...)
+\method{autoplot}{biclustermd}(
+  object,
+  axis.text = NULL,
+  reorder = FALSE,
+  transform_colors = FALSE,
+  c = 1/6,
+  cell_alpha = 1/5,
+  col_clusts = NULL,
+  row_clusts = NULL,
+  ...
+)
 }
 \arguments{
 \item{object}{An object of class "biclustermd".}

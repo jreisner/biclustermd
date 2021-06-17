@@ -3,16 +3,24 @@
 \docType{package}
 \name{biclustermd}
 \alias{biclustermd}
-\alias{biclustermd-package}
 \title{Bicluster data with non-random missing values}
 \usage{
-biclustermd(data, row_clusters = floor(sqrt(nrow(data))),
-  col_clusters = floor(sqrt(ncol(data))), miss_val = mean(data, na.rm =
-  TRUE), miss_val_sd = 1, similarity = "Rand",
+biclustermd(
+  data,
+  row_clusters = floor(sqrt(nrow(data))),
+  col_clusters = floor(sqrt(ncol(data))),
+  miss_val = mean(data, na.rm = TRUE),
+  miss_val_sd = 1,
+  similarity = "Rand",
   row_min_num = floor(nrow(data)/row_clusters),
-  col_min_num = floor(ncol(data)/col_clusters), row_num_to_move = 1,
-  col_num_to_move = 1, row_shuffles = 1, col_shuffles = 1,
-  max.iter = 100, verbose = FALSE)
+  col_min_num = floor(ncol(data)/col_clusters),
+  row_num_to_move = 1,
+  col_num_to_move = 1,
+  row_shuffles = 1,
+  col_shuffles = 1,
+  max.iter = 100,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{data}{Dataset to bicluster. Must to be a data matrix with only numbers
@@ -72,11 +80,6 @@ This carries an attribute \code{"used"} which provides the similarity
 measure used as the stopping condition for the algorithm.}
 \item{iteration }{the number of iterations the algorithm ran for, whether \code{max.iter} was reached or convergence was achieved.}
 \item{A }{the final prototype matrix which gives the average of each bicluster.}
-}
-\description{
-Bicluster data with non-random missing values
-
-Biclustering with Missing Data
 }
 \examples{
 data("synthetic")

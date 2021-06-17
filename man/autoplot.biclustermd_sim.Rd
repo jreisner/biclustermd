@@ -4,8 +4,7 @@
 \alias{autoplot.biclustermd_sim}
 \title{Plot similarity measures between two consecutive biclusterings.}
 \usage{
-\method{autoplot}{biclustermd_sim}(object, similarity = NULL,
-  facet = TRUE, ncol = NULL, ...)
+\method{autoplot}{biclustermd_sim}(object, similarity = NULL, facet = TRUE, ncol = NULL, ...)
 }
 \arguments{
 \item{object}{Object of class "biclustermd_sim"}

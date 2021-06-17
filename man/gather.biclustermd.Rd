@@ -4,8 +4,15 @@
 \alias{gather.biclustermd}
 \title{Gather a biclustermd object}
 \usage{
-\method{gather}{biclustermd}(data, key = NULL, value = NULL, ...,
-  na.rm = FALSE, convert = FALSE, factor_key = FALSE)
+\method{gather}{biclustermd}(
+  data,
+  key = NULL,
+  value = NULL,
+  ...,
+  na.rm = FALSE,
+  convert = FALSE,
+  factor_key = FALSE
+)
 }
 \arguments{
 \item{data}{a \code{biclustermd} object to gather.}

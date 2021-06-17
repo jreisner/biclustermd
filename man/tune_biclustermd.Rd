@@ -4,8 +4,13 @@
 \alias{tune_biclustermd}
 \title{Bicluster data over a grid of tuning parameters}
 \usage{
-tune_biclustermd(data, nrep = 10, parallel = FALSE, ncores = 2,
-  tune_grid = NULL)
+tune_biclustermd(
+  data,
+  nrep = 10,
+  parallel = FALSE,
+  ncores = 2,
+  tune_grid = NULL
+)
 }
 \arguments{
 \item{data}{Dataset to bicluster. Must to be a data matrix with only numbers and missing values in the data set. It should have row names and column names.}

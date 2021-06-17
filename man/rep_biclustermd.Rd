@@ -4,12 +4,24 @@
 \alias{rep_biclustermd}
 \title{Repeat a biclustering to achieve a minimum SSE solution}
 \usage{
-rep_biclustermd(data, nrep = 10, parallel = FALSE, ncores = 2,
+rep_biclustermd(
+  data,
+  nrep = 10,
+  parallel = FALSE,
+  ncores = 2,
   col_clusters = floor(sqrt(ncol(data))),
-  row_clusters = floor(sqrt(nrow(data))), miss_val = mean(data, na.rm =
-  TRUE), miss_val_sd = 1, similarity = "Rand", row_min_num = 5,
-  col_min_num = 5, row_num_to_move = 1, col_num_to_move = 1,
-  row_shuffles = 1, col_shuffles = 1, max.iter = 100)
+  row_clusters = floor(sqrt(nrow(data))),
+  miss_val = mean(data, na.rm = TRUE),
+  miss_val_sd = 1,
+  similarity = "Rand",
+  row_min_num = 5,
+  col_min_num = 5,
+  row_num_to_move = 1,
+  col_num_to_move = 1,
+  row_shuffles = 1,
+  col_shuffles = 1,
+  max.iter = 100
+)
 }
 \arguments{
 \item{data}{Dataset to bicluster. Must to be a data matrix with only numbers and missing values in the data set. It should have row names and column names.}

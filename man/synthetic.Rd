@@ -4,12 +4,14 @@
 \name{synthetic}
 \alias{synthetic}
 \title{Synthetic data for examples.}
-\format{An object of class \code{matrix} with 6 rows and 12 columns.}
+\format{
+An object of class \code{matrix} with 6 rows and 12 columns.
+}
 \usage{
 synthetic
 }
 \description{
 This simple dataset allows users to use data that are easy to understand while learning
-\code{biclustermd}. This is a matrix with 6 rows and 12 columns. 50% of values are missing.
+\code{biclustermd}. This is a matrix with 6 rows and 12 columns. 50\% of values are missing.
 }
 \keyword{datasets}

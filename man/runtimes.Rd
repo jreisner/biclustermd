@@ -4,7 +4,9 @@
 \name{runtimes}
 \alias{runtimes}
 \title{Algorithm run time data}
-\format{An object of class \code{data.frame} with 2400 rows and 13 columns.}
+\format{
+An object of class \code{data.frame} with 2400 rows and 13 columns.
+}
 \usage{
 runtimes
 }

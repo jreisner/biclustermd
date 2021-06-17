@@ -4,9 +4,16 @@
 \alias{results_heatmap}
 \title{Make a heatmap of sparse biclustering results}
 \usage{
-results_heatmap(x, reorder = FALSE, transform_colors = FALSE,
-  c = 1/6, cell_alpha = 1/5, col_clusts = NULL, row_clusts = NULL,
-  ...)
+results_heatmap(
+  x,
+  reorder = FALSE,
+  transform_colors = FALSE,
+  c = 1/6,
+  cell_alpha = 1/5,
+  col_clusts = NULL,
+  row_clusts = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{A \code{biclustermd} object.}
