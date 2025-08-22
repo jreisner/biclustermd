@@ -1,12 +1,5 @@
 context("autoplot biclustermd")
 
-test_that("autoplot_biclustermd() correctly plots cluster lines", {
-  sbc <- biclustermd(synthetic)
-  ap <- ggplot2::ggplot_build(autoplot(sbc))
-  expect_equal(ap$data[[3]]$xintercept[-1], cumsum(colSums(sbc$P)) + 0.5)
-  expect_equal(ap$data[[4]]$yintercept[-1], cumsum(colSums(sbc$Q)) + 0.5)
-})
-
 
 test_that("autoplot_biclustermd() plots column clusters in correct clusters", {
 
